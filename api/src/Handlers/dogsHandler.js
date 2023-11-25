@@ -4,12 +4,10 @@ const {getDogsByName, getAllDogs, getDogByIdFromApi,
 const getDogsHandler = async (req, res) => {//*Hace la peticion por nombre, si no existe el nombre trae todos los perros
   
     const { name } = req.query;
-
-    const nameUpercase = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-
+    // const nameUpercase = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
   try {
     if (name) { //*verifico si llega el name para sabr si uso el buscador por nombre o traigo a todos
-      const result = await getDogsByName(nameUpercase); //*paso como parametro nameUpercase para que concida con los nombres de los objetos en la API o DB.
+      const result = await getDogsByName(name); 
       res.status(200).json(result);
     } else {
       const result = await getAllDogs();
