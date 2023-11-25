@@ -1,0 +1,143 @@
+const { Op } = require("sequelize");
+const { Dog, Temperament } = require("../db");
+const axios = require("axios");
+
+const getAllDogs = async () => {
+  //*Todos los perros de db y API
+  try {
+    const dbDogs = await Dog.findAll();
+    const apiDogs = await getAllDogsFromApi();
+    return (allDogs = [...dbDogs, ...apiDogs]);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getAllDogsFromApi = async () => {
+  //*Todos los perros de la API
+  try {
+    const response = await axios.get("https://api.thedogapi.com/v1/breeds");
+    const apiDogs = response.data.map((apiData) => ({
+      id: apiData.id,
+      reference_image_id: apiData.reference_image_id || "",
+      name: apiData.name,
+      height: apiData.height.metric || "",
+      weight: apiData.weight.metric || "",
+      life_span: apiData.life_span || "",
+    }));
+
+    return apiDogs;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+const getDogsByName = async (name) => {
+  //*Busca por nombre en la API y luego en la db.
+  try {
+    const apiDog = await getDogByNameFromApi(name);
+    if (apiDog) {
+      return [apiDog];
+    } else {
+      const dbDogs = await getDogsByNameFromDb(name);
+      return dbDogs;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getDogByNameFromApi = async (name) => {
+  //*Busca por nombre en la API
+  try {
+    const response = await axios.get(
+      `https://api.thedogapi.com/v1/breeds/search?q=${name}`
+    );
+    return response || null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const getDogsByNameFromDb = async (name) => {
+  //*Busca por nombre en la db
+  try {
+    const dogs = await Dog.findAll({
+      where: {
+        name: {
+          [Op.like]: "%",
+        },
+      },
+    });
+    return dogs;
+  } catch (err) {
+    console.log(err);
+  }
+};
+//!Si van a tener diferentes tipos de ID esto lo puedo sacar y manejarlo desde el handler
+const getDogByIdFromApi = async (id) => {
+  //*Busca por id en la API
+  try {
+    // Hacer una solicitud a la API utilizando el ID proporcionado
+    const response = await axios.get(
+      `https://api.thedogapi.com/v1/breeds/${id}`
+    );
+
+    // Devolver los datos obtenidos de la API
+    const apiData = response.data;
+    const detailData = {
+      id: apiData.id,
+      reference_image_id: apiData.reference_image_id, //!ver esto aqui, creo que va a dar problemas
+      name: apiData.name,
+      height: apiData.height.metric,
+      weight: apiData.weight.metric,
+      life_span: apiData.life_span,
+    };
+    return detailData;
+  } catch (error) {
+    // Manejar errores de la API
+    throw new Error("Error al obtener el perro de la API");
+  }
+};
+
+const getDogByIdFromDb = async (id) => {
+  //*Busca por id en la db
+  try {
+    const dogFromDb = await DogModel.findById(id);
+    return dogFromDb;
+  } catch (error) {
+    throw new Error("Error al obtener el perro de la base de datos");
+  }
+};
+
+const createDogDB = async ({ id, reference_image_id, name, height, weight, life_span }) => {//*Crea un perro en la db
+  try {
+    if (id  && name) {
+      const newDog = await Dog.create({
+        id,
+        reference_image_id,
+        name,
+        height,
+        weight,
+        life_span,
+      });
+      return newDog;
+    } else {
+      throw new Error("Faltan propiedades");
+    }
+  } catch (error) {
+    throw new Error(
+      `Error al crear el perro en la base de datos: ${error.message}`
+    );
+  }
+};
+
+module.exports = {
+  getDogsByName,
+  getAllDogs,
+  getDogByIdFromApi,
+  getDogByIdFromDb,
+  createDogDB,
+};

@@ -19,10 +19,18 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const express = require('express');
+
+const app = express()
+const PORT = 3001
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, () => {
-    console.log('%s listening at 3001'); // eslint-disable-line no-console
-  });
+conn.sync({ force: true })//*En tru regenera las tablas y elimina la info.
+.then(() => {
+  server.listen(PORT, () => {
+  console.log( `Listening on Port:${PORT}`); // eslint-disable-line no-console
+  }); 
 });
+
+
+module.exports=  app;
