@@ -9,11 +9,8 @@ const getAllTemperaments = async () => {
         temperament: apiData.temperament
       }));
 
-    //    //* Guardar los temperamentos en la base de datos
-    // await Temperaments.bulkCreate(apiTemperaments, {
-    //     updateOnDuplicate: ["temperament"], //* Si hay duplicados, actualizar la columna "temperament"
-    //   });
      //!DEBO GUARDARLOS EN LA DB
+     
       return apiTemperaments;
     } catch (error) {
       console.log("No fue posible traer todos los temperamentos");

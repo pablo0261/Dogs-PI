@@ -4,12 +4,12 @@ module.exports = (sequelize) => {
 const Temperament = sequelize.define(
     "Temperament",
     {
-        ID: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
           },
-      Name: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },

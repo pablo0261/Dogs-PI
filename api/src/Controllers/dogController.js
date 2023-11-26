@@ -1,17 +1,50 @@
 const { Op } = require("sequelize");
 const { Dog, Temperament } = require("../db");
 const axios = require("axios");
+const { dogObj } = require("../Helpers");
 
-const getAllDogs = async () => {
-  //*Todos los perros de db y API
+const getDbDogs = async () => {//*Todos los perros de db y API
+  let arrDbDogs = [];
   try {
-    const dbDogs = await Dog.findAll();
-    const apiDogs = await getAllDogsFromApi();
-    return (allDogs = [...dbDogs, ...apiDogs]);
-  } catch (err) {
-    console.log(err);
+    const dbDogs = await Dog.findAll({
+      include: [{
+        model: Temperament,
+        attributes: ['name'],
+      }],
+    })
+    arrDbDogs = dbDogs.map(dog => dogObj(dog));
+ 
+return arrDbDogs;
+} catch (error) {
+  console.log('Error en la consulta a DB',error);
+  return [];
+  };
+  };
+
+const getApiDogs = async () => {   
+  try {     
+    const response = await axios.get("https://api.thedogapi.com/v1/breeds");
+    const apiDogs = await response.data.map((apiData) => ({
+      id: apiData.id,
+      reference_image_id: apiData.reference_image_id,
+      name: apiData.name,
+      height: apiData.height.metric,
+      weight: apiData.weight.metric,
+      life_span: apiData.life_span,
+    }));
+    return apiDogs;
+    } catch (err) {
+      console.log('Error en la petición a API')
+      }
+      };
+
+
+    const getAllDogs = async () => {
+      const arrDbDogs = await getDbDogs();
+      const arrApiDogs = await getApiDogs();
+      const allDogs = [...arrApiDogs, ...arrDbDogs];
+      return allDogs;
   }
-};
 
 const getAllDogsFromApi = async () => {
   //*Todos los perros de la API
@@ -143,7 +176,6 @@ const createDogDB = async ({ id, reference_image_id, name, height, weight, life_
 };
 
 module.exports = {
-  getDogsByName,
   getAllDogs,
   getDogByIdFromApi,
   getDogByIdFromDb,
