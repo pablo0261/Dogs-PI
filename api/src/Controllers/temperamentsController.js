@@ -1,4 +1,4 @@
-const { Temperaments } = require("../db");
+const { Temperament } = require("../db");
 const axios = require("axios");
 
 const getAllTemperaments = async () => {
@@ -10,11 +10,20 @@ const getAllTemperaments = async () => {
       }));
 
      //!DEBO GUARDARLOS EN LA DB
-     
+    for (const temp of apiTemperaments) {
+      if (temp.temperament) {
+        await Temperament.findOrCreate({
+          where: { name: temp.temperament },
+          defaults: { name: temp.temperament },
+        });
+      }
+    }
+
+    console.log("Temperamentos guardados en la base de datos:", apiTemperaments);
       return apiTemperaments;
     } catch (error) {
       console.log("No fue posible traer todos los temperamentos");
-      return error;
+      throw error;;
     }
   };
 
