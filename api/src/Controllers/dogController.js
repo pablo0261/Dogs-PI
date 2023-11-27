@@ -42,52 +42,6 @@ const getAllDogs = async () => {
   return allDogs;
 };
 
-const getDogsByName = async (name) => {
-  //*Busca por nombre en la API y luego en la db.
-  try {
-    const apiDog = await getDogByNameFromApi(name);
-    if (apiDog) {
-      return apiDog;
-    } else {
-      console.log("no lo encontró en la api");
-      const dbDogs = await getDogsByNameFromDb(name);
-      return dbDogs;
-    }
-  } catch (error) {
-    console.log("no paso el getDogsByName");
-  }
-};
-
-const getDogByNameFromApi = async (name) => {
-  //!ESTO PASARLO A SUB CONTROLLER
-  //*Busca por nombre en la API
-  try {
-    const response = await axios.get(
-      `https://api.thedogapi.com/v1/breeds/search?q=${name}`
-    );
-    return response;
-  } catch (error) {
-    console.log("No encontrado en la api por nombre");
-    return null;
-  }
-};
-
-const getDogsByNameFromDb = async (name) => {
-  //*Busca por nombre en la db
-  try {
-    const dogs = await Dog.findAll({
-      where: {
-        name: {
-          [Op.like]: `%${name}%`,
-        },
-      },
-    });
-    return dogs;
-  } catch (err) {
-    console.log("no encontrado por nombre en la db");
-  }
-};
-//!Si van a tener diferentes tipos de ID esto lo puedo sacar y manejarlo desde el handler
 const getDogByIdFromApi = async (id) => {
   //*Busca por id en la API
   try {
@@ -130,35 +84,44 @@ const createDogDB = async ({
   height,
   weight,
   life_span,
+  temperaments,
 }) => {
-  //*Crea un perro en la db
   try {
     if (id && name) {
-      const newDog = await Dog.create({
+      let newDog = await Dog.create({
         id,
         reference_image_id,
         name,
         height,
         weight,
         life_span,
-        //*El od abajo es para cuando quiera POST con un objeto como el de la api
-        // id,
-        // reference_image_id,
-        // name,
-        // height: height.metric,
-        // weight: weight.metric,
-        // life_span,
       });
+
+      // Iterar sobre los temperamentos proporcionados por el cliente
+      for (const newTemperaments of temperaments) {
+        // Buscar en la base de datos todas las filas de temperamentos
+        const [dbTemperament, created] = await Temperament.findOrCreate({
+          where: { name: newTemperaments.trim().toLowerCase() },
+        });
+        await newDog.addTemperament(dbTemperament);
+        if (created) {
+          console.log(`Creado nuevo temperamento: ${dbTemperament.name}`);
+        }
+
+        console.log(`Asociando temperamento '${dbTemperament.name}' al perro`);
+      }
+
+      console.log("Perro creado exitosamente");
       return newDog;
     } else {
       throw new Error("Faltan propiedades");
     }
   } catch (error) {
-    throw new Error(
-      `Error al crear el perro en la base de datos: ${error.message}`
-    );
+    console.error("Error al crear el perro en la base de datos:", error.message);
+    throw new Error(`Error al crear el perro en la base de datos: ${error.message}`);
   }
 };
+
 
 module.exports = {
   getAllDogs,

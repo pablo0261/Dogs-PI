@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
     id: {
       type: DataTypes.INTEGER, //* API EJEM: "5"
       primaryKey: true,
+      allowNull:false,
     },
     reference_image_id: {
       type: DataTypes.STRING,//*ejem:"reference_image_id": "BJa4kxc4X"
