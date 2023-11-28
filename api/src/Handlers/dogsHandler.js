@@ -1,4 +1,4 @@
-const { getAllDogs, getDogByIdFromApi, getDogByIdFromDb, createDogDB
+const { getAllDogs, getDogByIdFromApi, getDogByIdFromDb, createDogDB,getTemperamentsForDog
 } = require("../Controllers/dogController");
 const { Dog, Temperament } = require("../db");
 
@@ -60,56 +60,40 @@ const getDogsHandler = async (req, res) => {
     }
   }
 
-
-//       const dogsFilter = allDogs.filter((dog) =>
-//         dog.name.toLowerCase().includes(name.trim().toLowerCase())
-//       );
-//       if (dogsFilter.length > 0) {
-  //         const getDogByNameWithTemperaments = async (name) => {
-    //             // Buscar el perro por nombre con temperamentos asociados
-    //             const foundDog = await Dog.findOne({
-      //               where: { name },
-      //               include: Temperament, // Esto carga los temperamentos asociados al perro
-//             });
-//           }
-//         return res.status(200).json(foundDog);
-//       } else {
-//         return res.status(400).send("No se encontro ningun perro con ese nombre");
-//       }
-//     } else {
-//       console.log("buscando todos los perros");
-//       return res.status(200).json(allDogs);
-//     }
-// };
-
 const getDogByIdHandler = async (req, res) => {
   //*Busca el perro por id,(segun el tipode id busca en la api o en la db)
+  
   const { id } = req.params;
   try {
     let result;
     if (!isNaN(id)) {
+      console.log(!isNaN(id))
+      console.log(!isNaN(id))
       //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
-    } else {
+      if(result){
+        return res.status(200).json(result);
+  
+      } else {
+        return res.status(400).send("Perro no encontrado en la api")
+      }
+    }else{
       //*si es UUID busca en la DB
       result = await getDogByIdFromDb(id);
+      console.log(result)
+      if (!result) {
+        return res.status(404).send('Perro no encontrado en la base de datos');
+      }
+      console.log(result)
+      console.log(result)
+      
+      res.status(200).json(result);
     }
-
-    // //! VERIFICAR ESTA APRTE DEL CODIGO SI FUNCIONARA CON LOS TEMPERAMENTOS
-    // if (result && result.temperaments) {
-    //   // Si tiene temperamentos, agregamos esa información a la respuesta
-    //   res.status(200).json(result);
-    // } else {
-    //   // Si no tiene temperamentos, buscamos los temperamentos y los agregamos
-    //   const temperaments = await getTemperamentsForDog(result.raza); // Ajusta la función según tu implementación
-    //   result.temperaments = temperaments;
-    //   res.status(200).json(result);
-    // }
-    // //!
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
 };
+
 
 const postDogHandler = async (req, res) => {
   const { id, reference_image_id, name, height, weight, life_span, temperaments } = req.body;

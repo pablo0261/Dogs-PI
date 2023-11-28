@@ -5,9 +5,10 @@ const getTemperamentsHandler = async(req, res) => {
         const result =  await getAllTemperaments();
       res.status(200).json(result);
     } catch (error) {
-        res.status(400).json({error:error.message}) 
-        console.log("El handler de Temperaments fallo")       
+        console.log("Error en getTemperamentsHandler:", error); // Agrega este log
+        res.status(400).json({ error: error.message });
     }
-}
+};
+
 
 module.exports = {getTemperamentsHandler};

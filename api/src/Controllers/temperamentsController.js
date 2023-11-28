@@ -8,8 +8,6 @@ const getAllTemperaments = async () => {
       const apiTemperaments = response.data.map((apiData) => ({
         temperament: apiData.temperament
       }));
-
-     //!DEBO GUARDARLOS EN LA DB
     for (const temp of apiTemperaments) {
       if (temp.temperament) {
         await Temperament.findOrCreate({
@@ -19,7 +17,7 @@ const getAllTemperaments = async () => {
       }
     }
 
-    console.log("Temperamentos guardados en la base de datos:", apiTemperaments);
+    console.log("Temperamentos guardados en la base de datos:");
       return apiTemperaments;
     } catch (error) {
       console.log("No fue posible traer todos los temperamentos");

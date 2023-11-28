@@ -5,7 +5,8 @@ module.exports = (sequelize) => {
   // defino el modelo
   const Dog = sequelize.define('Dog', {
     id: {
-      type: DataTypes.INTEGER, //* API EJEM: "5"
+      type: DataTypes.UUID, //* API EJEM: "5" 
+      defaultValue : DataTypes.UUIDV4,
       primaryKey: true,
       allowNull:false,
     },
