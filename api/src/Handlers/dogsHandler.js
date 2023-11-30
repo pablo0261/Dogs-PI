@@ -45,9 +45,8 @@ const getDogsHandler = async (req, res) => {
     if (name) {
       const dogsFound = allDogs.filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()));
       if(dogsFound.length > 0){ //*Debe ser con .length porque dogsFound es un array y si no se encuentra devolvera un boleano y no caera nunca en el error del codigo
-        return res.status(200).json({ dogsFound });
+        return res.status(200).json(dogsFound);
       } else {
-        console.log(`No se encontraron perros con el nombre '${name}'`);
         return res.status(404).json({ message: `No se encontraron perros con el nombre '${name}'` });
       }
     } else {
@@ -72,7 +71,7 @@ const getDogByIdHandler = async (req, res) => {
       //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
       if(result){
-        return res.status(200).json(result);
+        return res.status(200).json([result]);
   
       } else {
         return res.status(400).send("Perro no encontrado en la api")
@@ -87,7 +86,7 @@ const getDogByIdHandler = async (req, res) => {
       console.log(result)
       console.log(result)
       
-      res.status(200).json(result);
+      res.status(200).json([result]);
     }
   } catch (error) {
     return res.status(400).json({ error: error.message });
