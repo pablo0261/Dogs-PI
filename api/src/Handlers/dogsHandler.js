@@ -1,7 +1,11 @@
-const { getAllDogs, getDogByIdFromApi, getDogByIdFromDb, createDogDB,getTemperamentsForDog
+const {
+  getAllDogs,
+  getDogByIdFromApi,
+  getDogByIdFromDb,
+  createDogDB,
+  getTemperamentsForDog,
 } = require("../Controllers/dogController");
 const { Dog, Temperament } = require("../db");
-
 
 // const getDogByNameWithTemp = async (name) => {
 //   try {
@@ -11,7 +15,6 @@ const { Dog, Temperament } = require("../db");
 //     });
 //     if (foundDog) {
 //       const temperaments = foundDog.Temperaments ? foundDog.Temperaments.map((temp) => temp.name) : ['Sin Temperamento'];
-
 
 //       const dogsWithTemperaments ={
 //         id: foundDog.id,
@@ -35,7 +38,6 @@ const { Dog, Temperament } = require("../db");
 //   }
 // };
 
-
 const getDogsHandler = async (req, res) => {
   //*Hace la peticion por nombre, si no existe el nombre trae todos los perros
 
@@ -43,49 +45,62 @@ const getDogsHandler = async (req, res) => {
   try {
     const allDogs = await getAllDogs();
     if (name) {
-      const dogsFound = allDogs.filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()));
-      if(dogsFound.length > 0){ //*Debe ser con .length porque dogsFound es un array y si no se encuentra devolvera un boleano y no caera nunca en el error del codigo
-        return res.status(200).json(dogsFound);
+      if (name.length >= 3) {
+        const dogsFound = allDogs
+          .filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()))
+          // .map((dog) => ({ name: dog.name })); //*Agregando esta linea devuelve solo el nombre de los dogs
+        if (dogsFound.length > 0) {
+          //Debe ser con .length porque dogsFound es un array y si no se encuentra devolvera un boleano y no caera nunca en el error del codigo
+          return res.status(200).json(dogsFound);
+        } else {
+          return res.status(404).json({
+            message: `No breed was found with the name '${name}'`,
+          });
+        }
       } else {
-        return res.status(404).json({ message: `No se encontraron perros con el nombre '${name}'` });
-      }
+          return res.status(400).send("El nombre debe tener al menos 3 letras");
+        }
     } else {
       console.log("Buscando todos los perros");
-      return res.status(200).json(allDogs);
+      const dogNames = allDogs.map((dog) => ({ name: dog.name }));
+      return res.status(200).json(dogNames);
     }
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Error interno del servidor" });
-    }
+  } catch (error) {
+    console.error(err);
+    return res.status(500).json({ error: error.message });
   }
+};
 
 const getDogByIdHandler = async (req, res) => {
   //*Busca el perro por id,(segun el tipode id busca en la api o en la db)
-  
+
   const { id } = req.params;
   try {
     let result;
     if (!isNaN(id)) {
-      console.log(!isNaN(id))
-      console.log(!isNaN(id))
+      console.log(!isNaN(id));
+      console.log(!isNaN(id));
       //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
-      if(result){
+      if (result) {
         return res.status(200).json([result]);
-  
       } else {
-        return res.status(400).send("Perro no encontrado en la api")
+        return res
+          .status(400)
+          .send(`We couldn't find breeds with the ID '${id}'`);
       }
-    }else{
+    } else {
       //*si es UUID busca en la DB
       result = await getDogByIdFromDb(id);
-      console.log(result)
+      console.log(result);
       if (!result) {
-        return res.status(404).send('Perro no encontrado en la base de datos');
+        return res
+          .status(404)
+          .send(`We couldn't find breeds with the ID '${id}'`);
       }
-      console.log(result)
-      console.log(result)
-      
+      console.log(result);
+      console.log(result);
+
       res.status(200).json([result]);
     }
   } catch (error) {
@@ -93,9 +108,8 @@ const getDogByIdHandler = async (req, res) => {
   }
 };
 
-
 const postDogHandler = async (req, res) => {
-  const { 
+  const {
     reference_image_id,
     name,
     heightMin,
@@ -103,7 +117,8 @@ const postDogHandler = async (req, res) => {
     weightMin,
     weightMax,
     life_span,
-    temperaments, } = req.body;
+    temperaments,
+  } = req.body;
 
   try {
     const response = await createDogDB({

@@ -10,9 +10,10 @@
 //       temperament,
 // };
 
-
+const { URL_IMG } = process.env;
 
 const dogObj = (dog) => {
+  const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
 
   return {
     id: dog.id,
@@ -22,12 +23,16 @@ const dogObj = (dog) => {
     heightMin: Number(dog.height.metric.split("-")[0]),
     heightMax: Number(dog.height.metric.split("-")[1]),
     life_span: dog.life_span,
-    reference_image_id: dog.reference_image_id,
     temperament: dog.temperament,
+    reference_image_id: imageUrl, 
   };
 };
+//req imagen api ==> https://cdn2.thedogapi.com/images/
+//imagen modelo vacio ==> https://www.shutterstock.com/image-vector/dog-silhouette-vector-on-white-260nw-2383086853.jpg
 
 const dogObjDb = (dog) => {
+  const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
+
   return {
     id: dog.id,
     name: dog.name,
@@ -36,8 +41,8 @@ const dogObjDb = (dog) => {
     heightMin: Number(dog.height.metric.split("-")[0]),
     heightMax: Number(dog.height.metric.split("-")[1]),
     life_span: dog.life_span,
-    reference_image_id: dog.reference_image_id,
     temperament: dog? dog.Temperaments.map((temp) => temp.name).join(', ') : "",
+    reference_image_id: imageUrl,
   };
 }
 
