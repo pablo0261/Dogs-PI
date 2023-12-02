@@ -18,13 +18,21 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,//*ejem: "name": "Affenpinscher",
       allowNull: false,
     },
-    height: {
-      type: DataTypes.JSONB, //*ejem: "height": {"imperial": "9 - 11.5",  "metric": "23 - 29"},
-      allowNull: false,// con .JSONB mantengo los intervalos demedidas!!
+    heightMin: {
+      type: DataTypes.INTEGER, //*ejem: "height": {"imperial": "9 - 11.5",  "metric": "23 - 29"},
+      allowNull: false,
     },
-    weight: {
-      type: DataTypes.JSONB, //*ejem: "weight": { "imperial": "7  -  10",  "metric": "3 - 5"},
-      allowNull: false,// con .JSONB mantengo los intervalos demedidas!!
+    heightMax: {
+      type: DataTypes.INTEGER, //*ejem: "height": {"imperial": "9 - 11.5",  "metric": "23 - 29"},
+      allowNull: false,
+    },
+    weightMin: {
+      type: DataTypes.INTEGER, //*ejem: "weight": { "imperial": "7  -  10",  "metric": "3 - 5"},
+      allowNull: false,
+    },
+    weightMax: {
+      type: DataTypes.INTEGER, //*ejem: "weight": { "imperial": "7  -  10",  "metric": "3 - 5"},
+      allowNull: false,
     },
     life_span: {
       type: DataTypes.JSONB,//* ejem: "life_span": "10 - 12 years",

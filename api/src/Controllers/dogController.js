@@ -1,6 +1,6 @@
 const { Dog, Temperament } = require("../db");
 const axios = require("axios");
-const { dogObj } = require("../Helpers");
+const { dogObj, dogObjDb } = require("../Helpers");
 const getAllTemperaments = require("../Controllers/temperamentsController");
 
 const getDbDogs = async () => {
@@ -29,8 +29,10 @@ const getDbDogs = async () => {
       id: dog.id,
       reference_image_id: dog.reference_image_id,
       name: dog.name,
-      height: dog.height,
-      weight: dog.weight,
+      heightMin: dog.heightMin,
+      heightMax: dog.heightMax,
+      weightMin: dog.weightMin,
+      weightMax: dog.weightMax,
       temperament: temperaments,
       life_span: dog.life_span,
     };
@@ -72,19 +74,9 @@ const getDogByIdFromApi = async (id) => {
       `https://api.thedogapi.com/v1/breeds/${id}`
     );
 
-    const apiData = response.data;
-    console.log(apiData)
-    const detailData = {
-      id: apiData.id,
-      reference_image_id: apiData.reference_image_id, //!ver esto aqui, creo que va a dar problemas para mostrarlo en el front
-      name: apiData.name,
-      height: apiData.height.metric,
-      weight: apiData.weight.metric,
-      temperament: apiData.temperament,
-      life_span: apiData.life_span,
-    };
-    console.log(detailData)
-    return detailData;
+    const dog = response.data;
+    console.log(dog)
+    return dogObj(dog) //* <== Helper
   } catch (error) {
     console.error(error);
     throw new Error("Error al obtener el perro de la API");
@@ -95,7 +87,7 @@ const getDogByIdFromDb = async (id) => {
   //*Busca por id en la db
   try {
     console.log(id);
-    const dogFromDb = await Dog.findOne({
+    const dog = await Dog.findOne({
       where: { id: id },
       include: [{
         model:Temperament,
@@ -103,25 +95,22 @@ const getDogByIdFromDb = async (id) => {
         through: { attributes: [] }, // Evita incluir la tabla intermedia
       }]
     });
-    console.log(dogFromDb)
-    if (!dogFromDb) {
+    console.log(dog)
+    if (!dog) {
       throw new Error("Perro no encontrado en la base de datos");
     }
-     // Extraer los nombres de los temperamentos en un string
-    // const temperaments = dogFromDb ? dogFromDb["Temperaments"] : "";
-    const temperaments = dogFromDb ? dogFromDb.Temperaments.map((temp) => temp.name).join(', ') : "";
-    // Crear el objeto con la estructura deseada
-    const result = {
-      id: dogFromDb.id,
-      reference_image_id: dogFromDb.reference_image_id,
-      name: dogFromDb.name,
-      height: dogFromDb.height,
-      weight: dogFromDb.weight,
+    const temperaments = dog.Temperaments.map((temp) => temp.name).join(', ');
+    return {
+      id: dog.id,
+      reference_image_id: dog.reference_image_id,
+      name: dog.name,
+      heightMin: dog.heightMin,
+      heightMax: dog.heightMax,
+      weightMin: dog.weightMin,
+      weightMax: dog.weightMax,
       temperament: temperaments,
-      life_span: dogFromDb.life_span,
+      life_span: dog.life_span,
     };
-    console.log(result)
-    return result; // Accede a dataValues para obtener los valores reales
   } catch (error) {
     console.log(error);
     throw new Error("Error al obtener el perro de la base de datos");
@@ -129,12 +118,14 @@ const getDogByIdFromDb = async (id) => {
 };
 
 const createDogDB = async ({
-  reference_image_id,
   name,
-  height,
-  weight,
+  heightMin,
+  heightMax,
+  weightMin,
+  weightMax,
   life_span,
   temperaments,
+  reference_image_id,
 }) => {
   try {
     const existDog = await Dog.findOne({
@@ -145,12 +136,19 @@ const createDogDB = async ({
       throw new Error(`Ya existe un perro con el nombre '${name}'`);
     }
       let newDog = await Dog.create({
-        reference_image_id,
         name,
-        height,
-        weight,
+        heightMin,
+        heightMax,
+        weightMin,
+        weightMax,
         life_span,
+        reference_image_id,
       });
+
+      // Verifica que temperaments sea un array antes de iterar
+    if (!Array.isArray(temperaments)) {
+      throw new Error('El valor de temperaments debe ser un array');
+    }
 
       // Iterar sobre los temperamentos proporcionados por el cliente
       for (const newTemperaments of temperaments) {
@@ -205,5 +203,3 @@ module.exports = {
   createDogDB,
   getTemperamentsForDog,
 };
-
-

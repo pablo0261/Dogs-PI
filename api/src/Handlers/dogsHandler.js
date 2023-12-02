@@ -95,15 +95,24 @@ const getDogByIdHandler = async (req, res) => {
 
 
 const postDogHandler = async (req, res) => {
-  const { id, reference_image_id, name, height, weight, life_span, temperaments } = req.body;
+  const { 
+    reference_image_id,
+    name,
+    heightMin,
+    heightMax,
+    weightMin,
+    weightMax,
+    life_span,
+    temperaments, } = req.body;
 
   try {
     const response = await createDogDB({
-      id,
       reference_image_id,
       name,
-      height,
-      weight,
+      heightMin,
+      heightMax,
+      weightMin,
+      weightMax,
       life_span,
       temperaments,
     });

@@ -5,14 +5,12 @@ const getAllTemperaments = async () => {
     //*Todos los temperamentos de la API
     try {
       const response = await axios.get("https://api.thedogapi.com/v1/breeds");
-      const apiTemperaments = response.data.map((apiData) => 
-         [apiData.temperament]
-      );
-    for (const temp of apiTemperaments) {
-      if (temp.temperament) {
+      const apiTemperaments = response.data.map((apiData) =>({temp: apiData.temperament}));
+    for (const dog of apiTemperaments) {
+      if (dog.temp) {
         await Temperament.findOrCreate({
-          where: { name: temp.temperament },
-          defaults: { name: temp.temperament },
+          where: { name: dog.temp },
+          defaults: { name: dog.temp },
         });
       }
     }

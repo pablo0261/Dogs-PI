@@ -33,6 +33,6 @@ conn.sync({ force: false })//*En tru regenera las tablas y elimina la info.
     getAllTemperaments() //* Esto para ejecutar y traer todos los temperaments cuando inicia la app
   }); 
 });
-  
+   
 
 module.exports=  app;
