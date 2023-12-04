@@ -3,7 +3,7 @@ import Card from "../Card/Card.component";
 
 function Cards() {
   return (
-    <div className="Cards">
+    <div className="CardsList">
       <Card/>
       <Card/>
       <Card/>

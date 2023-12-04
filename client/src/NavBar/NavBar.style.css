@@ -1,0 +1,70 @@
+.NavBar {
+    background-image: url('https://images6.alphacoders.com/863/863832.jpg'); 
+    background-size: cover; /* Ajusta según tus necesidades, 'cover' ajusta la imagen sin distorsionarla */
+  background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-position: center;
+    display:flexbox;
+    justify-content: center;
+    width: 100vw;
+    height: 280px;
+    border-radius: 1px;
+    padding: 0px;
+    margin: -70px 0px 70px 0px;
+    cursor:auto;
+}
+
+.SearchBar{
+    display: flex;
+    justify-content: flex-end;
+    height: 40px;
+    width: 50vw;
+    margin: 50px 0px 40px 620px;
+    background-color:#9b989800;
+}
+
+.NavBarInput{
+    display: flex;
+    background-color:#fffdfd;
+    border: 2px solid #6504b5;
+    /* outline: none; */
+    width: 190px;
+    border-radius: 9px;
+    padding: 5px;
+    cursor:auto;
+}
+
+.NavBarButton{
+    background-color:#fffdfd;
+    border: 2px solid #6504b5;
+    border-radius: 9px;
+    margin-left: 7px;
+    padding: 5px;
+    cursor:auto;
+    transition: box-shadow 0.3s ease;
+}
+.NavBarButton:hover{
+    box-shadow: 0 0 0 1px #6504b5;
+}
+
+
+.DivfilterButton{
+    display: flex;
+    justify-content: space-around;
+    margin: 70px 70px 0px 70px;
+    align-items: center;
+}
+
+.FilterButton{
+    width: 140px;
+    height: 60px;
+    border: 2px solid #6504b5;
+    background-color:#ecebeb;
+    border-radius: 5px;
+    padding: 5px;
+    cursor:auto;
+}
+.FilterButton:hover{
+    transform: scale(1.05);
+    background-color:#f1f1f1;
+    border: 3px solid #6504b5;
+}

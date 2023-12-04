@@ -10,11 +10,10 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Route exact path={PATHROUTES.LANDING} component={<Landing/>}/>
-      <Route exact path={PATHROUTES.HOME} component={<Home/>}/>
-      <Route path={PATHROUTES.DETAIL} component={<Detail/>}/>
-      <Route path={PATHROUTES.FORM} component={<Form/>}/>
-      //! van 46 minutos del video de front
+      <Route exact path={PATHROUTES.LANDING} component={Landing}/>
+      <Route exact path={PATHROUTES.HOME} component={Home}/>
+      <Route path={PATHROUTES.DETAIL} component={Detail}/>
+      <Route path={PATHROUTES.FORM} component={Form}/>
     </div>
   );
 }

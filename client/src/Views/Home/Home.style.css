@@ -1,4 +1,15 @@
 .Home {
-    text-align: center;
+  display: flex;
+  flex-direction: column;  
+  text-align: center;
   }
+
+  .HomeTitle{
+    margin-top: 75px;
+    margin-bottom: 50px;
+    font-size: 76px;
+    color:rgb(68, 7, 68);
+    font-family:inherit ;
+  }
+  
   

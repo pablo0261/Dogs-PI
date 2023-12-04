@@ -1,0 +1,23 @@
+.CardContainer{
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 300px;
+    flex-direction: column;
+    background-color:#ffffff;
+    border: 3px solid #dadada;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 15px;
+    cursor: pointer;
+    -moz-osx-front-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+}
+
+.CardContainer:hover{
+    transform: scale(1.05);
+    background-color:#f1f1f1;
+    border: 3px solid #6504b5;
+}

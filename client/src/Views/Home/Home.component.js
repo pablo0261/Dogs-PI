@@ -1,13 +1,13 @@
 import "./Home.style.css"
 import Cards from "../../Cards/Cards.component";
-import SearchBar from "../../SearchBar/SearchBar.component";
+import NavBar from "../../NavBar/NavBar.component";
 
 
 function Home() {
   return (
     <div className="Home">
-      <h1>Esta es la Home Page</h1>
-      <SearchBar/>
+      <h1 className="HomeTitle">Home</h1>
+      <NavBar/>
       <Cards/>
 
     </div>

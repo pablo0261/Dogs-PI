@@ -1,4 +1,39 @@
 .Landing {
-    text-align: center;
+  display: flex;
+  text-align: center;
+  background-image: url('https://images2.alphacoders.com/109/1095787.jpg'); 
+  background-size: 125%; /* Ajusta según tus necesidades */
+  background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-position: 100% 33% ;
+  height: 100vh; /* Ajusta según tus necesidades */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   }
+
+  .Landing-H1 {
+    cursor:default;
+    color: white; /* Ajusta según tus necesidades */
+    margin-top: -15%; /* Ajusta según tus necesidades */
+    margin-left: 25%; 
+}
+
+.LandingButton {
+  position:absolute;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100px;
+  height: 60px;
+  padding: 10px;
+  margin-left: 59%; 
+  background-color: #921076; /* Ajusta según tus necesidades */
+  color: white; /* Ajusta según tus necesidades */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.LandingButton:hover {
+  background-color: #8d0970; /* Ajusta según tus necesidades */
+}
   
