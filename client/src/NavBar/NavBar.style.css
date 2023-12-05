@@ -1,14 +1,19 @@
+
+:root {
+    --color-border: #921076;
+    --color-background-tiped: #fffdfd;
+    --color-background-general: #f5f3f3;
+  }
+
+
 .NavBar {
     background-image: url('https://images6.alphacoders.com/863/863832.jpg'); 
     background-size: cover; /* Ajusta según tus necesidades, 'cover' ajusta la imagen sin distorsionarla */
   background-repeat: no-repeat; /* Ajusta según tus necesidades */
   background-position: center;
-    display:flexbox;
-    justify-content: center;
     width: 100vw;
-    height: 280px;
+    height: 300px;
     border-radius: 1px;
-    padding: 0px;
     margin: -70px 0px 70px 0px;
     cursor:auto;
 }
@@ -16,55 +21,75 @@
 .SearchBar{
     display: flex;
     justify-content: flex-end;
-    height: 40px;
-    width: 50vw;
-    margin: 50px 0px 40px 620px;
-    background-color:#9b989800;
-}
-
-.NavBarInput{
-    display: flex;
-    background-color:#fffdfd;
-    border: 2px solid #6504b5;
-    /* outline: none; */
-    width: 190px;
-    border-radius: 9px;
-    padding: 5px;
-    cursor:auto;
+    align-items: center;
+    border: 2px solid rgba(143, 7, 7, 0);
+    height: 45px;
+    width: 80vw;
+    margin: 100px 90px ;
+    background-color:rgba(0, 0, 0, 0);
+    z-index: 1;
 }
 
 .NavBarButton{
-    background-color:#fffdfd;
-    border: 2px solid #6504b5;
+    background-color:var(--color-background-general);
+    border: 2px solid var(--color-border);
     border-radius: 9px;
-    margin-left: 7px;
-    padding: 5px;
+    margin-right: 9px;
+    height: 70;
+    padding: 9px;
     cursor:auto;
     transition: box-shadow 0.3s ease;
+    z-index: 2;
 }
 .NavBarButton:hover{
-    box-shadow: 0 0 0 1px #6504b5;
+    outline-style:solid;
+    outline-color: #8d0970;
+    outline-offset: 2px;
 }
+.NavBarButton:active{
+    transform: scale(0.95);
+}
+
+.NavBarInput{
+    display:flex;
+    position: absolute;
+    height: 38px;
+    background-color:var(--color-background-tiped);
+    border: 2px solid rgba(143, 7, 7, 0);
+    width: 25%;
+    border-radius: 3px;
+    padding: 5px;
+    cursor:auto;
+}
+
+.NavBarInput::placeholder{
+    font-size: 15px;
+}    
 
 
 .DivfilterButton{
     display: flex;
     justify-content: space-around;
-    margin: 70px 70px 0px 70px;
+    margin: 120px 100px 0px 100px;
     align-items: center;
+    border: 2px solid rgba(143, 7, 7, 0);
 }
 
 .FilterButton{
     width: 140px;
     height: 60px;
-    border: 2px solid #6504b5;
-    background-color:#ecebeb;
+    border: 2px solid var(--color-border);
+    background-color:var(--color-background-tiped);
     border-radius: 5px;
     padding: 5px;
     cursor:auto;
 }
 .FilterButton:hover{
     transform: scale(1.05);
-    background-color:#f1f1f1;
-    border: 3px solid #6504b5;
+    background-color:var(--color-background-general);
+    border: 3px solid var(--color-border);
+    box-shadow: 0 0 0 1px #8d0970;
+}
+.FilterButton:active{
+    transform: scale(0.95);
 }

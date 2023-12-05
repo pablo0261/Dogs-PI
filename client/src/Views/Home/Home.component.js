@@ -6,7 +6,9 @@ import NavBar from "../../NavBar/NavBar.component";
 function Home() {
   return (
     <div className="Home">
-      <h1 className="HomeTitle">Home</h1>
+      <div className="HomeContainerTitle">
+      <h1 className="HomeTitle">Dog Breeds</h1>
+      </div>
       <NavBar/>
       <Cards/>
 

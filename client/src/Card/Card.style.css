@@ -19,5 +19,5 @@
 .CardContainer:hover{
     transform: scale(1.05);
     background-color:#f1f1f1;
-    border: 3px solid #6504b5;
+    border: 3px solid #8d0970;
 }

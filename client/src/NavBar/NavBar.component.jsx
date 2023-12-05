@@ -4,8 +4,8 @@ function NavBar() {
   return (
     <div className="NavBar">
       <form className="SearchBar">
-        <input type="text" placeholder="Search by ID" className="NavBarInput"/>
         <button className="NavBarButton">Search</button>
+        <input type="text" placeholder="Search by Breeds" className="NavBarInput"/>
       </form>
       <div className="DivfilterButton">
         <button className="FilterButton">Filtro</button>
