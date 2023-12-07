@@ -2,11 +2,11 @@ const { Dog, Temperament } = require("../db");
 const axios = require("axios");
 const { dogObj, dogObjDb } = require("../Helpers");
 const getAllTemperaments = require("../Controllers/temperamentsController");
-const { URL_IMG } = process.env;
+const { URL_IMG, API_KEY } = process.env;
 const { Op } = require("sequelize");
 
-const getDbDogs = async () => {
-  //*Todos los perros de db
+const getDbDogs = async () => { //*Todos los perros de db
+ 
   // let arrDbDogs = [];
   try {
     const dbDogs = await Dog.findAll({
@@ -48,8 +48,7 @@ const getDbDogs = async () => {
   }
 };
 
-const getApiDogs = async () => {
-  //*Todos los perros de la API
+const getApiDogs = async () => {  //*Todos los perros de la API
   try {
     const response = await axios.get("https://api.thedogapi.com/v1/breeds");
     //*Descomentar el codigode abajo para retorne solo los nombres de los perros
@@ -64,17 +63,17 @@ const getApiDogs = async () => {
   }
 };
 
-const getAllDogs = async () => {
+const getAllDogs = async () => { //*Todos los perros de DB y API
   //!PRACTICAR AQUI COMO TRAER SOLO LOS NOMBRES DE LAS RAZAS DE AMBOS LADOS <== <== <== <==
-  //*Todos los perros de DB y API
+ 
   const dbDogs = await getDbDogs();
   const arrApiDogs = await getApiDogs();
   const allDogs = [...arrApiDogs, ...dbDogs];
   return allDogs;
 };
 
-const getDogByIdFromApi = async (id) => {
-  //*Busca por id en la API
+const getDogByIdFromApi = async (id) => {//*Busca por id en la API
+  
   try {
     console.log("entre a la busqueda en la api");
     const response = await axios.get(
@@ -91,8 +90,8 @@ const getDogByIdFromApi = async (id) => {
   }
 };
 
-const getDogByIdFromDb = async (id) => {
-  //*Busca por id en la db
+const getDogByIdFromDb = async (id) => {//*Busca por id en la db
+  
   try {
     console.log(id);
     const dog = await Dog.findOne({
@@ -129,7 +128,7 @@ const getDogByIdFromDb = async (id) => {
   }
 };
 
-const createDogDB = async ({
+const createDogDB = async ({//* Crea perros
   name,
   heightMin,
   heightMax,
@@ -196,7 +195,7 @@ const createDogDB = async ({
   }
 };
 
-const getTemperamentsForDog = async (id) => {
+const getTemperamentsForDog = async (id) => {//*Trae los temperamentos
   try {
     const dog = await Dog.findByPk(id, {
       include: Temperament,

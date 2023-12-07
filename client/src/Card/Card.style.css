@@ -1,23 +1,107 @@
-.CardContainer{
-    display: flex;
-    align-items: center;
-    width: 200px;
-    height: 300px;
-    flex-direction: column;
-    background-color:#ffffff;
-    border: 3px solid #dadada;
-    border-radius: 10px;
-    padding: 25px;
-    margin: 15px;
-    cursor: pointer;
-    -moz-osx-front-smoothing: grayscale;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    transition: transform 0.25s ease-out;
+.CardContainer {
+  display: flex;
+  align-items: center;
+  background-color: #8d0970;
+  width: 250px;
+  height: 350px;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 3px solid #dadada;
+  border-radius: 10px;
+  padding: 0px 0px 25px 0px;
+  margin: 15px;
+  cursor: pointer;
+  -moz-osx-front-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
 }
 
-.CardContainer:hover{
-    transform: scale(1.05);
-    background-color:#f1f1f1;
-    border: 3px solid #8d0970;
+.CardContainer:hover {
+  transform: scale(1.05);
+  background-color: #f1f1f1;
+  border: 3px solid #8d0970;
+}
+
+.CardName {
+  position: absolute;
+  background-color: #8d0970;
+  bottom: 120px;
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+}
+.CardName:hover {
+  animation: rotarYVibrar 0.25s infinite;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: initial;
+  height: auto;
+}
+
+.CardImage {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center 10%; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
+}
+
+.CardTemperament {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  border-radius: 90%;
+}
+
+.CardWeightContainer {
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 60px;
+}
+
+.weightTitle {
+  position: relative;
+  background-color: #c4c4c4;
+  width: 100%;
+  height: 25px;
+  top: -16px;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.CardWeights {
+  display: flex;
+  margin: -40px 0px 0px 0px;
+  justify-content: space-around;
+  font-size: 14px; /* Ajusta el tamaño del texto según tus preferencias */
+  font-weight: bold;
+  flex-direction: row;
+}
+.CardWeights p {
+  display: flex;
+  margin-inline: 100px;
+  align-items: center;
+  color: #000000;
+  margin-inline: 5px;
+  flex-direction: row;
+}
+
+.CardTempContainer{
+    background-color: aqua;
+    display: flex;
+    height: 60px;
+    margin: 0px 0px 0px 0px;
+    justify-content: space-around;
+    font-size: 14px; /* Ajusta el tamaño del texto según tus preferencias */
+    font-weight: bold;
+    flex-direction: row;
+}
+
+.CardTemperament{
+
 }

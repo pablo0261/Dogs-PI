@@ -29,11 +29,21 @@
   margin-left: 59%; 
   background-color: #921076; /* Ajusta según tus necesidades */
   color: white; /* Ajusta según tus necesidades */
-  border: none;
-  border-radius: 5px;
+  border: outset;
+  border-color: #8a0c6e;
+  border-radius: 15px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .LandingButton:hover {
-  background-color: #8d0970; /* Ajusta según tus necesidades */
+  background-color: #8d1673; /* Ajusta según tus necesidades */
+  transform: translateY(1px);
+  box-shadow: 0 2px 6px #440637;
+  border: groove;
+  border-color: #810c68;
+}
+.LandingButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px #3b042f;
 }
   

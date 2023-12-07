@@ -62,8 +62,8 @@ const getDogsHandler = async (req, res) => {
         }
     } else {
       console.log("Buscando todos los perros");
-      const dogNames = allDogs.map((dog) => ({ name: dog.name }));
-      return res.status(200).json(dogNames);
+      // const dogNames = allDogs.map((dog) => ({ name: dog.name }));
+      return res.status(200).json(allDogs);
     }
   } catch (error) {
     console.error(err);

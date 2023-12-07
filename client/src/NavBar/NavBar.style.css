@@ -32,14 +32,18 @@
 
 .NavBarButton{
     background-color:var(--color-background-general);
-    border: 2px solid var(--color-border);
+    border: 1px solid var(--color-border);
     border-radius: 9px;
     margin-right: 9px;
-    height: 70;
+    align-items: center;
+    justify-content: center;
+    height: 90%;
     padding: 9px;
     cursor:auto;
     transition: box-shadow 0.3s ease;
     z-index: 2;
+    font-family: cursive;
+    font-size: 15px;
 }
 .NavBarButton:hover{
     outline-style:solid;
@@ -54,16 +58,17 @@
     display:flex;
     position: absolute;
     height: 38px;
-    background-color:var(--color-background-tiped);
+    background-color:#fffdfdcb;
     border: 2px solid rgba(143, 7, 7, 0);
-    width: 25%;
-    border-radius: 3px;
+    width: 35%;
+    border-radius: 9px;
     padding: 5px;
     cursor:auto;
 }
 
 .NavBarInput::placeholder{
     font-size: 15px;
+    border-color: #921076;
 }    
 
 
@@ -87,8 +92,8 @@
 .FilterButton:hover{
     transform: scale(1.05);
     background-color:var(--color-background-general);
-    border: 3px solid var(--color-border);
-    box-shadow: 0 0 0 1px #8d0970;
+    /* border: 3px solid var(--color-border); */
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
 .FilterButton:active{
     transform: scale(0.95);

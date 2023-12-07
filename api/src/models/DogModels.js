@@ -13,6 +13,7 @@ module.exports = (sequelize) => {
     reference_image_id: {
       type: DataTypes.STRING,//*ejem:"reference_image_id": "BJa4kxc4X"
       allowNull: false,
+      defaultValue: "api/src/Utils/Dog Shadow.jpg"
     },
     name: {
       type: DataTypes.STRING,//*ejem: "name": "Affenpinscher",

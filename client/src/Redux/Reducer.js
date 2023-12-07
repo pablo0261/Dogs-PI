@@ -1,8 +1,10 @@
-import { ADD_FAV, ORDER } from "./Actions";
+import {  GET_ALL, GET_DOG_NAME, GET_BY_ID, POST_NEW_DOGS  } from "./Actions";
 
 let initialState = {
-  allDogs: [],
-  favorites: [],  
+  allDogs: [],  
+  allTemperaments: [],
+  dogName: "",
+  createDogs: [],
 };
 
 
@@ -13,18 +15,47 @@ const rootReducer = (state = initialState, { type, payload }) => {
     switch (
       type // ojo si no hago destructoring arriba aqui va =action.type
     ) {
-      case ADD_FAV:gf
-  
-        case ORDER:
-          let copy4;
-          if (payload === "A") {
-              copy4 = state.allCharacters.sort((a, b) => a.id - b.id); // Ordenar de menor a mayor por ID.
-            } else if (payload === "D") {
-              copy4 = state.allCharacters.sort((a, b) => b.id - a.id); // Ordenar de mayor a menor por ID.
-            }
-          return{
-              ...state, myFavorites: copy4,
-          }
+      case GET_ALL:
+        return{
+          ...state,
+          allDogs: payload,
+      };
+
+      // case GET_DOG_NAME:
+      //   return{
+      //     ...state,
+      //     dogName: action.payload,
+      //     };
+
+      // case GET_BY_ID:
+      //   return{
+      //     ...state,
+      //     byId: action.payload,
+      //     };
+
+      // case POST_NEW_DOGS:
+      //   return{
+      //     ...state,
+      //     createDogs: action.payload,
+      //     };
+
+
+          
+
+
+
+
+
+        // case ORDER:
+        //   let copy4;
+        //   if (payload === "A") {
+        //       copy4 = state.allCharacters.sort((a, b) => a.id - b.id); // Ordenar de menor a mayor por ID.
+        //     } else if (payload === "D") {
+        //       copy4 = state.allCharacters.sort((a, b) => b.id - a.id); // Ordenar de mayor a menor por ID.
+        //     }
+        //   return{
+        //       ...state, myFavorites: copy4,
+        //   }
   
       default:
         return state;

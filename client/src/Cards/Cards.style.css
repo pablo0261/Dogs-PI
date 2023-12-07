@@ -2,6 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-inline: 70px;
+  margin-inline: 50px;
   padding: 3px;
 }

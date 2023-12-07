@@ -1,12 +1,33 @@
-import "./Card.style.css"
+import "./Card.style.css";
+import defaultDog from "../Utils/DogShadow.jpg";
 
-function Card() {
+function Card(props) {
+  const { name, reference_image_id, temperaments, weightMin, weightMax } =   props.dog;
+
+  const imageUrl = reference_image_id;
+
   return (
     <div className="CardContainer">
-      <h1>name</h1>
-      <p>image</p>
-      <p>temperamento</p>
-      <p>peso</p>
+      <img
+        className="CardImage"
+        src={imageUrl}
+        alt={name}
+        onError={(e) => {
+          e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
+        }}
+      />
+      <h1 className="CardName">{name}</h1>
+
+      <div className="CardWeightContainer">
+        <p className="weightTitle">Weight</p>
+        <div className="CardWeights">
+          <p> Min: {weightMin} kg</p>
+          <p> Max: {weightMax} kg</p>
+        </div>
+        <div className="CardTempContainer">
+        <p className="CardTemperament"> {temperaments}</p>
+        </div>
+      </div>
     </div>
   );
 }
