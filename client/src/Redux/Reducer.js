@@ -1,4 +1,4 @@
-import {  GET_ALL, GET_DOG_NAME, GET_BY_ID, POST_NEW_DOGS  } from "./Actions";
+import {  GET_ALL } from "./Actions";
 
 let initialState = {
   allDogs: [],  
@@ -11,7 +11,7 @@ let initialState = {
 const rootReducer = (state = initialState, { type, payload }) => {
     //en lugar de action hago destructoring y pongo los parametros que me interesan type y payload
     //esto se puede hacer con un IF tambien
-    console.log(payload)
+    // console.log(payload)
     switch (
       type // ojo si no hago destructoring arriba aqui va =action.type
     ) {
@@ -61,5 +61,4 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return state;
     }
   };
-  
   export default rootReducer;

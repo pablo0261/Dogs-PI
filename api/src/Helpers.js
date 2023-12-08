@@ -9,11 +9,13 @@
 //       reference_image_id,
 //       temperament,
 // };
-
 const { URL_IMG, API_KEY } = process.env;
+const defaultImage = './DogShadow.jpg';
 
 const dogObj = (dog) => {
-  const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg?api_key=${API_KEY}`;
+  const imageUrl = dog.reference_image_id
+  ? `${URL_IMG}/${dog.reference_image_id}.jpg`
+  : defaultImage;
 
   return {
     id: dog.id,
@@ -29,7 +31,9 @@ const dogObj = (dog) => {
 };
 
 const dogObjDb = (dog) => {
-  const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
+  const imageUrl = dog.reference_image_id
+  ? `${URL_IMG}/${dog.reference_image_id}.jpg`
+  : defaultImage;
 
   return {
     id: dog.id,

@@ -11,14 +11,14 @@ function Home() {
 
   const dispatch = useDispatch()
   const AllDogs = useSelector((state) => state.allDogs) //* aqui suscribi Home a ese estado global.
-  console.log("State:", useSelector((state) => state));
+  // console.log("State:", useSelector((state) => state));
 useEffect(() => {// useEffet toma un cb y un arr de dependencias que indica en que momento quiero que se veuelva a ejecutar
   dispatch(getAllDogs())},[dispatch]
   // return (() => { //este return es para definir que quiero que suceda cuando se desmonta.
   //   clearDetail()//por ejemplo limpiar el estado cuando se pasa al page detail
   // })
 )
-console.log("AllDogs:", AllDogs); 
+// console.log("AllDogs:", AllDogs); 
 
 const imageUrl = "client/public/image/DogShadow.jpg"
   return (

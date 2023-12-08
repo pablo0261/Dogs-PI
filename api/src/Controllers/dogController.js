@@ -27,8 +27,10 @@ const getDbDogs = async () => { //*Todos los perros de db
     // return result;
     //*Descomentar lo de abajo si quiero que retorne toda la info de los perros
     const result = dbDogs.map((dog) => {
-      const temperaments = dog.Temperaments.map((temp) => temp.name).join(", ");
+      const temperamentArray = dog.Temperaments? dog.Temperaments.map((temp) => temp.name)
+      : []; 
       const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
+      // console.log (temperaments);
       return {
         id: dog.id,
         name: dog.name,
@@ -37,7 +39,7 @@ const getDbDogs = async () => { //*Todos los perros de db
         weightMin: dog.weightMin,
         weightMax: dog.weightMax,
         life_span: dog.life_span,
-        temperament: temperaments,
+        temperament: temperamentArray,
         reference_image_id: imageUrl,
       };
     });
@@ -55,7 +57,6 @@ const getApiDogs = async () => {  //*Todos los perros de la API
     // const apiDogs = response.data.map((dog) => ({name : dog.name}));
     //*Descomentar el codigode abajo para retorne todas la scaract del perro
     const apiDogs = response.data.map(dogObj);
-
     return apiDogs;
   } catch (err) {
     console.log("Error en la petición a API");
@@ -69,6 +70,7 @@ const getAllDogs = async () => { //*Todos los perros de DB y API
   const dbDogs = await getDbDogs();
   const arrApiDogs = await getApiDogs();
   const allDogs = [...arrApiDogs, ...dbDogs];
+  console.log(allDogs)
   return allDogs;
 };
 
@@ -82,7 +84,6 @@ const getDogByIdFromApi = async (id) => {//*Busca por id en la API
 
     const dog = response.data;
 
-    console.log(dog, URL_IMG);
     return dogObj(dog, URL_IMG); //* <== Helper
   } catch (error) {
     console.error(error);
@@ -104,7 +105,6 @@ const getDogByIdFromDb = async (id) => {//*Busca por id en la db
         },
       ],
     });
-    console.log(dog);
     if (!dog) {
       throw new Error("Perro no encontrado en la base de datos");
     }

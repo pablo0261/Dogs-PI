@@ -2,8 +2,8 @@ import "./Card.style.css";
 import defaultDog from "../Utils/DogShadow.jpg";
 
 function Card(props) {
-  const { name, reference_image_id, temperaments, weightMin, weightMax } =   props.dog;
-
+  const { name, reference_image_id, temperament, weightMin, weightMax } =
+    props.dog;
   const imageUrl = reference_image_id;
 
   return (
@@ -25,7 +25,10 @@ function Card(props) {
           <p> Max: {weightMax} kg</p>
         </div>
         <div className="CardTempContainer">
-        <p className="CardTemperament"> {temperaments}</p>
+          <p className="TempTitle">Temperament</p>
+          <div className="CardTemperament">
+            <p >{temperament}</p>
+          </div>
         </div>
       </div>
     </div>
