@@ -1,13 +1,18 @@
+import './App.css';
 import Home from'./Views/Home/Home.component';
 import Detail from './Views/Detail/Detail.component';
 import Form from './Views/Form/Form.component';
 import Landing from './Views/Landing/Landing.component';
+import { React } from "react";
 import {Route } from "react-router-dom";
 import PATHROUTES from "./Helper";
-import './App.css';
 
 
 function App() {
+
+
+
+
   return (
     <div className="App">
       <Route exact path={PATHROUTES.LANDING} component={Landing}/>

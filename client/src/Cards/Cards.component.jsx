@@ -5,9 +5,11 @@ function Cards({AllDogs}) {//recibo por props de Home
 
   return (
     <div className="CardsList">
-      {AllDogs?.map((dog) => {
-      return <Card key={dog.id} dog={dog}/>
-      })}
+      {Array.isArray(AllDogs) ? (
+  AllDogs.map((dog) => <Card key={dog.id} dog={dog} />)
+) : (
+  <p className="CardsError">No breed identified</p>
+)}
     </div>
   );
 }

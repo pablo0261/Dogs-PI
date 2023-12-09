@@ -5,3 +5,15 @@
   margin-inline: 50px;
   padding: 3px;
 }
+
+.CardsError{
+  display: flex;
+  background-color: antiquewhite;
+  border: 3px solid rgb(155, 28, 148);
+  border-radius: 10px;
+  padding: 40px;
+  width: 190;
+  height: 60;
+  margin: 10px;
+  color:black;
+}

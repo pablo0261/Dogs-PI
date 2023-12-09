@@ -6,8 +6,13 @@ function Card(props) {
     props.dog;
   const imageUrl = reference_image_id;
 
+  const handleChange = () =>{
+
+  } 
+
   return (
-    <div className="CardContainer">
+    <div className="CardContainer" onClick={handleChange}>
+       {/* <Link to={`/detail/${id}`}> */}
       <img
         className="CardImage"
         src={imageUrl}
@@ -17,7 +22,7 @@ function Card(props) {
         }}
       />
       <h1 className="CardName">{name}</h1>
-
+      {/* </Link> */}
       <div className="CardWeightContainer">
         <p className="weightTitle">Weight</p>
         <div className="CardWeights">
