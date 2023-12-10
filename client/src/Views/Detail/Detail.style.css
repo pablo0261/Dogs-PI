@@ -1,4 +1,126 @@
-.Detail {
+.DetailCard {
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  top: 110px;
+  display: inline-flex;
+  background-color: rgba(44, 44, 44, 0.151);
+  border-radius: 30px;
+  height: 550px;
+  width: 950px;
+  animation: luz-verde 3s linear infinite;
+}
+
+@keyframes luz-verde {
+  0% {
+    box-shadow: 0 0 10px rgb(113, 21, 141);
+    border: 2px solid transparent;
+  }
+  100% {
+    box-shadow: none;
+    border: 2px solid rgb(113, 21, 141);
+  }
+}
+
+  
+  .DetailButton{
+    position: absolute;
+    height: 40px;
+    width: 60px;
+    left: 15px;
+    top: 15px;
     text-align: center;
+    justify-items: center;
+    padding: 5px 15px;
+    margin: 10px;
+    background-color: rgb(85, 14, 107);
+    border: outset;
+    border-color: rgb(148, 30, 184);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .DetailButton:hover {
+    background-color: rgb(85, 14, 107);
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: groove;
+    border-color: rgb(113, 21, 141);
+  }
+  
+  .DetailButton:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
+  .imgReturn{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+   
+  .containernameDetail {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(113, 21, 141);
+    padding: 10px;
+    margin: 3%;
+    width: 300px;
+    height: 400px;
+    top: 0px;
+    right: 0px;
+    text-align: center;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.411);
+    border-radius: 10px;
+    border-color: rgb(113, 21, 141);
+    box-shadow: 0 0 20px rgb(113, 21, 141);
+  }
+  .nameDetail {
+    font-size: xx-large;
+    font-family: "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode",
+      Geneva, Verdana, sans-serif;
+    text-shadow: 8px 8px 8px rgba(0, 0, 0, 0.5);
+  }
+  .imageDetail {
+    position: relative;
+    align-items: center;
+    height: 100%;
+    margin: 10px 20px 30px 30px;
+    border: 1px rgb(113, 21, 141);
+    box-shadow: 0 0 20px rgb(113, 21, 141);
+  }
+  
+  .divDetail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .datosDetail {
+    width: calc(50% - 10px);
+    border-radius: 10px;
+    text-align: center;
+    transform: rotate(0deg);
+    width: 260px;
+    background-color: rgba(10, 10, 10, 0.733);
+    color: rgb(113, 21, 141);
+    padding: 5px 10px;
+    font-size: 20px;
+    margin: 10px;
+  }
+  .datosDetail:hover {
+    animation: rotarYVibrar 0.25s infinite;
+    box-shadow: 0 0 30px rgb(113, 21, 141);
+  }
+  @keyframes rotarYVibrar {
+    0%,
+    100% {
+      transform: rotate(-5deg);
+    }
+    50% {
+      transform: rotate(-5deg) translateX(2px);
+    }
   }
   

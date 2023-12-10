@@ -1,18 +1,28 @@
 import "./Card.style.css";
 import { Link } from "react-router-dom";
 import defaultDog from "../Utils/DogShadow.jpg";
-import {DETAIL} from "../Helper";
+
 
 function Card(props) {
   const { id, name, reference_image_id, temperament, weightMin, weightMax } =
     props.dog;
   const imageUrl = reference_image_id;
 
-  
+  // const handleChange = (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const selectedDogs = allDogs.filter((dog) =>
+  //       dog.name.toLowerCase().includes(searchString.toLowerCase())
+  //     );
+  //     if (filteredDogs.length === 0) {
+  //       throw new Error("No dog breeds found with that name.");
+  //     }
+  //   }}
+
 
   return (
     <div className="CardContainer" >
-       <Link to={`dogs/${id}`}>
+       <Link to={`/home/${id}`}>
       <img
         className="CardImage"
         src={imageUrl}

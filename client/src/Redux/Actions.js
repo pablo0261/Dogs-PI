@@ -1,5 +1,5 @@
 import axios from "axios";
-// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "http://localhost:3001";
 
 export const GET_ALL = "GET_ALL";
 // export const GET_DOG_NAME = "GET_DOG_NAME";
@@ -13,7 +13,7 @@ export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
 const getAllDogs = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("http://localhost:3001/dogs");
+      const { data } = await axios.get("/dogs");
       return dispatch({
         type: GET_ALL,
         payload: data,
@@ -56,9 +56,10 @@ const getAllDogs = () => {
 //       }
 
 const getDogById = (id) => {
-  const endpoint = `http://localhost:3001/dogs/:${id}`;
+  const endpoint = `/dogs/${id}`;
   return async (dispatch) => {
     try {
+      // console.log('Endpoint de la API:', endpoint);
       const { data } = await axios.get(endpoint);
       return dispatch({
         type: GET_BY_ID,

@@ -3,7 +3,7 @@ import {  GET_ALL, GET_BY_ID, REMOVE_SELECTED_DOG } from "./Actions";
 let initialState = {
   allDogs: [],  
   allTemperaments: [],
-  dogSelected:{},
+  dogSelected:[],
   dogName: "",
   createDogs: [],
 };
@@ -43,7 +43,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       case REMOVE_SELECTED_DOG:
         return {
             ...state,
-            selectedDog: {}
+            dogSelected: {}
         }
           
 

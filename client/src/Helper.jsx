@@ -2,7 +2,7 @@ const PATHROUTES = {
     LANDING: "/",
     HOME: "/home",
     FORM: "/form",
-    DETAIL: "/detail",
+    DETAIL: "/home/:id",
   };
   
   export default PATHROUTES;
