@@ -6,57 +6,82 @@ import defaultDog from "../../Utils/DogShadow.jpg";
 import "./Detail.style.css";
 
 function Detail() {
-  
   const { id } = useParams();
   const dispatch = useDispatch();
   // const { name,weightMin, weightMax, heightMin, heightMax, life_span, temperament, reference_image_id  } = useSelector((state) => state.dogSelected);
-  
-  
+
   useEffect(() => {
     dispatch(getDogById(id));
     return () => {
       //limpiar el store cuando se desmonte
-      dispatch(removeSelectedDog())
-      console.log("dogById", dogById);
-    }
+      dispatch(removeSelectedDog());
+    };
   }, [id, dispatch]);
-  
+
   const dogById = useSelector((state) => state.dogSelected);
   if (!dogById || Object.keys(dogById).length === 0) {
-    return <p>Loading...</p>; 
+    return <p>Loading...</p>;
   }
+  // console.log("dogById", dogById);
 
   return (
-    
     <div className="DetailCard">
-      <button className="DetailButton" onClick={() => window.history.back()}></button>
-      
-    
-          <h2>{dogById.name}</h2>
-          <div>
-            {dogById.reference_image_id && (
-              <img
-              className="imageDetail"
-              src={dogById.reference_image_id}
-              alt={dogById.name}
+      <div className="Button-Name">
+        <button
+          className="DetailButton"
+          onClick={() => window.history.back()}
+        ></button>
+
+        <h2 className="ContainernameDetail">{dogById[0].name}</h2>
+      </div>
+
+      <div className="DivDetail">
+        <div className="ImageDetail">
+          {dogById[0].reference_image_id && (
+            <img
+              className="Image"
+              src={dogById[0].reference_image_id}
+              alt={dogById[0].name}
               onError={(e) => {
                 e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
               }}
-              />
-              )}
+            />
+          )}
+        </div>
+
+        <div className="DatosDetail">
+          <div className="DivInfo">
+            <p> ID:</p>
+            <p className="DatoBox">{dogById[0].id}</p>
           </div>
-          <div>
-            <h2>{dogById.id}</h2>
-            <p>weightMin: {dogById.weightMin}</p>
-            <p>weightMax: {dogById.weightMax}</p>
-            <p>heightMin: {dogById.heightMin}</p>
-            <p>heightMax: {dogById.heightMax}</p>
-            <p>life_span: {dogById.life_span}</p>
-            <p>Temperamento: {dogById.temperament}</p>
+          <div className="DivInfo">
+            <p> weightMin:</p>
+            <p className="DatoBox">{dogById[0].weightMin}</p>
           </div>
-      
+          <div className="DivInfo">
+            <p> weightMax:</p>
+            <p className="DatoBox">{dogById[0].weightMax}</p>
+          </div>
+          <div className="DivInfo">
+            <p> heightMin:</p>
+            <p className="DatoBox"> {dogById[0].heightMin}</p>
+          </div>
+          <div className="DivInfo">
+            <p> heightMax: </p>
+            <p className="DatoBox">{dogById[0].heightMax}</p>
+          </div>
+          <div className="DivInfo">
+            <p> life_span: </p>
+            <p className="DatoBox"> {dogById[0].life_span}</p>
+          </div>
+          <div className="DivInfoDown">
+            <p> Temperamento </p>
+            <p className="DatoBox"> {dogById[0].temperament}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    )
-  }
+  );
+}
 
 export default Detail;
