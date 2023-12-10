@@ -2,7 +2,7 @@ const { Dog, Temperament } = require("../db");
 const axios = require("axios");
 const { dogObj, dogObjDb } = require("../Helpers");
 const getAllTemperaments = require("../Controllers/temperamentsController");
-const { URL_IMG, API_KEY } = process.env;
+const { URL_IMG  } = process.env;
 const { Op } = require("sequelize");
 
 const getDbDogs = async () => { //*Todos los perros de db
@@ -19,7 +19,7 @@ const getDbDogs = async () => { //*Todos los perros de db
         },
       ],
     });
-    console.log(dbDogs);
+    // console.log(dbDogs);
     if (!dbDogs) {
       throw new Error("Perro no encontrado en la base de datos");
     }
@@ -70,7 +70,7 @@ const getAllDogs = async () => { //*Todos los perros de DB y API
   const dbDogs = await getDbDogs();
   const arrApiDogs = await getApiDogs();
   const allDogs = [...arrApiDogs, ...dbDogs];
-  console.log(allDogs)
+  // console.log(allDogs)
   return allDogs;
 };
 
@@ -94,7 +94,7 @@ const getDogByIdFromApi = async (id) => {//*Busca por id en la API
 const getDogByIdFromDb = async (id) => {//*Busca por id en la db
   
   try {
-    console.log(id);
+    // console.log(id);
     const dog = await Dog.findOne({
       where: { id: id },
       include: [
@@ -171,7 +171,7 @@ const createDogDB = async ({//* Crea perros
           },
         },
       });
-      console.log(newTemperaments);
+      // console.log(newTemperaments);
       await newDog.addTemperament(dbTemperament);
       if (created) {
         console.log(

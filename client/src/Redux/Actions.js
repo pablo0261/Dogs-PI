@@ -1,9 +1,10 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 export const GET_ALL = "GET_ALL";
 // export const GET_DOG_NAME = "GET_DOG_NAME";
-// export const GET_BY_ID = "GET_BY_ID";
+export const GET_BY_ID = "GET_BY_ID";
+export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
 // export const POST_NEW_DOGS = "POST_NEW_DOGS";
 
 
@@ -12,7 +13,7 @@ export const GET_ALL = "GET_ALL";
 const getAllDogs = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("/dogs");
+      const { data } = await axios.get("http://localhost:3001/dogs");
       return dispatch({
         type: GET_ALL,
         payload: data,
@@ -54,20 +55,26 @@ const getAllDogs = () => {
 //         }
 //       }
 
-// const getDogById = (id) => {
-//   const endpoint = `/dogs/${id}`;
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.get(endpoint);
-//       return dispatch({
-//         type: GET_BY_ID,
-//         payload: data,
-//         });
-//         } catch (error) {
-//           console.log('Error getting one dog by id');
-//           }
-//           }
-// }     
+const getDogById = (id) => {
+  const endpoint = `http://localhost:3001/dogs/:${id}`;
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(endpoint);
+      return dispatch({
+        type: GET_BY_ID,
+        payload: data,
+        });
+        } catch (error) {
+          console.log('Error getting one dog by id');
+          }
+          }
+}     
+
+const removeSelectedDog = () => {
+  return {
+      type: REMOVE_SELECTED_DOG
+  }
+}
 
 // const  postDogs = (data) => {
 //   const endpoint = '/dogs';
@@ -90,4 +97,4 @@ const getAllDogs = () => {
 //   };
 // };
 
-export { getAllDogs };
+export { getAllDogs, getDogById, removeSelectedDog };

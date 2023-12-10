@@ -3,8 +3,6 @@ import "./Landing.style.css";
 import { useHistory } from "react-router-dom";
 
 
-
-
 function Landing() {
   const history = useHistory();
 

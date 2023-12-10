@@ -1,8 +1,9 @@
-import {  GET_ALL } from "./Actions";
+import {  GET_ALL, GET_BY_ID, REMOVE_SELECTED_DOG } from "./Actions";
 
 let initialState = {
   allDogs: [],  
   allTemperaments: [],
+  dogSelected:{},
   dogName: "",
   createDogs: [],
 };
@@ -27,11 +28,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       //     dogName: action.payload,
       //     };
 
-      // case GET_BY_ID:
-      //   return{
-      //     ...state,
-      //     byId: action.payload,
-      //     };
+      case GET_BY_ID:
+        return{
+          ...state,
+          dogSelected: payload,
+          };
 
       // case POST_NEW_DOGS:
       //   return{
@@ -39,7 +40,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
       //     createDogs: action.payload,
       //     };
 
-
+      case REMOVE_SELECTED_DOG:
+        return {
+            ...state,
+            selectedDog: {}
+        }
           
 
 

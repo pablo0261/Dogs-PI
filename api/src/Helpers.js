@@ -9,7 +9,7 @@
 //       reference_image_id,
 //       temperament,
 // };
-const { URL_IMG, API_KEY } = process.env;
+const { URL_IMG } = process.env;
 const defaultImage = './DogShadow.jpg';
 
 const dogObj = (dog) => {

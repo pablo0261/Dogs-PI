@@ -66,7 +66,7 @@ const getDogsHandler = async (req, res) => {
       return res.status(200).json(allDogs);
     }
   } catch (error) {
-    console.error(err);
+    console.error(error);
     return res.status(500).json({ error: error.message });
   }
 };

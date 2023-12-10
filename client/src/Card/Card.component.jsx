@@ -1,18 +1,18 @@
 import "./Card.style.css";
+import { Link } from "react-router-dom";
 import defaultDog from "../Utils/DogShadow.jpg";
+import {DETAIL} from "../Helper";
 
 function Card(props) {
-  const { name, reference_image_id, temperament, weightMin, weightMax } =
+  const { id, name, reference_image_id, temperament, weightMin, weightMax } =
     props.dog;
   const imageUrl = reference_image_id;
 
-  const handleChange = () =>{
-
-  } 
+  
 
   return (
-    <div className="CardContainer" onClick={handleChange}>
-       {/* <Link to={`/detail/${id}`}> */}
+    <div className="CardContainer" >
+       <Link to={`dogs/${id}`}>
       <img
         className="CardImage"
         src={imageUrl}
@@ -22,7 +22,7 @@ function Card(props) {
         }}
       />
       <h1 className="CardName">{name}</h1>
-      {/* </Link> */}
+      </Link>
       <div className="CardWeightContainer">
         <p className="weightTitle">Weight</p>
         <div className="CardWeights">
