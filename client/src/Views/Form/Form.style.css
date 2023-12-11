@@ -1,0 +1,26 @@
+.DetailButton{
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    height: 40px;
+    width: 60px;
+    padding: 5px 15px;
+    margin: 10px;
+    background-color: rgb(85, 14, 107);
+    border: outset;
+    border-color: rgb(148, 30, 184);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  }
+  .DetailButton:hover {
+    background-color: rgb(85, 14, 107);
+    transform: translateY(1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: groove;
+    border-color: rgb(113, 21, 141);
+  }
+  .DetailButton:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }

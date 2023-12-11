@@ -22,5 +22,28 @@
     color:#8d0970;
     font-family:cursive ;
   }
+
+  .OrderButton{
+    position:relative;
+    margin: -50px 900px 20px 0px;
+    align-content: center;
+    justify-content: center;
+    width: 70px;
+    height: 40px;
+    font-size: 16px;
+    border: 2px solid var(--color-border);
+    background-color:var(--color-background-tiped);
+    border-radius: 10px;
+    padding: 5px;
+    cursor:auto; 
+}
+.OrderButton:hover{
+    transform: scale(1.05);
+    background-color:var(--color-background-general);
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.OrderButton:active{
+    transform: scale(0.95);
+}
   
   

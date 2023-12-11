@@ -33,11 +33,11 @@
 .NavBarButton{
     background-color:var(--color-background-general);
     border: 1px solid var(--color-border);
-    border-radius: 9px;
+    border-radius: 10px;
     margin-right: 9px;
     align-items: center;
     justify-content: center;
-    height: 90%;
+    height: 80%;
     padding: 9px;
     cursor:auto;
     transition: box-shadow 0.3s ease;
@@ -46,9 +46,9 @@
     font-size: 15px;
 }
 .NavBarButton:hover{
-    outline-style:solid;
-    outline-color: #8d0970;
-    outline-offset: 2px;
+    transform: scale(1.05);
+    background-color:var(--color-background-general);
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
 .NavBarButton:active{
     transform: scale(0.95);
@@ -74,27 +74,50 @@
 
 .DivfilterButton{
     display: flex;
-    justify-content: space-around;
-    margin: 120px 100px 0px 100px;
+    justify-content:left;
+    margin: 0px 100px 0px 100px;
     align-items: center;
     border: 2px solid rgba(143, 7, 7, 0);
 }
+
+
 
 .FilterButton{
     width: 140px;
     height: 60px;
     border: 2px solid var(--color-border);
     background-color:var(--color-background-tiped);
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 5px;
+    margin-inline: 20px;
     cursor:auto;
 }
 .FilterButton:hover{
     transform: scale(1.05);
     background-color:var(--color-background-general);
-    /* border: 3px solid var(--color-border); */
     box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
 .FilterButton:active{
+    transform: scale(0.95);
+}
+
+.CreateDog{
+    position:absolute;
+    top: 300px;
+    right: 160px;
+    width: 130px;
+    height: 50px;
+    border: 2px solid var(--color-border);
+    background-color:var(--color-background-tiped);
+    border-radius: 30px;
+    padding: 5px;
+    cursor:auto;
+}
+.CreateDog:hover{
+    transform: scale(1.05);
+    background-color:var(--color-background-general);
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.CreateDog:active{
     transform: scale(0.95);
 }

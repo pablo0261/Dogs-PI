@@ -61,10 +61,26 @@ const handleChange = (event) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(inputs)
     dispatch(postDogs(inputs))
+    alert("The dog was created")
+    setInputs({
+      name: "",
+      weightMin: 0,
+      weightMax: 0,
+      heightMin: 0,
+      heightMax: 0,
+      life_span: 0,
+      temperaments: [],
+    })
   }
 
   return (
+    <div>
+      <button
+          className="DetailButton"
+          onClick={() => window.history.back()}
+        ></button>
     <form onSubmit={handleSubmit}>
       <h1>Esta es la Form Page</h1>
       <div className="FormDivInput">
@@ -184,6 +200,7 @@ const handleChange = (event) => {
         Send
       </button>
     </form>
+  </div>
   );
 }
 

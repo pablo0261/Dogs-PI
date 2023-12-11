@@ -2,20 +2,20 @@ import { useEffect } from "react"; //*para controlar ciclo de vida (componen mou
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { getAllDogs } from "../../Redux/Actions";
+import { orderDogs } from "../../Redux/Actions";
 
 import "./Home.style.css";
 import Cards from "../../Cards/Cards.component";
 import NavBar from "../../NavBar/NavBar.component";
 
 function Home() {
-  const dispatch = useDispatch();
   const [filtered, setFiltered] = useState("");
-  // const [random, serRandom] = useState([])
   const [searchString, setSearchString] = useState("");
-  const [initialSearch, setInitialSearch] = useState(false);
-  let errorMessage = "";
+  // const [orden, setOrden] = useState("")
+  const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs); //* aqui suscribi Home a ese estado global.
-  
+  let errorMessage = "";
+
   const handleChange = (e) => {
     e.preventDefault();
     setSearchString(e.target.value);
@@ -35,25 +35,23 @@ function Home() {
       }
       // console.log("Perros filtrados:", filteredDogs);
       setFiltered(filteredDogs);
-      setInitialSearch(true);
     } catch (error) {
       console.error(error.message);
-      // Set an error message for the user
-      // setErrorMessage("No dog breeds found with the specified name");
-      setFiltered("")
+      setFiltered("");
     }
   };
 
-  const getRandomDogs = () => {
-    const shuffledDogs = [...allDogs].sort(() => Math.random() -
-    0.5);
-    return shuffledDogs.slice(0, 8);
-    }
-  const randomDogs = initialSearch ? [] : getRandomDogs();
+
+  const handleOrder = (e) => {
+    dispatch(orderDogs(e.target.value));
+    // setOrden(`Ordenado ${e.target.value}`)
+  };
+  
 
   useEffect(() => {
-    dispatch(getAllDogs())
+    dispatch(getAllDogs());
   }, [dispatch]);
+
 
   return (
     <div className="Home">
@@ -63,9 +61,23 @@ function Home() {
       <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
       {errorMessage && <p className="ErrorMessage">{errorMessage}</p>}
 
-      <Cards AllDogs={filtered.length > 0 ? filtered : randomDogs} />
+      <div className="DivfilterButton">
+        <select className="OrderButton" onChange={(event) => handleOrder(event)}>
+          <option >
+            Order by name
+          </option>
+          <option key={1} value="A-Z">
+            A-Z
+          </option>
+          <option key={2} value="Z-A">
+            Z-A
+          </option>
+        </select>
+      </div>
+
+      <Cards AllDogs={filtered.length > 0 ? filtered : allDogs} />
     </div>
   );
-  }
+}
 
 export default Home;

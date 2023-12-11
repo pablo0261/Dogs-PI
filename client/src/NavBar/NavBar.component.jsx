@@ -1,6 +1,24 @@
 import "./NavBar.style.css";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 
 function NavBar({handleChange, handleSubmit}) {
+
+  const history = useHistory();
+  
+
+  const handleButtonGo = () => {
+    history.push("/form");
+  }
+
+  //* -----------------------FILTROS ------------------------------
+
+  
+
+  // const handleFilter = (e) => {
+  //   dispatch(filterCards(e.target.value));
+  // };
+
   return (
     <div className="NavBar">
       <form className="SearchBar"onSubmit={(e) => handleSubmit(e)} >
@@ -12,12 +30,10 @@ function NavBar({handleChange, handleSubmit}) {
           onChange={(e) => handleChange(e)}
         />
       </form>
-      <div className="DivfilterButton">
         <button className="FilterButton">Filtro</button>
-        <button className="FilterButton">Filtro</button>
-        <button className="FilterButton">Filtro</button>
-        <button className="FilterButton">Filtro</button>
-      </div>
+        <button type="submit" className="CreateDog" onClick={handleButtonGo}>
+          Add Breeds
+        </button>
       <div></div>
     </div>
   );

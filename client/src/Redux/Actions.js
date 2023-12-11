@@ -7,6 +7,7 @@ export const GET_ALL_TEMP = "GET_ALL_TEMP";
 export const GET_BY_ID = "GET_BY_ID";
 export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
 export const POST_NEW_DOGS = "POST_NEW_DOGS";
+export const ORDER_DOGS = "ORDER_DOGS";
 
 
 const getAllDogs = () => {
@@ -76,11 +77,11 @@ const removeSelectedDog = () => {
   }
 }
 
-const  postDogs = (data) => {
+const  postDogs = (dataCreated) => {
   const endpoint = '/dogs';
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, data);
+      const { data } = await axios.post(endpoint, dataCreated);
       return dispatch({
         type: POST_NEW_DOGS,
         payload: data,
@@ -91,11 +92,11 @@ const  postDogs = (data) => {
           }
 }
 
-// const orderCards = (orden) => {
-//   return {
-//     type: ORDER,
-//     payload: orden,
-//   };
-// };
+const orderDogs = (value) => {
+  return {
+    type: ORDER_DOGS,
+    payload: value,
+  };
+};
 
-export { getAllDogs, getDogById, removeSelectedDog, getAllTemperaments, postDogs};
+export { getAllDogs, getDogById, removeSelectedDog, getAllTemperaments, postDogs, orderDogs};
