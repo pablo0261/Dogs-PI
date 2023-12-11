@@ -1,4 +1,4 @@
-import {  GET_ALL, GET_BY_ID, REMOVE_SELECTED_DOG } from "./Actions";
+import {  GET_ALL, GET_BY_ID, GET_ALL_TEMP, REMOVE_SELECTED_DOG, POST_NEW_DOGS } from "./Actions";
 
 let initialState = {
   allDogs: [],  
@@ -8,6 +8,15 @@ let initialState = {
   createDogs: [],
 };
 
+//*Para extraer los temperamentos individualmente
+const extractUniqueTemperaments = (temperamentsArray) => {
+  const temperamentsStrings = temperamentsArray.map((obj) => obj.temp);
+  const allTemperamentsArray = temperamentsStrings.flatMap((tempString) =>
+    tempString ? tempString.split(", ") : []
+  );
+  const uniqueTemperamentsArray = [...new Set(allTemperamentsArray)];
+  return uniqueTemperamentsArray;
+};
 
 const rootReducer = (state = initialState, { type, payload }) => {
     //en lugar de action hago destructoring y pongo los parametros que me interesan type y payload
@@ -22,6 +31,13 @@ const rootReducer = (state = initialState, { type, payload }) => {
           allDogs: payload,
       };
 
+      case GET_ALL_TEMP:
+        const uniqueTemperaments = extractUniqueTemperaments(payload);
+        return{
+          ...state,
+          allTemperaments: uniqueTemperaments,
+      };
+
       // case GET_DOG_NAME:
       //   return{
       //     ...state,
@@ -34,11 +50,11 @@ const rootReducer = (state = initialState, { type, payload }) => {
           dogSelected: payload,
           };
 
-      // case POST_NEW_DOGS:
-      //   return{
-      //     ...state,
-      //     createDogs: action.payload,
-      //     };
+      case POST_NEW_DOGS:
+        return{
+          ...state,
+          createDogs: payload,
+          };
 
       case REMOVE_SELECTED_DOG:
         return {
