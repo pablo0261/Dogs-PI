@@ -3,12 +3,15 @@ axios.defaults.baseURL = "http://localhost:3001";
 
 export const GET_ALL = "GET_ALL";
 export const GET_ALL_TEMP = "GET_ALL_TEMP";
-// export const GET_DOG_NAME = "GET_DOG_NAME";
 export const GET_BY_ID = "GET_BY_ID";
 export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
 export const POST_NEW_DOGS = "POST_NEW_DOGS";
 export const ORDER_DOGS = "ORDER_DOGS";
-
+export const FILTER_BY_WEIGHT = "FILTER_BY_WEIGHT";
+export const FILTER_BY_TEMP = "FILTER_BY_TEMP";
+export const FILTER_ORIGIN_DOG = "FILTER_ORIGIN_DOG";
+export const GET_CREATE_DOG = "GET_CREATE_DOG";
+// export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
 const getAllDogs = () => {
   return async (dispatch) => {
@@ -25,19 +28,18 @@ const getAllDogs = () => {
 };
 
 const getAllTemperaments = () => {
-  const endpoint = "/temperaments";
   return async (dispatch) => {
     try {
-      const { data } = await axios.get(endpoint);
+      const { data } = await axios.get("/temperaments");
       return dispatch({
         type: GET_ALL_TEMP,
         payload: data,
-        });
-        } catch (error) {
-          console.log('Error getting temperament', error);
-          }
-          };
-          };
+      });
+    } catch (error) {
+      console.log("Error getting temperament", error);
+    }
+  };
+};
 
 // const getDogName = (name) => {
 //   const endpoint = `/dogs?name=${name}`;
@@ -64,33 +66,34 @@ const getDogById = (id) => {
       return dispatch({
         type: GET_BY_ID,
         payload: data,
-        });
-        } catch (error) {
-          console.log('Error getting one dog by id');
-          }
-          }
-}     
+      });
+    } catch (error) {
+      console.log("Error getting one dog by id");
+    }
+  };
+};
 
 const removeSelectedDog = () => {
   return {
-      type: REMOVE_SELECTED_DOG
-  }
-}
+    type: REMOVE_SELECTED_DOG,
+  };
+};
 
-const  postDogs = (dataCreated) => {
-  const endpoint = '/dogs';
+const postDogs = (dataCreated) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, dataCreated);
-      return dispatch({
+      const response = await axios.post("/dogs", dataCreated);
+      console.log(response.data)
+      dispatch({
         type: POST_NEW_DOGS,
-        payload: data,
-        })
-        } catch (err) {
-          console.log("ERROR", err);
-          }
-          }
-}
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error posting dogs:", error);
+      console.error("Detalles del error:", error.response.data);
+    }
+  };
+};
 
 const orderDogs = (value) => {
   return {
@@ -99,4 +102,35 @@ const orderDogs = (value) => {
   };
 };
 
-export { getAllDogs, getDogById, removeSelectedDog, getAllTemperaments, postDogs, orderDogs};
+const filterByW = (value) => {
+  return {
+    type: FILTER_BY_WEIGHT,
+    payload: value,
+  };
+};
+
+const FilterByTemp = (value) => {
+  return {
+    type: FILTER_BY_TEMP,
+    payload: value,
+  };
+};
+
+const FilterOriginDog = (value) => {
+  return {
+    type: FILTER_ORIGIN_DOG,
+    payload: value,
+  };
+};
+
+export {
+  getAllDogs,
+  getDogById,
+  removeSelectedDog,
+  getAllTemperaments,
+  postDogs,
+  orderDogs,
+  filterByW,
+  FilterByTemp,
+  FilterOriginDog,
+};

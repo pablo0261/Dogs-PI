@@ -5,6 +5,9 @@ import {
   REMOVE_SELECTED_DOG,
   POST_NEW_DOGS,
   ORDER_DOGS,
+  FILTER_BY_WEIGHT,
+  FILTER_BY_TEMP,
+  FILTER_ORIGIN_DOG,
 } from "./Actions";
 
 let initialState = {
@@ -13,6 +16,8 @@ let initialState = {
   dogSelected: [],
   dogName: "",
   createDogs: [],
+  filterApi: [],
+  filterDb: [],
 };
 
 //*Para extraer los temperamentos individualmente
@@ -27,8 +32,6 @@ const extractUniqueTemperaments = (temperamentsArray) => {
 
 const rootReducer = (state = initialState, { type, payload }) => {
   //en lugar de action hago destructoring y pongo los parametros que me interesan type y payload
-  //esto se puede hacer con un IF tambien
-  // console.log(payload)
   switch (
     type // ojo si no hago destructoring arriba aqui va =action.type
   ) {
@@ -36,6 +39,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allDogs: payload,
+        filterApi: payload,
+        filterDb: payload,
+
       };
 
     case GET_ALL_TEMP:
@@ -44,12 +50,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         allTemperaments: uniqueTemperaments,
       };
-
-    // case GET_DOG_NAME:
-    //   return{
-    //     ...state,
-    //     dogName: action.payload,
-    //     };
 
     case GET_BY_ID:
       return {
@@ -60,7 +60,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case POST_NEW_DOGS:
       return {
         ...state,
-        createDogs: payload,
+        createDogs: [...state.createDogs, payload],
       };
 
     case REMOVE_SELECTED_DOG:
@@ -86,6 +86,46 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         allDogs: filterDogs,
       };
+
+    case FILTER_BY_WEIGHT:
+      const copy2 = state.allDogs.filter(dog => dog.weightMin)
+      const filterWeight = payload === 'weightMin' ? copy2.sort((a, b) => {
+        return a.weightMin - b.weightMin
+      })  :
+      copy2.sort((a,b) =>{
+        return b.weightMin - a.weightMin
+    })
+      
+      return {
+        ...state,
+        allDogs: filterWeight,
+    };
+
+    case FILTER_BY_TEMP:
+      const copy3 = state.allDogs
+      const filteredTemp = payload === "All"? copy3 : copy3.filter(d => {
+          return d.temperaments?.includes(payload)
+      })
+      return {
+        ...state,
+        allDogs: filteredTemp,//*modificar otro estado (ejem:dog)
+    };
+
+    case FILTER_ORIGIN_DOG:
+  const copy4 = state.filterApi.filter(dog => isNaN(Number(dog.id)));
+  const copy5 = state.filterDb.filter(dog => !isNaN(Number(dog.id)));
+  const copy6 = state.allDogs;
+  
+
+  if (payload === 'created') {
+    return{...state, filterDb: copy6, allDogs:copy4}
+  } else if (payload === 'Api') {
+    return{...state, filterApi: copy4, allDogs:copy5}
+  } else {
+    return{...state, allDogs:copy5}
+  }
+  
+
 
     default:
       return state;

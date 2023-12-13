@@ -1,9 +1,13 @@
-import { useEffect } from "react"; //*para controlar ciclo de vida (componen mount, component dismount, etc..)
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
-import { getAllDogs } from "../../Redux/Actions";
-import { orderDogs } from "../../Redux/Actions";
-
+import {
+  getAllDogs,
+  orderDogs,
+  filterByW,
+  getAllTemperaments,
+  FilterByTemp,
+  FilterOriginDog,
+} from "../../Redux/Actions";
 import "./Home.style.css";
 import Cards from "../../Cards/Cards.component";
 import NavBar from "../../NavBar/NavBar.component";
@@ -11,22 +15,37 @@ import NavBar from "../../NavBar/NavBar.component";
 function Home() {
   const [filtered, setFiltered] = useState("");
   const [searchString, setSearchString] = useState("");
-  // const [orden, setOrden] = useState("")
+
   const dispatch = useDispatch();
-  const allDogs = useSelector((state) => state.allDogs); //* aqui suscribi Home a ese estado global.
+  const allDogs = useSelector((state) => state.allDogs);
+  const createDogs = useSelector((state) => state.createDogs);
+  const temperaments = useSelector((state) => state.allTemperaments);
+  const statusOriginFilter = useSelector((state) => state.statusOriginFilter);//* bandera para funcionamiento del filtrado pororigen
   let errorMessage = "";
+  // const [inputs, setInputs] = useState({
+  //   Temps: [],
+  // });
+
+  console.log(createDogs);
+
+  useEffect(() => {
+    dispatch(getAllDogs());
+    dispatch(getAllTemperaments());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     e.preventDefault();
     setSearchString(e.target.value);
     // console.log("searchString:", e.target.value);
-  };
+  }; //!ver si sirve apra algo
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => {//*Filtro x nombre
+    
     // console.log("searchString:", searchString);
     e.preventDefault();
     try {
       // console.log("Datos de perros disponibles:", allDogs);
+
       const filteredDogs = allDogs.filter((dog) =>
         dog.name.toLowerCase().includes(searchString.toLowerCase())
       );
@@ -41,17 +60,46 @@ function Home() {
     }
   };
 
-
   const handleOrder = (e) => {
+    //*Orden alfabetico dogs
     dispatch(orderDogs(e.target.value));
     // setOrden(`Ordenado ${e.target.value}`)
   };
-  
 
-  useEffect(() => {
-    dispatch(getAllDogs());
-  }, [dispatch]);
+  const handlerFilterW = (e) => {
+    //*Orden x peso dogs
+    dispatch(filterByW(e.target.value));
+    // setOrden(`Ordenado ${e.target.value}`)
+  };
 
+  const handlerFilterOrigin = (e) => {
+    dispatch(FilterOriginDog(e.target.value));
+  };
+
+  const handlerFilterTemp = (e) => {
+    e.preventDefault();
+    dispatch(FilterByTemp(e.target.value));
+  };
+
+  // useEffect(() => {
+  //   dispatch(getAllTemperaments())
+  // }, [dispatch]);
+
+  // const handleTemperamentClick = (selectedTemps) => {
+  //   setInputs((prevInputs) => ({
+  //     ...prevInputs,
+  //     Temps: [...prevInputs.Temps, selectedTemps],
+  //   }));
+  // };
+
+//   const handleSelect = (e) => {
+//     if(!inputs.Temps.includes(e.target.value)){
+//         setInputs({
+//             ...inputs,
+//             Temps : [...inputs.Temps, e.target.value]
+//         })
+//     }
+// }
 
   return (
     <div className="Home">
@@ -62,10 +110,11 @@ function Home() {
       {errorMessage && <p className="ErrorMessage">{errorMessage}</p>}
 
       <div className="DivfilterButton">
-        <select className="OrderButton" onChange={(event) => handleOrder(event)}>
-          <option >
-            Order by name
-          </option>
+        <select
+          className="OrderButton"
+          onChange={(event) => handleOrder(event)}
+        >
+          <option>Order by Name</option>
           <option key={1} value="A-Z">
             A-Z
           </option>
@@ -73,9 +122,54 @@ function Home() {
             Z-A
           </option>
         </select>
+
+        <select className="OrderButton" onChange={(e) => handlerFilterW(e)}>
+          <option>Order by Weight</option>
+          <option key={1} value="weightMax">
+            Max
+          </option>
+          <option key={2} value="weightMin">
+            Min
+          </option>
+        </select>
+
+        <select
+          className="OrderButton"
+          onChange={(e) => handlerFilterOrigin(e)}
+        >
+          <option>Order by Origin</option>
+          <option key={1} value="All">
+            All
+          </option>
+          <option key={2} value="created">
+            Created
+          </option>
+          <option key={3} value="Api">
+            Api
+          </option>
+        </select>
+
+        <select className="OrderButton" onChange={(e) => handlerFilterTemp (e)}>
+          <option>Temperaments</option>
+          <option
+            key={1}
+            value="All"
+          >
+            All
+          </option>
+          {temperaments.map((temp) => (
+            <option
+              value={temp}
+              key={temp}
+            >
+              {temp}
+            </option>
+          ))}
+        </select>
       </div>
 
       <Cards AllDogs={filtered.length > 0 ? filtered : allDogs} />
+
     </div>
   );
 }

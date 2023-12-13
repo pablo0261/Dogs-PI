@@ -30,6 +30,7 @@ function Form() {
     setTemperamentsList(false);
   };
 
+  //!USAR ESTE HANDLER EN EL HOME PARA HACER EL FILTRO DE TEMPSVC
   const handleTemperamentClick = (selectedTemperament) => {
     setInputs((prevInputs) => ({
       ...prevInputs,
@@ -61,18 +62,18 @@ const handleChange = (event) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputs)
     dispatch(postDogs(inputs))
     alert("The dog was created")
-    setInputs({
-      name: "",
-      weightMin: 0,
-      weightMax: 0,
-      heightMin: 0,
-      heightMax: 0,
-      life_span: 0,
-      temperaments: [],
-    })
+    // setInputs({
+    //   name: "",
+    // weightMin: "",
+    // weightMax: "",
+    // heightMin: "",
+    // heightMax: "",
+    // life_span: "",
+    // temperaments: [],
+    // image: "",
+    // })
   }
 
   return (

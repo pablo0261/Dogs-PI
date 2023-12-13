@@ -30,7 +30,6 @@ function NavBar({handleChange, handleSubmit}) {
           onChange={(e) => handleChange(e)}
         />
       </form>
-        <button className="FilterButton">Filtro</button>
         <button type="submit" className="CreateDog" onClick={handleButtonGo}>
           Add Breeds
         </button>

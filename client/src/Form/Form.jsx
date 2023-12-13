@@ -25,7 +25,9 @@ const Form = ({ login }) => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log("Datos del formulario:", userData);
     login(userData);
+    dispatch(postDogs(userData)); 
   };
 
   return (

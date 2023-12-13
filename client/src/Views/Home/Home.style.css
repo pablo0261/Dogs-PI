@@ -25,12 +25,12 @@
 
   .OrderButton{
     position:relative;
-    margin: -50px 900px 20px 0px;
-    align-content: center;
-    justify-content: center;
-    width: 70px;
+    display: flex;
+    margin: -70px 10px 20px 10px;
+    width: 150px;
     height: 40px;
-    font-size: 16px;
+    left: -270px;
+    font-size: 14px;
     border: 2px solid var(--color-border);
     background-color:var(--color-background-tiped);
     border-radius: 10px;
