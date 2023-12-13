@@ -20,11 +20,10 @@ function Home() {
   const allDogs = useSelector((state) => state.allDogs);
   const createDogs = useSelector((state) => state.createDogs);
   const temperaments = useSelector((state) => state.allTemperaments);
-  const statusOriginFilter = useSelector((state) => state.statusOriginFilter);//* bandera para funcionamiento del filtrado pororigen
   let errorMessage = "";
-  // const [inputs, setInputs] = useState({
-  //   Temps: [],
-  // });
+  const [inputs, setInputs] = useState({
+    Temps: [],
+  });
 
   console.log(createDogs);
 
@@ -60,19 +59,18 @@ function Home() {
     }
   };
 
-  const handleOrder = (e) => {
-    //*Orden alfabetico dogs
+  const handleOrder = (e) => { //*Orden alfabetico dogs
+   
     dispatch(orderDogs(e.target.value));
     // setOrden(`Ordenado ${e.target.value}`)
   };
 
-  const handlerFilterW = (e) => {
-    //*Orden x peso dogs
+  const handlerFilterW = (e) => {//*Orden x peso dogs
     dispatch(filterByW(e.target.value));
     // setOrden(`Ordenado ${e.target.value}`)
   };
 
-  const handlerFilterOrigin = (e) => {
+  const handlerFilterOrigin = (e) => {//* Filtro x origen
     dispatch(FilterOriginDog(e.target.value));
   };
 
@@ -81,25 +79,26 @@ function Home() {
     dispatch(FilterByTemp(e.target.value));
   };
 
-  // useEffect(() => {
-  //   dispatch(getAllTemperaments())
-  // }, [dispatch]);
+  const handleTemperamentClick = (selectedTemps) => {
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      Temps: [...prevInputs.Temps, selectedTemps],
+    }));
+  };
 
-  // const handleTemperamentClick = (selectedTemps) => {
-  //   setInputs((prevInputs) => ({
-  //     ...prevInputs,
-  //     Temps: [...prevInputs.Temps, selectedTemps],
-  //   }));
-  // };
+  const handleSelect = (e) => {
+    if (!inputs.Temps.includes(e.target.value)) {
+      setInputs({
+        ...inputs,
+        Temps: [...inputs.Temps, e.target.value],
+      });
+    }
+  };
 
-//   const handleSelect = (e) => {
-//     if(!inputs.Temps.includes(e.target.value)){
-//         setInputs({
-//             ...inputs,
-//             Temps : [...inputs.Temps, e.target.value]
-//         })
-//     }
-// }
+  useEffect(() => {
+    // Si deseas aplicar el filtro por temperamentos en tiempo real, puedes llamar a la acción aquí
+    dispatch(FilterByTemp(inputs.Temps));
+  }, [inputs.Temps, dispatch]);
 
   return (
     <div className="Home">

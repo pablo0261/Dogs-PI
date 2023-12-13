@@ -18,6 +18,7 @@ let initialState = {
   createDogs: [],
   filterApi: [],
   filterDb: [],
+  filterTemp: [],
 };
 
 //*Para extraer los temperamentos individualmente
@@ -41,7 +42,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allDogs: payload,
         filterApi: payload,
         filterDb: payload,
-
+        filterTemp: payload,
       };
 
     case GET_ALL_TEMP:
@@ -88,44 +89,48 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case FILTER_BY_WEIGHT:
-      const copy2 = state.allDogs.filter(dog => dog.weightMin)
-      const filterWeight = payload === 'weightMin' ? copy2.sort((a, b) => {
-        return a.weightMin - b.weightMin
-      })  :
-      copy2.sort((a,b) =>{
-        return b.weightMin - a.weightMin
-    })
-      
+      const copy2 = state.allDogs.filter((dog) => dog.weightMin);
+      const filterWeight =
+        payload === "weightMin"
+          ? copy2.sort((a, b) => {
+              return a.weightMin - b.weightMin;
+            })
+          : copy2.sort((a, b) => {
+              return b.weightMin - a.weightMin;
+            });
+
       return {
         ...state,
         allDogs: filterWeight,
-    };
+      };
 
     case FILTER_BY_TEMP:
-      const copy3 = state.allDogs
-      const filteredTemp = payload === "All"? copy3 : copy3.filter(d => {
-          return d.temperaments?.includes(payload)
-      })
-      return {
-        ...state,
-        allDogs: filteredTemp,//*modificar otro estado (ejem:dog)
-    };
+      const reset = state.filterTemp;
+      const copy1 = state.filterApi;
+      const copy3 = state.allDogs.filter((d) =>
+        d.temperaments?.includes(payload)
+      );
+
+      if (payload === "All") {
+        return { ...state, allDogs: reset };
+      } else {
+        return { ...state, filterTemp: copy1, allDogs: copy3 };
+      }
 
     case FILTER_ORIGIN_DOG:
-  const copy4 = state.filterApi.filter(dog => isNaN(Number(dog.id)));
-  const copy5 = state.filterDb.filter(dog => !isNaN(Number(dog.id)));
-  const copy6 = state.allDogs;
-  
+      const copy4 = state.filterApi.filter((dog) => isNaN(Number(dog.id)));
+      const copy5 = state.filterDb.filter((dog) => !isNaN(Number(dog.id)));
+      const copy6 = state.allDogs;
+      const copy7 = state.filterTemp;
 
-  if (payload === 'created') {
-    return{...state, filterDb: copy6, allDogs:copy4}
-  } else if (payload === 'Api') {
-    return{...state, filterApi: copy4, allDogs:copy5}
-  } else {
-    return{...state, allDogs:copy5}
-  }
-  
 
+      if (payload === "created") {
+        return { ...state, filterDb: copy6, allDogs: copy4 };
+      } else if (payload === "Api") {
+        return { ...state, filterApi: copy4, allDogs: copy5 };
+      } else {
+        return { ...state, allDogs: copy7 };
+      }
 
     default:
       return state;
