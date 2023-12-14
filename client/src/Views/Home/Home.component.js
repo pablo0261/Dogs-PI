@@ -15,15 +15,17 @@ import NavBar from "../../NavBar/NavBar.component";
 function Home() {
   const [filtered, setFiltered] = useState("");
   const [searchString, setSearchString] = useState("");
+  // const [selectedTemps, setSelectedTemps] = useState([]);
 
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
   const createDogs = useSelector((state) => state.createDogs);
   const temperaments = useSelector((state) => state.allTemperaments);
+  const dogSelected = useSelector((state) => state.dogSelected);
   let errorMessage = "";
-  const [inputs, setInputs] = useState({
-    Temps: [],
-  });
+  // const [inputs, setInputs] = useState({
+  //   Temps: [],
+  // });
 
   console.log(createDogs);
 
@@ -36,14 +38,14 @@ function Home() {
     e.preventDefault();
     setSearchString(e.target.value);
     // console.log("searchString:", e.target.value);
-  }; //!ver si sirve apra algo
+  }; 
 
   const handleSubmit = (e) => {//*Filtro x nombre
     
     // console.log("searchString:", searchString);
     e.preventDefault();
     try {
-      // console.log("Datos de perros disponibles:", allDogs);
+      console.log("Datos de perros disponibles:", allDogs);
 
       const filteredDogs = allDogs.filter((dog) =>
         dog.name.toLowerCase().includes(searchString.toLowerCase())
@@ -51,7 +53,7 @@ function Home() {
       if (filteredDogs.length === 0) {
         throw new Error("No dog breeds found with that name.");
       }
-      // console.log("Perros filtrados:", filteredDogs);
+      console.log("Perros filtrados:", filteredDogs);
       setFiltered(filteredDogs);
     } catch (error) {
       console.error(error.message);
@@ -78,27 +80,6 @@ function Home() {
     e.preventDefault();
     dispatch(FilterByTemp(e.target.value));
   };
-
-  const handleTemperamentClick = (selectedTemps) => {
-    setInputs((prevInputs) => ({
-      ...prevInputs,
-      Temps: [...prevInputs.Temps, selectedTemps],
-    }));
-  };
-
-  const handleSelect = (e) => {
-    if (!inputs.Temps.includes(e.target.value)) {
-      setInputs({
-        ...inputs,
-        Temps: [...inputs.Temps, e.target.value],
-      });
-    }
-  };
-
-  useEffect(() => {
-    // Si deseas aplicar el filtro por temperamentos en tiempo real, puedes llamar a la acción aquí
-    dispatch(FilterByTemp(inputs.Temps));
-  }, [inputs.Temps, dispatch]);
 
   return (
     <div className="Home">
@@ -167,8 +148,13 @@ function Home() {
         </select>
       </div>
 
-      <Cards AllDogs={filtered.length > 0 ? filtered : allDogs} />
-
+      <Cards 
+  AllDogs={
+    (filtered.length > 0 && filtered) ||
+    (dogSelected.length > 0 && dogSelected) ||
+    allDogs
+  }//!ELPROBLEMA ESTA AQUI QUE SE PISAN LOS FILTROS Y VACIAN EL ESTADO GLOBAL.--> SOLUCIONARLO<--
+/>
     </div>
   );
 }

@@ -13,12 +13,12 @@ import {
 let initialState = {
   allDogs: [],
   allTemperaments: [],
-  dogSelected: [],
   dogName: "",
   createDogs: [],
   filterApi: [],
   filterDb: [],
   filterTemp: [],
+  dogSelected: [],
 };
 
 //*Para extraer los temperamentos individualmente
@@ -104,18 +104,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allDogs: filterWeight,
       };
 
-    case FILTER_BY_TEMP:
-      const reset = state.filterTemp;
-      const copy1 = state.filterApi;
-      const copy3 = state.allDogs.filter((d) =>
-        d.temperaments?.includes(payload)
-      );
+       
+      case FILTER_BY_TEMP:
+  const filteredTemp = state.allDogs.filter((dog) =>
+    dog.temperament?.includes(payload)
+  );
+  return {
+    ...state,
+    dogSelected: filteredTemp,
+  };
 
-      if (payload === "All") {
-        return { ...state, allDogs: reset };
-      } else {
-        return { ...state, filterTemp: copy1, allDogs: copy3 };
-      }
+      //*VERSION ORIGINAL
+    // case FILTER_BY_TEMP:
+    //   const reset = state.filterTemp;
+    //   const copy1 = state.filterApi;
+    //   const copy3 = state.allDogs.filter((d) =>
+    //     d.temperaments?.includes(payload)
+    //   );
+
+    //   if (payload === "All") {
+    //     return { ...state, allDogs: reset };
+    //   } else {
+    //     return { ...state, filterTemp: copy1, allDogs: copy3 };
+    //   }
 
     case FILTER_ORIGIN_DOG:
       const copy4 = state.filterApi.filter((dog) => isNaN(Number(dog.id)));
