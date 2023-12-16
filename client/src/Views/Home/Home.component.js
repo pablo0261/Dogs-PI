@@ -7,15 +7,20 @@ import {
   getAllTemperaments,
   FilterByTemp,
   FilterOriginDog,
+  resetAll,
+  postDogs,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import Cards from "../../Cards/Cards.component";
 import NavBar from "../../NavBar/NavBar.component";
+import { all } from "axios";
 
 function Home() {
-  const [filtered, setFiltered] = useState("");
-  const [searchString, setSearchString] = useState("");
-  // const [selectedTemps, setSelectedTemps] = useState([]);
+  const [filtered, setFiltered] = useState("");//* contiene el resultado de la busqueda de search
+  const [searchString, setSearchString] = useState("");//*contiene lo que se escribe en el search
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);//*estado para mostrar los temp seleccionados
+  // const [originalAllDogs, setOriginalAllDogs] = useState([]);//*para manejar allDogs y no perder su info original
+
 
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
@@ -27,15 +32,15 @@ function Home() {
   //   Temps: [],
   // });
 
-  console.log(createDogs);
+  // console.log(createDogs);
 
   useEffect(() => {
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
 
+
   const handleChange = (e) => {
-    e.preventDefault();
     setSearchString(e.target.value);
     // console.log("searchString:", e.target.value);
   }; 
@@ -45,16 +50,17 @@ function Home() {
     // console.log("searchString:", searchString);
     e.preventDefault();
     try {
-      console.log("Datos de perros disponibles:", allDogs);
-
       const filteredDogs = allDogs.filter((dog) =>
         dog.name.toLowerCase().includes(searchString.toLowerCase())
       );
       if (filteredDogs.length === 0) {
         throw new Error("No dog breeds found with that name.");
+       } 
+       if (searchString.trim() === "") {
+        setFiltered("");
+      }else{
+        setFiltered(filteredDogs);
       }
-      console.log("Perros filtrados:", filteredDogs);
-      setFiltered(filteredDogs);
     } catch (error) {
       console.error(error.message);
       setFiltered("");
@@ -78,7 +84,20 @@ function Home() {
 
   const handlerFilterTemp = (e) => {
     e.preventDefault();
+    const selectedTemp = e.target.value;
     dispatch(FilterByTemp(e.target.value));
+    if (!selectedTemperaments.includes(selectedTemp)) {
+      // Actualiza el estado de los temperamentos seleccionados
+      setSelectedTemperaments([...selectedTemperaments, selectedTemp]);
+    }
+  };
+  console.log(dogSelected)
+
+  const handleRemoveTemperament = (deleteTemp) => {
+    const updatedTemperaments = selectedTemperaments.filter(
+      (temp) => temp !== deleteTemp
+    );
+    setSelectedTemperaments(updatedTemperaments);
   };
 
   return (
@@ -129,7 +148,7 @@ function Home() {
           </option>
         </select>
 
-        <select className="OrderButton" onChange={(e) => handlerFilterTemp (e)}>
+        <select className="OrderButton" onChange={(e) => handlerFilterTemp (e)} >
           <option>Temperaments</option>
           <option
             key={1}
@@ -146,6 +165,14 @@ function Home() {
             </option>
           ))}
         </select>
+        <div className="SelectedTemperamentsContainer">
+  {selectedTemperaments.map((temp) => (
+    <div key={temp} className="SelectedTemperament">
+      {temp}
+      <button onClick={() => handleRemoveTemperament(temp)}>X</button>
+    </div>
+  ))}
+</div>
       </div>
 
       <Cards 
@@ -153,7 +180,7 @@ function Home() {
     (filtered.length > 0 && filtered) ||
     (dogSelected.length > 0 && dogSelected) ||
     allDogs
-  }//!ELPROBLEMA ESTA AQUI QUE SE PISAN LOS FILTROS Y VACIAN EL ESTADO GLOBAL.--> SOLUCIONARLO<--
+  }
 />
     </div>
   );
