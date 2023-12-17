@@ -13,14 +13,14 @@ import {
 import "./Home.style.css";
 import Cards from "../../Cards/Cards.component";
 import NavBar from "../../NavBar/NavBar.component";
-import { all } from "axios";
+import Paginate from "../../Pagination/Pagination";
 
 function Home() {
-  const [filtered, setFiltered] = useState("");//* contiene el resultado de la busqueda de search
-  const [searchString, setSearchString] = useState("");//*contiene lo que se escribe en el search
-  const [selectedTemperaments, setSelectedTemperaments] = useState([]);//*estado para mostrar los temp seleccionados
+  console.log("Renderizando Home");
+  const [filtered, setFiltered] = useState(""); //* contiene el resultado de la busqueda de search
+  const [searchString, setSearchString] = useState(""); //*contiene lo que se escribe en el search
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]); //*estado para mostrar los temp seleccionados
   // const [originalAllDogs, setOriginalAllDogs] = useState([]);//*para manejar allDogs y no perder su info original
-
 
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
@@ -28,25 +28,57 @@ function Home() {
   const temperaments = useSelector((state) => state.allTemperaments);
   const dogSelected = useSelector((state) => state.dogSelected);
   let errorMessage = "";
-  // const [inputs, setInputs] = useState({
-  //   Temps: [],
-  // });
 
-  // console.log(createDogs);
+  //*--- PARA ENVIAR A MODULO DOG --- //
+  const dogsResult =
+    (filtered.length > 0 && filtered) ||
+    (dogSelected.length > 0 && dogSelected) ||
+    allDogs;
+
+  //* --- PAGINADO---//
+  const [currentPage, setCurrentPage] = useState(1);
+  const [dogsPerPage] = useState(8);
+  const [pageLimit, setPageLimit] = useState(1);
+  const indexPageFirstDog = currentPage * dogsPerPage;
+  const indexFirstDog = indexPageFirstDog - dogsPerPage;
+  const currentDogs = dogsResult.slice(indexFirstDog, indexPageFirstDog);
+  const pageNumbers = Math.ceil(dogsResult.length / dogsPerPage);
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const nextPage = () => {
+    setCurrentPage((page) => page + 1);
+  };
+
+  const previousPage = () => {
+    setCurrentPage((page) => page - 1);
+  };
+
+  const getPages = () => {
+    const start = Math.max(currentPage - Math.floor(pageLimit / 2), 1);
+    return new Array(Math.min(pageNumbers, pageLimit))
+      .fill()
+      .map((_, i) => start + i);
+  };
+
+  //* --- PAGINADO---//
 
   useEffect(() => {
+    console.log("Obteniendo todos los perros");
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
 
-
   const handleChange = (e) => {
     setSearchString(e.target.value);
     // console.log("searchString:", e.target.value);
-  }; 
+  };
 
-  const handleSubmit = (e) => {//*Filtro x nombre
-    
+  const handleSubmit = (e) => {
+    //*Filtro x nombre
+    setCurrentPage(1);
     // console.log("searchString:", searchString);
     e.preventDefault();
     try {
@@ -55,10 +87,10 @@ function Home() {
       );
       if (filteredDogs.length === 0) {
         throw new Error("No dog breeds found with that name.");
-       } 
-       if (searchString.trim() === "") {
+      }
+      if (searchString.trim() === "") {
         setFiltered("");
-      }else{
+      } else {
         setFiltered(filteredDogs);
       }
     } catch (error) {
@@ -67,37 +99,45 @@ function Home() {
     }
   };
 
-  const handleOrder = (e) => { //*Orden alfabetico dogs
-   
+  const handleOrder = (e) => {
+    //*Orden alfabetico dogs
+
     dispatch(orderDogs(e.target.value));
     // setOrden(`Ordenado ${e.target.value}`)
+    setCurrentPage(1);
   };
 
-  const handlerFilterW = (e) => {//*Orden x peso dogs
+  const handlerFilterW = (e) => {
+    //*Orden x peso dogs
     dispatch(filterByW(e.target.value));
     // setOrden(`Ordenado ${e.target.value}`)
+    setCurrentPage(1);
   };
 
-  const handlerFilterOrigin = (e) => {//* Filtro x origen
+  const handlerFilterOrigin = (e) => {
+    //* Filtro x origen
     dispatch(FilterOriginDog(e.target.value));
+    setCurrentPage(1);
   };
 
   const handlerFilterTemp = (e) => {
     e.preventDefault();
     const selectedTemp = e.target.value;
-    dispatch(FilterByTemp(e.target.value));
+    setCurrentPage(1);
     if (!selectedTemperaments.includes(selectedTemp)) {
       // Actualiza el estado de los temperamentos seleccionados
       setSelectedTemperaments([...selectedTemperaments, selectedTemp]);
     }
+    dispatch(FilterByTemp(selectedTemperaments));
   };
-  console.log(dogSelected)
+  console.log(dogSelected);
 
   const handleRemoveTemperament = (deleteTemp) => {
     const updatedTemperaments = selectedTemperaments.filter(
       (temp) => temp !== deleteTemp
     );
     setSelectedTemperaments(updatedTemperaments);
+    setCurrentPage(1);
   };
 
   return (
@@ -105,9 +145,12 @@ function Home() {
       <div className="HomeContainerTitle">
         <h1 className="HomeTitle">Dog Breeds</h1>
       </div>
-      <NavBar handleChange={handleChange} handleSubmit={handleSubmit} />
+      <NavBar
+        paginado={paginado}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
       {errorMessage && <p className="ErrorMessage">{errorMessage}</p>}
-
       <div className="DivfilterButton">
         <select
           className="OrderButton"
@@ -148,40 +191,65 @@ function Home() {
           </option>
         </select>
 
-        <select className="OrderButton" onChange={(e) => handlerFilterTemp (e)} >
+        <select className="OrderButton" onChange={(e) => handlerFilterTemp(e)}>
           <option>Temperaments</option>
-          <option
-            key={1}
-            value="All"
-          >
+          <option key={1} value="All">
             All
           </option>
           {temperaments.map((temp) => (
-            <option
-              value={temp}
-              key={temp}
-            >
+            <option value={temp} key={temp}>
               {temp}
             </option>
           ))}
         </select>
         <div className="SelectedTemperamentsContainer">
-  {selectedTemperaments.map((temp) => (
-    <div key={temp} className="SelectedTemperament">
-      {temp}
-      <button onClick={() => handleRemoveTemperament(temp)}>X</button>
-    </div>
-  ))}
-</div>
+          {selectedTemperaments.map((temp) => (
+            <div key={temp} className="SelectedTemperament">
+              {temp}
+              <button onClick={() => handleRemoveTemperament(temp)}>X</button>
+            </div>
+          ))}
+        </div>
       </div>
+      <Paginate
+        pageNumbers={pageNumbers}
+        getPages={getPages}
+        currentPage={currentPage}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        dogsPerPage={dogsPerPage}
+        dogsResult={dogsResult.length}
+        paginado={paginado}
+      />
+      <Cards AllDogs={currentDogs} />
 
-      <Cards 
-  AllDogs={
-    (filtered.length > 0 && filtered) ||
-    (dogSelected.length > 0 && dogSelected) ||
-    allDogs
-  }
-/>
+      {/* <div>
+        {allDogs.length ? (
+          <div className="divPaginateContainer">
+            {currentDogs.map((e) => {
+              return (
+                <div className="divPaginateCard" key={e.id}>
+                  {<Cards AllDogs={dogsResult} />}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="divLoading">
+            <h1>LOADING...</h1>
+          </div>
+        )}
+      </div> */}
+      <Paginate
+        pageNumbers={pageNumbers}
+        getPages={getPages}
+        currentPage={currentPage}
+        nextPage={nextPage}
+        previousPage={previousPage}
+        dogsPerPage={dogsPerPage}
+        dogsResult={dogsResult.length}
+        paginado={paginado}
+      />
     </div>
   );
 }

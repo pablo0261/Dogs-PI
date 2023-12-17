@@ -22,7 +22,7 @@ function Card(props) {
 
   return (
     <div className="CardContainer" >
-       <Link to={`/home/${id}`}>
+       <Link to={`/home/${id}`} key={id}>
       <img
         className="CardImage"
         src={imageUrl}

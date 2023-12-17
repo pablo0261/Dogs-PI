@@ -97,14 +97,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
 
     case FILTER_BY_TEMP:
-      const selectedTemps = payload === "All" ? [] : payload
-      const filteredTemp = state.allDogs.filter((dog) =>
-        selectedTemps.every((temp) => dog.temperament?.includes(temp))
-      );
-      return {
-        ...state,
-        dogSelected: [filteredTemp]
-      };
+  const selectedTemp = payload === "All" ? [] : payload;
+  const filteredTemp = state.allDogs.filter((dog) =>
+    selectedTemp.reduce((acc, temp) => acc && dog.temperament?.includes(temp), true)
+  );
+  return {
+    ...state,
+    dogSelected: filteredTemp,
+  };
 
     case FILTER_ORIGIN_DOG:
       const copy4 = state.filterApi.filter((dog) => isNaN(Number(dog.id)));
