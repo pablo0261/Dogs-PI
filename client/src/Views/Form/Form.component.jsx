@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {getAllTemperaments, postDogs} from "../../Redux/Actions"
+import { getAllTemperaments, postDogs } from "../../Redux/Actions";
 import "./Form.style.css";
 import validation from "./Validation";
-
 
 function Form() {
   const dispatch = useDispatch();
@@ -19,8 +18,16 @@ function Form() {
   });
 
   const [errors, setErrors] = useState({});
-  const temperaments = useSelector((state) => state.allTemperaments)
+  const temperaments = useSelector((state) => state.allTemperaments);
   const [temperamentsList, setTemperamentsList] = useState(false);
+  const formFields = [
+    { label: "Name", name: "name", type: "text", placeholder: "Name" },
+    { label: "weightMin", name: "weightMin", type: "text", placeholder: "0" },
+    { label: "weightMax", name: "weightMax", type: "text", placeholder: "0" },
+    { label: "heightMin", name: "heightMin", type: "text", placeholder: "0cm" },
+    { label: "heightMax", name: "heightMax", type: "text", placeholder: "0cm" },
+    { label: "life_span", name: "life_span", type: "text", placeholder: "1 - 6" },
+  ];
 
   const handleMouseEnter = () => {
     setTemperamentsList(true);
@@ -30,7 +37,6 @@ function Form() {
     setTemperamentsList(false);
   };
 
-  //!USAR ESTE HANDLER EN EL HOME PARA HACER EL FILTRO DE TEMPSVC
   const handleTemperamentClick = (selectedTemperament) => {
     setInputs((prevInputs) => ({
       ...prevInputs,
@@ -38,21 +44,28 @@ function Form() {
     }));
   };
 
-useEffect(() => {
-  dispatch(getAllTemperaments())
-}, [dispatch]);
+  const handleDeleteTemps = (deleteTemp) => {
+    const newTemperament = temperaments.filter(temp => temp !== deleteTemp)  
+    setInputs((newTemperament) => ({
+      ...inputs,
+      temperaments: newTemperament,
+    }));
+    }
 
-const handleSelect = (e) => {
-      if(!inputs.temperaments.includes(e.target.value)){
-          setInputs({
-              ...inputs,
-              temperaments : [...inputs.temperaments, e.target.value]
-          })
-      }
-}
+  useEffect(() => {
+    dispatch(getAllTemperaments());
+  }, [dispatch]);
 
+  const handleSelect = (e) => {
+    if (!inputs.temperaments.includes(e.target.value)) {
+      setInputs({
+        ...inputs,
+        temperaments: [...inputs.temperaments, e.target.value],
+      });
+    }
+  };
 
-const handleChange = (event) => {
+  const handleChange = (event) => {
     let property = event.target.name;
     let value = event.target.value;
     // console.log(property, value);
@@ -62,146 +75,80 @@ const handleChange = (event) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(postDogs(inputs))
-    alert("The dog was created")
-    // setInputs({
-    //   name: "",
-    // weightMin: "",
-    // weightMax: "",
-    // heightMin: "",
-    // heightMax: "",
-    // life_span: "",
-    // temperaments: [],
-    // image: "",
-    // })
-  }
+    dispatch(postDogs(inputs));
+    alert("The dog was created");
+  };
 
   return (
     <div>
       <button
-          className="DetailButton"
-          onClick={() => window.history.back()}
-        ></button>
-    <form onSubmit={handleSubmit}>
-      <h1>Esta es la Form Page</h1>
-      <div className="FormDivInput">
-        <label className="FormLavel"> Name</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="name"
-          value={inputs.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <div className="ErrorMessage">{errors.name}</div>
-      </div>
-      <div className="FormDivInput">
-        <label className="FormLavel">weightMin</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="weightMin"
-          value={inputs.weightMin}
-          onChange={handleChange}
-          placeholder="0"
-        />
-        <div className="ErrorMessage">{errors.weightMin}</div>
-      </div>
-      <div className="FormDivInput">
-        <label className="FormLavel">weightMax</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="weightMax"
-          value={inputs.weightMax}
-          onChange={handleChange}
-          placeholder="0"
-        />
-        <div className="ErrorMessage">{errors.weightMax}</div>
-      </div>
-      <div className="FormDivInput">
-        <label className="FormLavel">heightMin</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="heightMin"
-          value={inputs.heightMin}
-          onChange={handleChange}
-          placeholder="0"
-        />
-        <div className="ErrorMessage">{errors.heightMin}</div>
-      </div>
-      <div className="FormDivInput">
-        <label className="FormLavel">heightMax</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="heightMax"
-          value={inputs.heightMax}
-          onChange={handleChange}
-          placeholder="0"
-        />
-        <div className="ErrorMessage">{errors.heightMax}</div>
-      </div>
-      <div className="FormDivInput">
-        <label className="FormLavel">life_span</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="life_span"
-          value={inputs.life_span}
-          onChange={handleChange}
-          placeholder="1 - 6"
-        />
-        <div className="ErrorMessage">{errors.life_span}</div>
-      </div>
-
-          {/* -----  TEMPERAMENTS ------- */}
-
-          <div className="FormDivInput"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-          >
-        <label className="FormLavel">Temperamento</label>
-        <input
-          className="Inputs"
-          type="text"
-          name="temperaments"
-          value={inputs.temperaments}
-          onChange={handleSelect}
-          placeholder="Select temperaments"
-        />
-          {temperamentsList && (
-          <div className="TemperamentsList">
-            {temperaments.map((temp) => (
-              <span key={temp} onClick={() => handleTemperamentClick(temp)} >
-                {  temp  }
-              </span>
-            ))}
+        className="DetailButton"
+        onClick={() => window.history.back()}
+      ></button>
+      <form onSubmit={handleSubmit}>
+        <h1>Esta es la Form Page</h1>
+        {formFields.map((field) => (
+          <div key={field.name} className="FormDivInput">
+            <label className="FormLavel">{field.label}</label>
+            <input
+              className="Inputs"
+              type={field.type}
+              name={field.name}
+              value={inputs[field.name]}
+              onChange={handleChange}
+              placeholder={field.placeholder}
+            />
+            <div className="ErrorMessage">{errors[field.name]}</div>
           </div>
-        )}
-        <div className="ErrorMessage">{errors.temperaments}</div>
-      </div>
+        ))}
+
+        {/* -----  TEMPERAMENTS ------- */}
+
+        <div
+          className="FormDivInput"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <label className="FormLavel">Temperamento</label>
+          <input
+            className="Inputs"
+            type="text"
+            name="temperaments"
+            value={inputs.temperaments}
+            onChange={handleSelect}
+            onBlur={handleDeleteTemps}
+            placeholder="Select temperaments"
+          />
+          {temperamentsList && (
+            <div className="TemperamentsList">
+              {temperaments.map((temp) => (
+                <span key={temp} onClick={() => handleTemperamentClick(temp)}>
+                  {temp}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="ErrorMessage">{errors.temperaments}</div>
+        </div>
 
         {/* -----  IMAGEN ------- */}
 
-      <div className="FormDivInput">
-        <label className="FormLavelImage">Upload Image</label>
-        <input
-          className="Inputs"
-          type="file"
-          name="image"
-          value={inputs.image}
-          onChange={handleChange}
-        />
-        <div className="ErrorMessage">{errors.image}</div>
-      </div>
-      <button className="ButtonFomr" type="submit">
-        Send
-      </button>
-    </form>
-  </div>
+        <div className="FormDivInput">
+          <label className="FormLavelImage">Upload Image</label>
+          <input
+            className="Inputs"
+            type="file"
+            name="image"
+            value={inputs.image}
+            onChange={handleChange}
+          />
+          <div className="ErrorMessage">{errors.image}</div>
+        </div>
+        <button className="ButtonFomr" type="submit">
+          Send
+        </button>
+      </form>
+    </div>
   );
 }
 

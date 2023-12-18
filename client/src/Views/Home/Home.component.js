@@ -11,9 +11,10 @@ import {
   postDogs,
 } from "../../Redux/Actions";
 import "./Home.style.css";
-import Cards from "../../Cards/Cards.component";
 import NavBar from "../../NavBar/NavBar.component";
+import Dogs from "../../Dogs/Dogs"
 import Paginate from "../../Pagination/Pagination";
+import Cards from "../../Cards/Cards.component";
 
 function Home() {
   console.log("Renderizando Home");
@@ -24,10 +25,10 @@ function Home() {
 
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
-  const createDogs = useSelector((state) => state.createDogs);
+  const createDogs = useSelector((state) => state.createDogs);//! este rcreo que solo lo usa form
   const temperaments = useSelector((state) => state.allTemperaments);
   const dogSelected = useSelector((state) => state.dogSelected);
-  let errorMessage = "";
+  let errorMessage = "";//! ver si lo necesito aqui
 
   //*--- PARA ENVIAR A MODULO DOG --- //
   const dogsResult =
@@ -70,6 +71,13 @@ function Home() {
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
+
+  const resetAll = (e) => {
+    e.preventDefault();
+    console.log("Obteniendo todos los perros");
+    dispatch(getAllDogs());
+    dispatch(getAllTemperaments());
+  };
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
@@ -120,6 +128,17 @@ function Home() {
     setCurrentPage(1);
   };
 
+
+  useEffect(() => {
+    // Función para manejar el filtrado cuando selectedTemperaments cambia
+    const handleFilterByTemp = () => {
+      dispatch(FilterByTemp(selectedTemperaments));
+    };
+
+    // Ejecutar la función de filtrado cuando selectedTemperaments cambia
+    handleFilterByTemp();
+  }, [selectedTemperaments, dispatch]);
+
   const handlerFilterTemp = (e) => {
     e.preventDefault();
     const selectedTemp = e.target.value;
@@ -128,16 +147,16 @@ function Home() {
       // Actualiza el estado de los temperamentos seleccionados
       setSelectedTemperaments([...selectedTemperaments, selectedTemp]);
     }
+    console.log(selectedTemperaments)
     dispatch(FilterByTemp(selectedTemperaments));
   };
-  console.log(dogSelected);
 
   const handleRemoveTemperament = (deleteTemp) => {
     const updatedTemperaments = selectedTemperaments.filter(
       (temp) => temp !== deleteTemp
     );
     setSelectedTemperaments(updatedTemperaments);
-    setCurrentPage(1);
+    dispatch(FilterByTemp(updatedTemperaments));
   };
 
   return (
@@ -145,111 +164,56 @@ function Home() {
       <div className="HomeContainerTitle">
         <h1 className="HomeTitle">Dog Breeds</h1>
       </div>
+
       <NavBar
         paginado={paginado}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
       {errorMessage && <p className="ErrorMessage">{errorMessage}</p>}
-      <div className="DivfilterButton">
-        <select
-          className="OrderButton"
-          onChange={(event) => handleOrder(event)}
-        >
-          <option>Order by Name</option>
-          <option key={1} value="A-Z">
-            A-Z
-          </option>
-          <option key={2} value="Z-A">
-            Z-A
-          </option>
-        </select>
-
-        <select className="OrderButton" onChange={(e) => handlerFilterW(e)}>
-          <option>Order by Weight</option>
-          <option key={1} value="weightMax">
-            Max
-          </option>
-          <option key={2} value="weightMin">
-            Min
-          </option>
-        </select>
-
-        <select
-          className="OrderButton"
-          onChange={(e) => handlerFilterOrigin(e)}
-        >
-          <option>Order by Origin</option>
-          <option key={1} value="All">
-            All
-          </option>
-          <option key={2} value="created">
-            Created
-          </option>
-          <option key={3} value="Api">
-            Api
-          </option>
-        </select>
-
-        <select className="OrderButton" onChange={(e) => handlerFilterTemp(e)}>
-          <option>Temperaments</option>
-          <option key={1} value="All">
-            All
-          </option>
-          {temperaments.map((temp) => (
-            <option value={temp} key={temp}>
-              {temp}
-            </option>
-          ))}
-        </select>
-        <div className="SelectedTemperamentsContainer">
-          {selectedTemperaments.map((temp) => (
-            <div key={temp} className="SelectedTemperament">
-              {temp}
-              <button onClick={() => handleRemoveTemperament(temp)}>X</button>
-            </div>
-          ))}
+      {allDogs.length ? (
+        <div>
+          <Dogs
+            handleOrder={handleOrder}
+            handlerFilterW={handlerFilterW}
+            handlerFilterOrigin={handlerFilterOrigin}
+            handlerFilterTemp={handlerFilterTemp}
+            temperaments={temperaments}
+            handleRemoveTemperament={handleRemoveTemperament}
+            selectedTemperaments={selectedTemperaments}
+            resetAll = {resetAll}
+          />
+          <Paginate
+            pageNumbers={pageNumbers}
+            getPages={getPages}
+            currentPage={currentPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            dogsPerPage={dogsPerPage}
+            dogsResult={dogsResult.length}
+            paginado={paginado}
+          />
+          {dogSelected.notFound ? (
+            <p className="NotFoundMessage">No dogs were found with those temperaments</p>
+          ) : (
+            <Cards AllDogs={currentDogs} />
+          )}
+          <Paginate
+            pageNumbers={pageNumbers}
+            getPages={getPages}
+            currentPage={currentPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            dogsPerPage={dogsPerPage}
+            dogsResult={dogsResult.length}
+            paginado={paginado}
+          />
         </div>
-      </div>
-      <Paginate
-        pageNumbers={pageNumbers}
-        getPages={getPages}
-        currentPage={currentPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        dogsPerPage={dogsPerPage}
-        dogsResult={dogsResult.length}
-        paginado={paginado}
-      />
-      <Cards AllDogs={currentDogs} />
-
-      {/* <div>
-        {allDogs.length ? (
-          <div className="divPaginateContainer">
-            {currentDogs.map((e) => {
-              return (
-                <div className="divPaginateCard" key={e.id}>
-                  {<Cards AllDogs={dogsResult} />}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="divLoading">
-            <h1>LOADING...</h1>
-          </div>
-        )}
-      </div> */}
-      <Paginate
-        pageNumbers={pageNumbers}
-        getPages={getPages}
-        currentPage={currentPage}
-        nextPage={nextPage}
-        previousPage={previousPage}
-        dogsPerPage={dogsPerPage}
-        dogsResult={dogsResult.length}
-        paginado={paginado}
-      />
+      ) : (
+        <div className="divLoading">
+          <h1>LOADING...</h1>
+        </div>
+      )}
     </div>
   );
 }
