@@ -33,7 +33,6 @@ function NavBar({handleChange, handleSubmit}) {
         <button type="submit" className="CreateDog" onClick={handleButtonGo}>
           Add Breeds
         </button>
-      <div></div>
     </div>
   );
 }

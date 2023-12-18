@@ -1,123 +1,116 @@
-
 :root {
-    --color-border: #921076;
-    --color-background-tiped: #fffdfd;
-    --color-background-general: #f5f3f3;
-  }
-
+  --color-border: #921076;
+  --color-background-tiped: #fffdfd;
+  --color-background-general: #f5f3f3;
+}
 
 .NavBar {
-    background-image: url('https://images6.alphacoders.com/863/863832.jpg'); 
-    background-size: cover; /* Ajusta según tus necesidades, 'cover' ajusta la imagen sin distorsionarla */
+  background-image: url("../Utils/FondoDog2.png");
   background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-size: cover;
   background-position: center;
-    width: 100vw;
-    height: 300px;
-    border-radius: 1px;
-    margin: -70px 0px 70px 0px;
-    cursor:auto;
+  background-color: rgba(153, 152, 152, 0.479);
+  width: 100vw;
+  height: 200px;
+  border-radius: 1px;
+  margin: 0px 0px 70px 0px;
+  cursor: auto;
 }
 
-.SearchBar{
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    border: 2px solid rgba(143, 7, 7, 0);
-    height: 45px;
-    width: 80vw;
-    margin: 100px 90px ;
-    background-color:rgba(0, 0, 0, 0);
-    z-index: 1;
+.SearchBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border: 2px solid rgba(143, 7, 7, 0);
+  height: 45px;
+  width: 80vw;
+  margin: 50px 140px;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
 }
 
-.NavBarButton{
-    background-color:var(--color-background-general);
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    margin-right: 9px;
-    align-items: center;
-    justify-content: center;
-    height: 80%;
-    padding: 9px;
-    cursor:auto;
-    transition: box-shadow 0.3s ease;
-    z-index: 2;
-    font-family: cursive;
-    font-size: 15px;
+.NavBarButton {
+  background-color: var(--color-background-general);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  margin-right: 4px;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  padding: 7px;
+  cursor: auto;
+  transition: box-shadow 0.3s ease;
+  z-index: 2;
+  font-size: 15px;
 }
-.NavBarButton:hover{
-    transform: scale(1.05);
-    background-color:var(--color-background-general);
-    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+.NavBarButton:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-general);
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
-.NavBarButton:active{
-    transform: scale(0.95);
-}
-
-.NavBarInput{
-    display:flex;
-    position: absolute;
-    height: 38px;
-    background-color:#fffdfdcb;
-    border: 2px solid rgba(143, 7, 7, 0);
-    width: 35%;
-    border-radius: 9px;
-    padding: 5px;
-    cursor:auto;
+.NavBarButton:active {
+  transform: scale(0.95);
 }
 
-.NavBarInput::placeholder{
-    font-size: 15px;
-    border-color: #921076;
-}    
-
-
-.DivfilterButton{
-    display: flex;
-    justify-content:left;
-    margin: 0px 100px 0px 100px;
-    align-items: center;
-    border: 2px solid rgba(143, 7, 7, 0);
+.NavBarInput {
+  display: flex;
+  position: absolute;
+  height: 38px;
+  background-color: #fffdfdcb;
+  border: 2px solid rgba(143, 7, 7, 0);
+  width: 35%;
+  border-radius: 9px;
+  padding: 5px;
+  cursor: auto;
+}
+.NavBarInput::placeholder {
+  font-size: 15px;
+  border-color: #921076;
 }
 
-
-
-.FilterButton{
-    width: 140px;
-    height: 60px;
-    border: 2px solid var(--color-border);
-    background-color:var(--color-background-tiped);
-    border-radius: 20px;
-    padding: 5px;
-    margin-inline: 20px;
-    cursor:auto;
-}
-.FilterButton:hover{
-    transform: scale(1.05);
-    background-color:var(--color-background-general);
-    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
-}
-.FilterButton:active{
-    transform: scale(0.95);
+.DivfilterButton {
+  display: flex;
+  justify-content: left;
+  margin: 0px 100px 0px 100px;
+  align-items: center;
+  border: 2px solid rgba(143, 7, 7, 0);
 }
 
-.CreateDog{
-    position:absolute;
-    top: 300px;
-    right: 160px;
-    width: 130px;
-    height: 50px;
-    border: 2px solid var(--color-border);
-    background-color:var(--color-background-tiped);
-    border-radius: 30px;
-    padding: 5px;
-    cursor:auto;
+.FilterButton {
+  width: 140px;
+  height: 60px;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-background-tiped);
+  border-radius: 20px;
+  padding: 5px;
+  margin-inline: 20px;
+  cursor: auto;
 }
-.CreateDog:hover{
-    transform: scale(1.05);
-    background-color:var(--color-background-general);
-    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+.FilterButton:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-general);
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
-.CreateDog:active{
-    transform: scale(0.95);
+.FilterButton:active {
+  transform: scale(0.95);
+}
+
+.CreateDog {
+  position: relative;
+  width: 130px;
+  height: 50px;
+  margin: -30px 0px 0px 900px;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-background-tiped);
+  border-radius: 20px;
+  padding: 5px;
+  cursor: auto;
+}
+.CreateDog:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-general);
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.CreateDog:active {
+  transform: scale(0.95);
 }

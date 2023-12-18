@@ -1,4 +1,5 @@
 import React from "react";
+import "./Dogs.style.css";
 
 const Dogs = ({
   handleOrder,

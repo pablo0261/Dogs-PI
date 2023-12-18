@@ -1,49 +1,27 @@
 .Home {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   text-align: center;
   align-items: center;
 }
 
-.HomeContainerTitle{
-  display: flex;
-  justify-content: left;
-  align-items: center;
-    margin: 20px 80px 80px 80px;
-    background-color: rgb(233, 233, 233);
-    width: 100vw;
-    height: 5vw;
-  }
+.HomeContainerTitle {
+  position: relative;
+  margin: 5px 0px 5px 0px;
+  padding: 5px;
+  background-color: rgba(206, 205, 205, 0);
+  width: 100vw;
+  height: 40px;
+}
 
-  .HomeTitle{
-    align-items: center;
-    margin-left: 40px;
-    font-size: 30px;
-    color:#8d0970;
-    font-family:cursive ;
-  }
+.HomeTitle {
+  width: 700px;
+  height: auto;
+  position: absolute;
+  top: 16px;
+  left: 20px;
+}
 
-  .OrderButton{
-    position:relative;
-    display: flex;
-    margin: -70px 10px 20px 10px;
-    width: 150px;
-    height: 40px;
-    left: -270px;
-    font-size: 14px;
-    border: 2px solid var(--color-border);
-    background-color:var(--color-background-tiped);
-    border-radius: 10px;
-    padding: 5px;
-    cursor:auto; 
+.HomeCards {
+  background-color: aqua;
 }
-.OrderButton:hover{
-    transform: scale(1.05);
-    background-color:var(--color-background-general);
-    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
-}
-.OrderButton:active{
-    transform: scale(0.95);
-}
-  
-  

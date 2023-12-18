@@ -1,0 +1,40 @@
+.DivfilterButton{
+    position:relative;
+    display: flex;
+    width: 50vw;
+    height: 80px;
+    margin: -140px 0px 0px 60px;
+    justify-content: center;
+    align-items: center;
+}
+
+.OrderButton{
+    position:relative;
+    display: flex;
+    align-self: center;
+    margin: 0px 20px 0px 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+    border: 2px solid var(--color-border);
+    background-color:var(--color-background-tiped);
+    border-radius: 10px;
+    padding: 5px;
+    cursor:auto; 
+}
+.OrderButton:hover{
+    transform: scale(1.05);
+    background-color:var(--color-background-general);
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.OrderButton:active{
+    transform: scale(0.95);
+}
+
+.SelectedTemperamentsContainer{
+
+}
+
+.SelectedTemperament{
+
+}

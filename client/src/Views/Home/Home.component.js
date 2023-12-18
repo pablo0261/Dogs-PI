@@ -15,6 +15,7 @@ import NavBar from "../../NavBar/NavBar.component";
 import Dogs from "../../Dogs/Dogs"
 import Paginate from "../../Pagination/Pagination";
 import Cards from "../../Cards/Cards.component";
+import fondo1 from '../../Utils/TituloBreedFinder.png';
 
 function Home() {
   console.log("Renderizando Home");
@@ -162,7 +163,9 @@ function Home() {
   return (
     <div className="Home">
       <div className="HomeContainerTitle">
-        <h1 className="HomeTitle">Dog Breeds</h1>
+        <div >
+        <img src={fondo1} className="HomeTitle" alt="Add Breeds" />
+        </div>
       </div>
 
       <NavBar
@@ -196,7 +199,7 @@ function Home() {
           {dogSelected.notFound ? (
             <p className="NotFoundMessage">No dogs were found with those temperaments</p>
           ) : (
-            <Cards AllDogs={currentDogs} />
+            <Cards AllDogs={currentDogs} className="HomeCards"/>
           )}
           <Paginate
             pageNumbers={pageNumbers}
