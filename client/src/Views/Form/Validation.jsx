@@ -4,7 +4,15 @@ const regexTemperaments = /^(?:\b\w{3}\b(?:, )?)+$/;
 const validation = (inputs, errors, setErrors) => {
   let newErrors = errors;
 
-  const { name, weightMin, weightMax, heightMin, heightMax, life_span, temperaments } = inputs;
+  const {
+    name,
+    weightMin,
+    weightMax,
+    heightMin,
+    heightMax,
+    life_span,
+    temperaments,
+  } = inputs;
 
   if (!name) {
     newErrors.name = "Name is required.";
@@ -38,19 +46,19 @@ const validation = (inputs, errors, setErrors) => {
 
   if (!Number(heightMax) || !Number.isInteger(heightMax)) {
     newErrors.weightMax = "HeightMax must be an integer.";
-  } else if  (heightMax > 150 || heightMax < 1)
+  } else if (heightMax > 150 || heightMax < 1)
     newErrors.heightMax = "HeightMax is invalid.";
   else newErrors.heightMax = "";
 
   if (life_span && !regexlife_span.test(life_span))
     newErrors.life_span =
-    "Life span is invalid, it must have the format '5 - 40'.";
+      "Life span is invalid, it must have the format '5 - 40'.";
   else newErrors.life_span = "";
 
   if (temperaments && !regexTemperaments.test(temperaments))
     newErrors.temperaments =
-    "Temperaments are invalid, it must have the format 'temperament' or 'temperament1, temperament2, temperament3'.";
-  else newErrors.life_span = "";
+      "Temperaments are invalid, it must have the format 'temperament' or 'temperament1, temperament2, temperament3'.";
+  else newErrors.temperaments = "";
 
   setErrors(newErrors);
 };

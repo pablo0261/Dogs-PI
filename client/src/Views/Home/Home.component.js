@@ -160,6 +160,7 @@ function Home() {
     dispatch(FilterByTemp(updatedTemperaments));
   };
 
+
   return (
     <div className="Home">
       <div className="HomeContainerTitle">
@@ -185,16 +186,6 @@ function Home() {
             handleRemoveTemperament={handleRemoveTemperament}
             selectedTemperaments={selectedTemperaments}
             resetAll = {resetAll}
-          />
-          <Paginate
-            pageNumbers={pageNumbers}
-            getPages={getPages}
-            currentPage={currentPage}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            dogsPerPage={dogsPerPage}
-            dogsResult={dogsResult.length}
-            paginado={paginado}
           />
           {dogSelected.notFound ? (
             <p className="NotFoundMessage">No dogs were found with those temperaments</p>

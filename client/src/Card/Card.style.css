@@ -1,8 +1,31 @@
+.CardName {
+  background-color: #8d0970;
+  width: 100%;
+  height: 30px;
+  top: 0px;
+  font-size: 20px;
+  color: #ffffff;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  position: relative; /* Cambia a posición relativa */
+  margin-bottom: 10px; 
+  z-index: 3;
+}
+.CardName:hover {
+  animation: rotarYVibrar 0.25s infinite;
+  overflow: visible;
+  white-space: normal;
+  text-overflow: initial;
+  height: auto;
+}
+
 .CardContainer {
   display: flex;
   align-items: center;
   background-color: #8d0970;
-  width: 250px;
+  width: 300px;
   height: 360px;
   flex-direction: column;
   background-color: #ffffff;
@@ -15,6 +38,7 @@
   backface-visibility: hidden;
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
+  position: relative;
 }
 
 .CardContainer:hover {
@@ -23,39 +47,34 @@
   border: 3px solid #8d0970;
 }
 
-.CardName {
-  position: absolute;
-  background-color: #8d0970;
-  bottom: 120px;
-  width: 100%;
-  height: 30px;
-  font-size: 20px;
-  color: #ffffff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  transition: all 0.3s ease;
-}
-.CardName:hover {
-  animation: rotarYVibrar 0.25s infinite;
-  overflow: visible;
-  white-space: normal;
-  text-overflow: initial;
-  height: auto;
-}
 
 .CardImage {
-  height: 250px;
-  width: 100%;
-  object-fit: cover;
-  object-position: center 10%; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
+  position: relative;
+  max-height: 250px;
+  max-width: 300px;
+  object-fit:contain;
+  object-position: center; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
   border-radius: 8px 8px 0px 0px;
+  z-index: 2;
+  margin: auto;
+}
+
+.CardImageback{
+  position:absolute;
+  height: 250px;
+  width: 300px;
+  object-fit: cover;
+  object-position: center; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
+  border-radius: 8px 8px 0px 0px;
+  filter: blur(5px);
+  z-index: 1;
+  left: 0px;
 }
 
 
 .CardWeightContainer {
-  position: relative;
-  top: 0px;
+  position: absolute;
+  top: 210px;
   width: 100%;
   height: 60px;
 }

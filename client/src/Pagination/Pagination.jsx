@@ -19,8 +19,8 @@ const Paginate = ({
   return (
     <nav className="navPaginate">
       <ul className="ulPaginate">
-        {currentPage > 1 && <button onClick={() => paginado(1)}>first</button>}
-        {currentPage > 1 && <button onClick={previousPage}>prev</button>}
+        {currentPage > 1 && <button className="ButtonToEnd" onClick={() => paginado(1)}>first</button>}
+        {currentPage > 1 && <button className="ButtonToEnd" onClick={previousPage}>prev</button>}
 
         {pagesToDisplay.map((number) => {
           return (
@@ -36,9 +36,9 @@ const Paginate = ({
             </li>
           );
         })}
-        {pageNumbers > currentPage && <button onClick={nextPage}>next</button>}
+        {pageNumbers > currentPage && <button className="ButtonToEnd" onClick={nextPage}>next</button>}
         {pageNumbers > currentPage && (
-          <button onClick={() => paginado(pageNumbers)}>last</button>
+          <button className="ButtonToEnd"  onClick={() => paginado(pageNumbers)}>last</button>
         )}
       </ul>
     </nav>

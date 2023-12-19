@@ -1,26 +1,165 @@
-.DetailButton{
-    position: absolute;
-    top: 20px;
-    left: 40px;
-    height: 40px;
-    width: 60px;
-    padding: 5px 15px;
-    margin: 10px;
-    background-color: rgb(85, 14, 107);
-    border: outset;
-    border-color: rgb(148, 30, 184);
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
-  .DetailButton:hover {
-    background-color: rgb(85, 14, 107);
-    transform: translateY(1px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    border: groove;
-    border-color: rgb(113, 21, 141);
-  }
-  .DetailButton:active {
-    transform: scale(0.95);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  }
+/* Colores de referencia */
+:root {
+  --color-border: #8d0970;
+  --color-background-tiped: #c4c4c4;
+  --color-background-general: #f1f1f1;
+}
+
+.Form{
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  top: 20px;
+  left: 140px;
+  width: 80vw;
+  height: 700px;
+  border: 3px solid rgba(122, 22, 153, 0.589);
+  box-shadow: 0 0 8px rgb(26, 5, 32);
+}
+
+.DetailButton {
+  position: relative;
+  top: 30px;
+  left: -500px;
+  height: 40px;
+  width: 60px;
+  padding: 5px 15px;
+  margin: 10px;
+  background-color: rgb(85, 14, 107);
+  border: outset;
+  border-color: rgb(148, 30, 184);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.DetailButton:hover {
+  background-color: var(--color-border);
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border: groove;
+  border-color: rgb(113, 21, 141);
+}
+
+.DetailButton:active {
+  transform: scale(0.95);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.DetailTittle{
+  position: relative;
+  top: -10px;
+  font-family: Arial, sans-serif;
+}
+
+.FormDivInput {
+  top: 0px;
+  display: flex; /* Utiliza flexbox para alinear elementos horizontalmente */
+  margin-bottom: 5px; /* Espacio entre cada campo de formulario */
+}
+
+.FormLavel {
+  color: var(--color-border);
+}
+
+.Inputs {
+  display: inline;
+  position:relative;
+  border: 1px solid var(--color-border);
+  width: 200px;
+  height: 30px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
+  color:var(--color-border);
+  margin-left: 20px;
+}
+
+.ErrorMessage {
+  display: block;
+  color: red;
+  margin-left: 10px; /* Espacio entre el input y el mensaje de error */
+  font-size: 14px; /* Tamaño del texto de error */
+}
+
+.FormDivInputTemp{
+  position: relative;
+  display: flex;
+  width: 900px;
+  height: 50px;
+  top: 0px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.InputsTemp{
+  position:static;
+  border: 1px solid var(--color-border);
+  width: 500px;
+  height: 30px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
+  color:var(--color-border);
+  margin-left: 20px;
+}
+
+.TemperamentsList {
+  position: absolute;
+  width: 500px; /* Ajusta según tus necesidades */
+  max-height: 200px; /* Altura máxima visible */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  overflow-x: hidden;
+  width: 100%;
+  max-height: 250px;
+  background-color: var(--color-background-general);
+  border-radius: 5px;
+  margin-top: 5px;
+  display:flexbox;
+  z-index: 1;
+  column-count: 6;
+  top:30px;
+  transition: max-height 0.3s ease-out;
+}
+
+.TemperamentsList.show {
+  display: block;
+  max-height: 400px;
+  
+}
+
+.TemperamentsList span {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+  white-space: wrap;
+  
+}
+
+.TemperamentsList span:hover {
+  background-color: var(--color-background-tiped);
+}
+
+.FormLavelImage {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--color-border);
+}
+
+.ButtonFomr {
+  position:absolute;
+  bottom: 40px;
+  right: 30px;
+  background-color: var(--color-border);
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ButtonFomr:hover {
+  background-color: rgb(113, 21, 141);
+}

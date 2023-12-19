@@ -1,7 +1,7 @@
 /* En tu archivo Pagination.style.css */
 
 .navPaginate {
-  margin-top: 20px;
+  margin: 0px 0px 20px 0px;
   text-align: center;
 }
 
@@ -17,19 +17,35 @@
 }
 
 .paginateButton {
-  background-color: #3498db;
+  background-color: #921076;
   color: #fff;
   padding: 8px 12px;
-  border: 1px solid #3498db;
+  border: 1px solid #b31390;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
 }
 
 .paginateButton:hover {
-  background-color: #2980b9;
+  background-color: #b43a9a;
 }
 
 .activePage {
-  background-color: #2ecc71;
+  background-color: #dd9ecf;
+  color: #0c0c0c;
+  border: 2px solid #79035f;
+}
+
+.ButtonToEnd{
+  background-color: #421338;
   color: #fff;
+  padding: 8px 12px;
+  border: 1px solid #941578;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-inline: 5px;
+}
+.ButtonToEnd:hover {
+  background-color: #921076;
 }

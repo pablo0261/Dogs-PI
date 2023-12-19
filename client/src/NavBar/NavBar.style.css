@@ -1,7 +1,10 @@
 :root {
-  --color-border: #921076;
-  --color-background-tiped: #fffdfd;
-  --color-background-general: #f5f3f3;
+  --color-border: rgba(122, 22, 153, 0.589);
+  --color-boxshadow: 0 0 8px rgb(26, 5, 32);
+  --color-background-fondos: #F3FFBD;
+  --color-background-fondo2: #B9B8D3;
+  --color-background-destaque: #EF233C;
+  --color-background-text: #191102;
 }
 
 .NavBar {

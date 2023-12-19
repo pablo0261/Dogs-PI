@@ -14,7 +14,7 @@ const Dogs = ({
   return (
     <div className="DivfilterButton">
       <select className="OrderButton" onChange={(event) => handleOrder(event)}>
-        <option>Order by Name</option>
+        <option disabled>Order by Name</option>
         <option key={1} value="A-Z">
           A-Z
         </option>
@@ -24,7 +24,7 @@ const Dogs = ({
       </select>
 
       <select className="OrderButton" onChange={(e) => handlerFilterW(e)}>
-        <option>Order by Weight</option>
+        <option disabled>Order by Weight</option>
         <option key={1} value="weightMax">
           Max
         </option>
@@ -33,8 +33,8 @@ const Dogs = ({
         </option>
       </select>
 
-      <select className="OrderButton" onChange={(e) => handlerFilterOrigin(e)}>
-        <option>Order by Origin</option>
+      <select className="OrderButton" onBlur={resetAll} onChange={(e) => handlerFilterOrigin(e)}>
+        <option disabled>Order by Origin</option>
         <option key={1} value="All">
           All
         </option>
@@ -49,9 +49,8 @@ const Dogs = ({
       <select
         className="OrderButton"
         onChange={(e) => handlerFilterTemp(e)}
-        onBlur={resetAll}
       >
-        <option>Temperaments</option>
+        <option disabled>Temperaments</option>
         <option key={1} value="All">
           All
         </option>
@@ -65,7 +64,7 @@ const Dogs = ({
         {selectedTemperaments.map((temp) => (
           <div key={temp} className="SelectedTemperament">
             {temp}
-            <button onClick={() => handleRemoveTemperament(temp)}>X</button>
+            <button className="XButton" onClick={() => handleRemoveTemperament(temp)}>X</button>
           </div>
         ))}
       </div>

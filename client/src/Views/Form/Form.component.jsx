@@ -26,7 +26,12 @@ function Form() {
     { label: "weightMax", name: "weightMax", type: "text", placeholder: "0" },
     { label: "heightMin", name: "heightMin", type: "text", placeholder: "0cm" },
     { label: "heightMax", name: "heightMax", type: "text", placeholder: "0cm" },
-    { label: "life_span", name: "life_span", type: "text", placeholder: "1 - 6" },
+    {
+      label: "life_span",
+      name: "life_span",
+      type: "text",
+      placeholder: "1 - 6",
+    },
   ];
 
   const handleMouseEnter = () => {
@@ -45,12 +50,11 @@ function Form() {
   };
 
   const handleDeleteTemps = (deleteTemp) => {
-    const newTemperament = temperaments.filter(temp => temp !== deleteTemp)  
-    setInputs((newTemperament) => ({
-      ...inputs,
-      temperaments: newTemperament,
+    setInputs((prevInputs) => ({
+      ...prevInputs,
+      temperaments: prevInputs.temperaments.filter((temp) => temp !== deleteTemp),
     }));
-    }
+  };
 
   useEffect(() => {
     dispatch(getAllTemperaments());
@@ -67,8 +71,7 @@ function Form() {
 
   const handleChange = (event) => {
     let property = event.target.name;
-    let value = event.target.value;
-    // console.log(property, value);
+    let value = event.target.value.trim(); // Aplicar trim para eliminar espacios en blanco
     setInputs({ ...inputs, [property]: value });
     validation({ ...inputs, [property]: value }, errors, setErrors);
   };
@@ -81,12 +84,12 @@ function Form() {
 
   return (
     <div>
+      <form className="Form"onSubmit={handleSubmit}>
       <button
         className="DetailButton"
         onClick={() => window.history.back()}
       ></button>
-      <form onSubmit={handleSubmit}>
-        <h1>Esta es la Form Page</h1>
+        <h1 className="DetailTittle">Create your Breed</h1>
         {formFields.map((field) => (
           <div key={field.name} className="FormDivInput">
             <label className="FormLavel">{field.label}</label>
@@ -105,18 +108,18 @@ function Form() {
         {/* -----  TEMPERAMENTS ------- */}
 
         <div
-          className="FormDivInput"
+          className="FormDivInputTemp"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <label className="FormLavel">Temperamento</label>
           <input
-            className="Inputs"
+            className="InputsTemp"
             type="text"
             name="temperaments"
             value={inputs.temperaments}
             onChange={handleSelect}
-            onBlur={handleDeleteTemps}
+            onBlur={() => handleDeleteTemps()}
             placeholder="Select temperaments"
           />
           {temperamentsList && (
@@ -133,7 +136,7 @@ function Form() {
 
         {/* -----  IMAGEN ------- */}
 
-        <div className="FormDivInput">
+        {/* <div className="FormDivInput">
           <label className="FormLavelImage">Upload Image</label>
           <input
             className="Inputs"
@@ -143,7 +146,7 @@ function Form() {
             onChange={handleChange}
           />
           <div className="ErrorMessage">{errors.image}</div>
-        </div>
+        </div> */}
         <button className="ButtonFomr" type="submit">
           Send
         </button>

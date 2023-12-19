@@ -135,6 +135,7 @@ const resetAll = () => {
         type: GET_ALL_TEMP,
         payload: data2,
       });
+      
     } catch (error) {
       console.log("Error getting all dogs");
     }

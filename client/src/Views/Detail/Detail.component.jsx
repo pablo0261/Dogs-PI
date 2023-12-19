@@ -30,7 +30,8 @@ function Detail() {
         <button
           className="DetailButton"
           onClick={() => window.history.back()}
-        ></button>
+        >  
+        </button>
 
         <h2 className="ContainernameDetail">{dogById[0].name}</h2>
       </div>

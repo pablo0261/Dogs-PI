@@ -1,9 +1,10 @@
 .DivfilterButton{
-    position:relative;
+    position:absolute;
     display: flex;
     width: 50vw;
     height: 80px;
-    margin: -140px 0px 0px 60px;
+    top: 190px;
+    left:-40px;
     justify-content: center;
     align-items: center;
 }
@@ -32,9 +33,23 @@
 }
 
 .SelectedTemperamentsContainer{
-
+    display:flex;
+    width: 350px;
+    height: 50px;
+    margin:4px;
 }
 
 .SelectedTemperament{
+    border: 3px solid rgba(122, 22, 153, 0.589);
+    background-color:rgb(204, 193, 206);
+    border-radius: 5px;
+    margin: 0px 5px 0px 0px;
+    width: 120px;
+    height: 30px;
+}
 
+.XButton{
+    border: 3px solid rgba(122, 22, 153, 0.589);
+    border-radius: 5px;
+    margin:1px;
 }
