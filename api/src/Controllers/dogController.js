@@ -21,7 +21,7 @@ const getDbDogs = async () => { //*Todos los perros de db
     });
     // console.log(dbDogs);
     if (!dbDogs) {
-      throw new Error("Perro no encontrado en la base de datos");
+      throw new Error("Breed not found in the database");
     }
     // const result = dbDogs.map((dog) => ({name : dog.name}))
     // return result;
@@ -59,14 +59,12 @@ const getApiDogs = async () => {  //*Todos los perros de la API
     const apiDogs = response.data.map(dogObj);
     return apiDogs;
   } catch (err) {
-    console.log("Error en la petición a API");
+    console.log(" The races from the API could´t be loaded");
     throw err;
   }
 };
 
 const getAllDogs = async () => { //*Todos los perros de DB y API
-  //!PRACTICAR AQUI COMO TRAER SOLO LOS NOMBRES DE LAS RAZAS DE AMBOS LADOS <== <== <== <==
- 
   const dbDogs = await getDbDogs();
   const arrApiDogs = await getApiDogs();
   const allDogs = [...arrApiDogs, ...dbDogs];
@@ -75,19 +73,16 @@ const getAllDogs = async () => { //*Todos los perros de DB y API
 };
 
 const getDogByIdFromApi = async (id) => {//*Busca por id en la API
-  
   try {
-    console.log("entre a la busqueda en la api");
+    // console.log("entre a la busqueda en la api");
     const response = await axios.get(
       `https://api.thedogapi.com/v1/breeds/${id}`
     );
-
     const dog = response.data;
-
     return dogObj(dog, URL_IMG); //* <== Helper
   } catch (error) {
     console.error(error);
-    throw new Error("Error al obtener el perro de la API");
+    throw new Error("Error when trying to retrieve the dog from the API by ID");
   }
 };
 
@@ -106,7 +101,7 @@ const getDogByIdFromDb = async (id) => {//*Busca por id en la db
       ],
     });
     if (!dog) {
-      throw new Error("Perro no encontrado en la base de datos");
+      throw new Error("Breed not found in the database");
     }
 
     const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
@@ -124,7 +119,7 @@ const getDogByIdFromDb = async (id) => {//*Busca por id en la db
     };
   } catch (error) {
     console.log(error);
-    throw new Error("Error al obtener el perro de la base de datos");
+    throw new Error("Error retrieving the breeds from the database");
   }
 };
 
@@ -144,7 +139,7 @@ const createDogDB = async ({//* Crea perros
     });
 
     if (existDog) {
-      throw new Error(`Ya existe un perro con el nombre '${name}'`);
+      throw new Error(`A breed with name '${name}' already exists`);
     }
     let newDog = await Dog.create({
       name,
@@ -158,24 +153,24 @@ const createDogDB = async ({//* Crea perros
 
     // Verifica que temperaments sea un array antes de iterar
     if (!Array.isArray(temperaments)) {
-      throw new Error("El valor de temperaments debe ser un array");
+      throw new Error("The value of 'temperaments' must be an array");
     }
-
     // Iterar sobre los temperamentos proporcionados por el cliente
     for (const newTemperaments of temperaments) {
       // Buscar en la base de datos todas las filas de temperamentos
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
-          name: {
-            [Op.iLike]: `%${newTemperaments.trim()}%`,
-          },
+          name: 
+            newTemperaments.trim(),
+            // [Op.iLike]: `%${newTemperaments.trim()}%`,
+          
         },
       });
       // console.log(newTemperaments);
       await newDog.addTemperament(dbTemperament);
       if (created) {
         console.log(
-          `Creado nuevo temperamento: ${dbTemperament.name} y ${dbTemperament.id}`
+          `A new temperament has been created with ID: ${dbTemperament.id} and name: ${dbTemperament.name}`
         );
       }
 
@@ -190,7 +185,7 @@ const createDogDB = async ({//* Crea perros
       error.message
     );
     throw new Error(
-      `Error al crear el perro en la base de datos: ${error.message}`
+      `Error creating the dog in the database: ${error.message}`
     );
   }
 };
@@ -218,7 +213,7 @@ const getTemperamentsForDog = async (id) => {//*Trae los temperamentos
       "Error al obtener los temperamentos del perro:",
       error.message
     );
-    throw new Error("Error al obtener los temperamentos del perro");
+    throw new Error("Error retrieving the temperaments");
   }
 };
 

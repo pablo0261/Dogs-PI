@@ -1,8 +1,7 @@
 const regexlife_span = /^\d{1,2}\s*-\s*\d{1,2}$/;
-const regexTemperaments = /^(?:\b\w{3}\b(?:, )?)+$/;
 
 const validation = (inputs, errors, setErrors) => {
-  let newErrors = errors;
+  let newErrors = {...errors};
 
   const {
     name,
@@ -11,7 +10,6 @@ const validation = (inputs, errors, setErrors) => {
     heightMin,
     heightMax,
     life_span,
-    temperaments,
   } = inputs;
 
   if (!name) {
@@ -22,44 +20,68 @@ const validation = (inputs, errors, setErrors) => {
     newErrors.name = "";
   }
 
-  if (!Number(weightMin) || !Number.isInteger(weightMin)) {
+  if (weightMin.trim() === "") {
+    newErrors.weightMin = ""; 
+  } else if (!Number(weightMin)) {
+    newErrors.weightMin = "WeightMin must be a number.";
+  } else if (!Number.isInteger(parseFloat(weightMin))) {
     newErrors.weightMin = "WeightMin must be an integer.";
-  } else if (weightMin < 1 || weightMin > 50) {
-    newErrors.weightMin = "WeightMin is invalid, it must be between 1 and 50.";
+  } else if (parseFloat(weightMin) < 1 || parseFloat(weightMin) > 50) {
+    newErrors.weightMin = "WeightMin is invalid, it must be between 1kg and 50kg.";
   } else {
     newErrors.weightMin = "";
   }
 
-  if (!Number(weightMax) || !Number.isInteger(weightMax)) {
+
+  if (weightMax.trim() === "") {
+    newErrors.weightMax = ""; 
+  } else if (!Number(weightMax)) {
+    newErrors.weightMax = "WeightMax must be a number.";
+  } else if (!Number.isInteger(parseFloat(weightMax))) {
     newErrors.weightMax = "WeightMax must be an integer.";
-  } else if (weightMax < 2 || weightMax > 80) {
-    newErrors.weightMax = "WeightMax is invalid, it must be between 2 and 80.";
+  } else if (parseFloat(weightMax) < 2 || parseFloat(weightMax) > 80) {
+    newErrors.weightMax = "WeightMax is invalid, it must be between 2kg and 80kg.";
+  } else if (weightMin >= weightMax){
+    newErrors.weightMax = "WeightMax cannot be less than WeightMin.";
   } else {
     newErrors.weightMax = "";
   }
 
-  if (!Number(heightMin) || !Number.isInteger(heightMin)) {
+  if (heightMin.trim() === "") {
+    newErrors.heightMin = ""; 
+  } else if (!Number(heightMin)) {
+    newErrors.heightMin = "HeightMin must be a number.";
+  } else if (!Number.isInteger(parseFloat(heightMin))) {
     newErrors.heightMin = "HeightMin must be an integer.";
-  } else if (heightMin > 90 || heightMin < 20)
-    newErrors.heightMin = "HeightMin is invalid.";
-  else newErrors.heightMin = "";
+  } else if (parseFloat(heightMin) > 90 || parseFloat(heightMin) < 20) {
+    newErrors.heightMin = "HeightMin must be between 20cm and 90cm";
+  } else {
+    newErrors.heightMin = "";
+  }
 
-  if (!Number(heightMax) || !Number.isInteger(heightMax)) {
-    newErrors.weightMax = "HeightMax must be an integer.";
-  } else if (heightMax > 150 || heightMax < 1)
-    newErrors.heightMax = "HeightMax is invalid.";
-  else newErrors.heightMax = "";
 
-  if (life_span && !regexlife_span.test(life_span))
-    newErrors.life_span =
-      "Life span is invalid, it must have the format '5 - 40'.";
-  else newErrors.life_span = "";
+  if (heightMax.trim() === "") {
+    newErrors.heightMax = ""; 
+  } else if (!Number(heightMax)) {
+    newErrors.heightMax = "HeightMax must be a number.";
+  } else if (!Number.isInteger(parseFloat(heightMax))) {
+    newErrors.heightMax = "HeightMax must be an integer.";
+  } else if (parseFloat(heightMax) > 150 || parseFloat(heightMax) < 1) {
+    newErrors.heightMax = "HeightMax must be between 1cm and 150cm";
+  } else if (heightMin >= heightMax) {
+    newErrors.heightMax = "HeightMax cannot be less than HeightMin.";
+  } else {
+    newErrors.heightMax = "";
+  }
 
-  if (temperaments && !regexTemperaments.test(temperaments))
-    newErrors.temperaments =
-      "Temperaments are invalid, it must have the format 'temperament' or 'temperament1, temperament2, temperament3'.";
-  else newErrors.temperaments = "";
+  if (life_span.trim() === "") {
+    newErrors.life_span = ""; 
+  } else if (life_span && !regexlife_span.test(life_span)) {
+    newErrors.life_span = "Life span is invalid, it must have the format '5 - 40'.";
+  } else {
+    newErrors.life_span = "";
+  }
 
-  setErrors(newErrors);
+  setErrors({ ...errors, ...newErrors });
 };
 export default validation;

@@ -1,6 +1,6 @@
 import { useEffect } from "react"; //*para controlar ciclo de vida (componen mount, component dismount, etc..)
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getDogById, removeSelectedDog } from "../../Redux/Actions";
 import defaultDog from "../../Utils/DogShadow.jpg";
 import "./Detail.style.css";
@@ -8,7 +8,7 @@ import "./Detail.style.css";
 function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const { name,weightMin, weightMax, heightMin, heightMax, life_span, temperament, reference_image_id  } = useSelector((state) => state.dogSelected);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getDogById(id));
@@ -22,20 +22,23 @@ function Detail() {
   if (!dogById || Object.keys(dogById).length === 0) {
     return <p>Loading...</p>;
   }
-  // console.log("dogById", dogById);
+  
+  const handleGoBack = () => {
+    history.goBack();
+  };
 
   return (
+    <div className="Background">
     <div className="DetailCard">
-      <div className="Button-Name">
+      <div className="ButtonTittle" >
         <button
           className="DetailButton"
-          onClick={() => window.history.back()}
+          onClick={handleGoBack}
         >  
         </button>
 
         <h2 className="ContainernameDetail">{dogById[0].name}</h2>
-      </div>
-
+        </div>
       <div className="DivDetail">
         <div className="ImageDetail">
           {dogById[0].reference_image_id && (
@@ -81,6 +84,7 @@ function Detail() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

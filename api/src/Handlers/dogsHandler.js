@@ -3,7 +3,6 @@ const {
   getDogByIdFromApi,
   getDogByIdFromDb,
   createDogDB,
-  getTemperamentsForDog,
 } = require("../Controllers/dogController");
 const { Dog, Temperament } = require("../db");
 
@@ -54,15 +53,14 @@ const getDogsHandler = async (req, res) => {
           return res.status(200).json(dogsFound);
         } else {
           return res.status(404).json({
-            message: `No breed was found with the name '${name}'`,
+            message: `We couldn't find breeds with the name '${name}'`,
           });
         }
       } else {
-          return res.status(400).send("El nombre debe tener al menos 3 letras");
+          return res.status(400).send("The name must have at least 3 letters");
         }
     } else {
       console.log("Buscando todos los perros");
-      // const dogNames = allDogs.map((dog) => ({ name: dog.name }));
       return res.status(200).json(allDogs);
     }
   } catch (error) {
@@ -78,7 +76,6 @@ const getDogByIdHandler = async (req, res) => {
   try {
     let result;
     if (!isNaN(id)) {
-      console.log(!isNaN(id));
       console.log(!isNaN(id));
       //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
@@ -99,8 +96,6 @@ const getDogByIdHandler = async (req, res) => {
           .send(`We couldn't find breeds with the ID '${id}'`);
       }
       console.log(result);
-      console.log(result);
-
       res.status(200).json([result]);
     }
   } catch (error) {

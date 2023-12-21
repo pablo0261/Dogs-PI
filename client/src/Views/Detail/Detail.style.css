@@ -1,137 +1,141 @@
+:root {
+  --color-color: rgb(85, 14, 107);
+  --color-border: rgb(148, 30, 184);
+  --color-shadow: 0 0 8px rgb(26, 5, 32);
+  --color-text: rgb(26, 5, 32);
+  --color-background-tiped: #c4c4c4;
+  --color-background-general: #f1f1f1;
+  --color-error: rgb(107, 2, 2);
+}
+
+.Background {
+}
+
 .DetailCard {
-  position: relative;
+  position: absolute;
   flex-wrap: wrap;
-  display: block;
-  top: 50px;
-  left: 80px;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 600px;
   width: 1200px;
   background-color: rgba(44, 44, 44, 0.151);
   border-radius: 30px;
+  border: 3px solid var(--color-color);
+  box-shadow: var(--color-shadow);
+}
+
+.ButtonTittle {
+  margin: 10px;
+  width: 1200px;
+  height: 60px;
+}
+
+.DetailButton {
+  position: relative;
+  top: 15px;
+  left: 0px;
+  height: 40px;
+  width: 80px;
+  padding: 5px 15px;
+  background-color: var(--color-color);
+  background-image: url("../../Utils/goBack.png");
+  border: outset;
+  border-color: var(--color-border);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.DetailButton:hover {
+  background-color: var(--color-border);
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px var(--color-shadow);
+  border: groove;
+  border-color: var(--color-border);
+}
+.DetailButton:active {
+  transform: scale(0.95);
+  box-shadow: var(--color-shadow);
+}
+
+.ContainernameDetail {
+  display: flex;
+  position: relative;
+  background-color: rgba(88, 88, 88, 0.5);
+  color: rgb(34, 5, 43);
+  padding: 10px;
+  left: 350px;
+  top: -35px;
+  width: 50%;
+  height: 40px;
+  font-size: xx-large;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.411);
+  border-radius: 10px;
   border: 3px solid rgba(122, 22, 153, 0.589);
-    box-shadow: 0 0 8px rgb(26, 5, 32);
-  }
-  
-  .Button-Name{
-    position: relative;
-    display:flex;
-    font-family: 'Roboto', sans-serif;
-  }
+}
 
-  .DetailButton{
-    position: relative;
-    top: 15px;
-    left: 15px;
-    height: 40px;
-    width: 60px;
-    padding: 5px 15px;
-    margin: 10px;
-    background-color: rgb(85, 14, 107);
-    border: outset;
-    border-color: rgb(148, 30, 184);
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
-  .DetailButton:hover {
-    background-color: rgb(85, 14, 107);
-    transform: translateY(1px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    border: groove;
-    border-color: rgb(113, 21, 141);
-  }
-  .DetailButton:active {
-    transform: scale(0.95);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  }
-  
-  .imgReturn{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-  }
+.DivDetail {
+  position: relative;
+  display: flex;
+}
 
-  .ContainernameDetail {
-    position: relative;
-    background-color: rgba(88, 88, 88, 0.5);
-    color: rgb(34, 5, 43);
-    padding: 10px;
-    justify-content: center;
-    align-self: center;
-    margin-left: 110px;
-    width: 70%;
-    height: 40px;
-    text-align: center;
-    font-size: xx-large;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.411);
-    border-radius: 10px;
-    border: 3px solid rgba(122, 22, 153, 0.589);
-  }
-  
-  .DivDetail{
-    position: relative;
-    display:flex;
-  }
-
-  .ImageDetail {
-    position: relative;
-    width: 600px;
-    height: 400px;
-    margin: 20px 30px 0px 90px;
-  }
-  .Image{
-    border-radius: 5px;
-    object-fit: cover;
+.ImageDetail {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 20px 30px 0px 90px;
+}
+.Image {
+  border-radius: 5px;
+  object-fit: cover;
   width: auto;
   max-width: 550px;
   height: 100%;
-  }
-  
-  .DatosDetail {
-    border-radius: 10px;
-    width: 380px;
-    height: 440px;
-    background-color: rgba(10, 10, 10, 0.212);
-    color: rgb(34, 5, 43);
-    padding: 5px;
-    font-size: 20px;
-    margin: 4px;
-    display: flex;
-    flex-direction: column;
-  }
+}
 
-  .DivInfo{
-    display: flex;
-    height: 40px;
-    border-bottom: 2px solid rgb(94, 93, 94); /* Borde sólido en toda la parte inferior */
+.DatosDetail {
+  border-radius: 10px;
+  width: 400px;
+  height: 420px;
+  background-color: rgba(10, 10, 10, 0.212);
+  color: rgb(34, 5, 43);
+  padding: 5px;
+  font-size: 20px;
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.DivInfo {
+  display: flex;
+  height: 40px;
+  border-bottom: 2px solid rgba(122, 22, 153, 0.589); /* Borde sólido en toda la parte inferior */
   border-bottom-width: 50%; /* Ancho del 80% de la parte inferior */
   border-bottom-style: solid; /* Estilo sólido en la parte inferior */
-    justify-content:space-between;
-    align-items: center;
-    margin: 1px;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1px;
   padding: 1px;
-  }
+}
 
-  .DivInfoDown{
-    display: table-column;
-    margin: 1px;
-    border: 2px solid  rgb(94, 93, 94);
+.DivInfoDown {
+  display: table-column;
+  margin: 1px;
+  border: 2px solid rgba(122, 22, 153, 0.589);
   padding: 5px;
-  }
+}
 
-  .DatoBox{
-    margin: 0 5px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    min-height: fit-content;
-    padding: 2px 8px 2px 8px;
-    /* border: 2px solid rgb(81, 14, 102);
+.DatoBox {
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  min-height: fit-content;
+  padding: 2px 8px 2px 8px;
+  /* border: 2px solid rgb(81, 14, 102);
     border-radius: 10px; */
-  }
-
-  
-
-  
-  
+}

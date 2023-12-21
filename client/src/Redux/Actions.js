@@ -11,6 +11,7 @@ export const FILTER_ORIGIN_DOG = "FILTER_ORIGIN_DOG";
 export const GET_CREATE_DOG = "GET_CREATE_DOG";
 export const POST_NEW_DOGS = "POST_NEW_DOGS";
 export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
+export const SET_ERRORS = "SET_ERRORS";
 // export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
 const getAllDogs = () => {
@@ -69,22 +70,6 @@ const FilterOriginDog = (value) => {
   };
 };
 
-// const getDogName = (name) => {
-//   const endpoint = `/dogs?name=${name}`;
-//   console.log(endpoint)
-//   return async (dispatch) => {
-//     try {
-//       const { data } = await axios.get(endpoint);
-//       return dispatch({
-//         type: GET_DOG_NAME,
-//         payload: data,
-//         });
-//         } catch (error) {
-//           console.log('Error getting dog name');
-//           }
-//         }
-//       }
-
 const getDogById = (id) => {
   return async (dispatch) => {
     try {
@@ -118,6 +103,9 @@ const postDogs = (dataCreated) => {
     } catch (error) {
       console.error("Error posting dogs:", error);
       console.error("Detalles del error:", error.response.data);
+      if (error.response.data) {
+        dispatch({ type: SET_ERRORS, payload: error.response.data.errors });
+      }
     }
   };
 };

@@ -17,15 +17,16 @@ function Form() {
     image: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const errorsFromBack = useSelector((state) => state.errors);
+  const [localErrors, setLocalErrors] = useState({});
   const temperaments = useSelector((state) => state.allTemperaments);
   const [temperamentsList, setTemperamentsList] = useState(false);
   const formFields = [
     { label: "Name", name: "name", type: "text", placeholder: "Name" },
-    { label: "weightMin", name: "weightMin", type: "text", placeholder: "0" },
-    { label: "weightMax", name: "weightMax", type: "text", placeholder: "0" },
-    { label: "heightMin", name: "heightMin", type: "text", placeholder: "0cm" },
-    { label: "heightMax", name: "heightMax", type: "text", placeholder: "0cm" },
+    { label: "Weight Min", name: "weightMin", type: "text", placeholder: "0" },
+    { label: "Weight Max", name: "weightMax", type: "text", placeholder: "0" },
+    { label: "Height Min", name: "heightMin", type: "text", placeholder: "0cm" },
+    { label: "Height Max", name: "heightMax", type: "text", placeholder: "0cm" },
     {
       label: "life_span",
       name: "life_span",
@@ -33,6 +34,11 @@ function Form() {
       placeholder: "1 - 6",
     },
   ];
+
+  useEffect(() => {
+    setLocalErrors(errorsFromBack);
+    console.log("Errors from back:", errorsFromBack);
+  }, [errorsFromBack]);
 
   const handleMouseEnter = () => {
     setTemperamentsList(true);
@@ -52,7 +58,9 @@ function Form() {
   const handleDeleteTemps = (deleteTemp) => {
     setInputs((prevInputs) => ({
       ...prevInputs,
-      temperaments: prevInputs.temperaments.filter((temp) => temp !== deleteTemp),
+      temperaments: prevInputs.temperaments.filter(
+        (temp) => temp !== deleteTemp
+      ),
     }));
   };
 
@@ -71,85 +79,90 @@ function Form() {
 
   const handleChange = (event) => {
     let property = event.target.name;
-    let value = event.target.value.trim(); // Aplicar trim para eliminar espacios en blanco
+    let value = event.target.value.trim();
     setInputs({ ...inputs, [property]: value });
-    validation({ ...inputs, [property]: value }, errors, setErrors);
+    validation({ ...inputs, [property]: value }, localErrors, setLocalErrors);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(postDogs(inputs));
-    alert("The dog was created");
+    const hasErrors = Object.values(localErrors).some((error) => error !== "");
+
+    if (hasErrors) {
+      alert("Please fill in all the required fields correctly.");
+    } else {
+      dispatch(postDogs(inputs))
+        .then(() => {
+          alert("The dog was created");
+        })
+        .catch((error) => {
+          console.error("Error creating dog:", error);
+        });
+    }
   };
 
   return (
     <div>
-      <form className="Form"onSubmit={handleSubmit}>
-      <button
-        className="DetailButton"
-        onClick={() => window.history.back()}
-      ></button>
-        <h1 className="DetailTittle">Create your Breed</h1>
-        {formFields.map((field) => (
-          <div key={field.name} className="FormDivInput">
-            <label className="FormLavel">{field.label}</label>
-            <input
-              className="Inputs"
-              type={field.type}
-              name={field.name}
-              value={inputs[field.name]}
-              onChange={handleChange}
-              placeholder={field.placeholder}
-            />
-            <div className="ErrorMessage">{errors[field.name]}</div>
-          </div>
-        ))}
-
-        {/* -----  TEMPERAMENTS ------- */}
-
-        <div
-          className="FormDivInputTemp"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <label className="FormLavel">Temperamento</label>
-          <input
-            className="InputsTemp"
-            type="text"
-            name="temperaments"
-            value={inputs.temperaments}
-            onChange={handleSelect}
-            onBlur={() => handleDeleteTemps()}
-            placeholder="Select temperaments"
-          />
-          {temperamentsList && (
-            <div className="TemperamentsList">
-              {temperaments.map((temp) => (
-                <span key={temp} onClick={() => handleTemperamentClick(temp)}>
-                  {temp}
-                </span>
-              ))}
-            </div>
-          )}
-          <div className="ErrorMessage">{errors.temperaments}</div>
+      <form className="Form" onSubmit={handleSubmit}>
+        <div className="DivButtonTittle">
+          <button
+            type="button"
+            className="DetailButton"
+            onClick={() => window.history.back()}
+          ></button>
+          <h1 className="DetailTittle">Create your Breed</h1>
         </div>
+        <div className="ContainerDivInput">
+          {formFields.map((field) => (
+            <div key={field.name} className="FormDivInput">
+              <label className="FormLavel">{field.label}</label>
+              <input
+                className="Inputs"
+                type={field.type}
+                name={field.name}
+                value={inputs[field.name]}
+                onChange={handleChange}
+                placeholder={field.placeholder}
+              />
+              <div className="ErrorMessage">{localErrors[field.name]}</div>
+            </div>
+          ))}
 
-        {/* -----  IMAGEN ------- */}
+          {/* -----  TEMPERAMENTS ------- */}
 
-        {/* <div className="FormDivInput">
-          <label className="FormLavelImage">Upload Image</label>
-          <input
-            className="Inputs"
-            type="file"
-            name="image"
-            value={inputs.image}
-            onChange={handleChange}
-          />
-          <div className="ErrorMessage">{errors.image}</div>
-        </div> */}
-        <button className="ButtonFomr" type="submit">
-          Send
-        </button>
+          <div
+            className="FormDivInputTemp"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <label className="FormLavelTemp">Temperamento</label>
+            <input
+              className="InputsTemp"
+              type="text"
+              name="temperaments"
+              value={inputs.temperaments}
+              onChange={handleSelect}
+              onBlur={() => handleDeleteTemps()}
+              placeholder="Select temperaments"
+            />
+            {temperamentsList && (
+              <div className="TemperamentsList">
+                {temperaments.map((temp) => (
+                  <span key={temp} onClick={() => handleTemperamentClick(temp)}>
+                    {temp}
+                  </span>
+                ))}
+              </div>
+            )}
+            <div className="ErrorMessage">{localErrors.temperaments}</div>
+          </div>
+        </div>
+        
+        {Object.values(localErrors).every((error) => error === "") && (
+          <button className="ButtonFomr" type="submit">
+            Send
+          </button>
+        )}
       </form>
     </div>
   );

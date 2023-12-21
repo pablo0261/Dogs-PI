@@ -12,6 +12,7 @@ import {
   FILTER_ORIGIN_DOG,
   //*-----POST----//
   POST_NEW_DOGS,
+  SET_ERRORS,
 } from "./Actions";
 
 let initialState = {
@@ -23,6 +24,7 @@ let initialState = {
   filterDb: [],
   filterTemp: [],
   dogSelected: [],
+  errors: {},
 };
 
 //*Para extraer los temperamentos individualmente
@@ -139,6 +141,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         dogSelected: {},
       };
+
+    case SET_ERRORS:
+      return {
+        ...state,
+        errors: payload,
+      }
 
     default:
       return state;
