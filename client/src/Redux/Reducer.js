@@ -49,6 +49,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
   switch (
     type // ojo si no hago destructoring arriba aqui va =action.type
   ) {
+
+    //*---GET GENERALES---//
     case GET_ALL:
       return {
         ...state,
@@ -71,6 +73,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         dogSelected: payload,
       };
 
+    //*---ORDER---//
     case ORDER_DOGS:
       const filterDogs =
         payload === "A-Z"
@@ -105,6 +108,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         allDogs: copy2,
       };
 
+    //*---FILTER---//
     case FILTER_BY_TEMP:
       const selectedTemp = payload.includes("All") ? [] : payload;
       const filteredTemp = state.allDogs.filter((dog) =>
@@ -137,6 +141,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         return { ...state, allDogs: copy7 };
       }
 
+    //*---POST---//
     case POST_NEW_DOGS:
       return {
         ...state,
@@ -149,12 +154,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
         },
       };
 
+    //*---MANEJO DE ESTADOS GLOBALES---//
     case REMOVE_SELECTED_DOG:
       return {
         ...state,
         dogSelected: {},
       };
 
+    //* --- manejo de errores del front ---//*
     case SET_FRONT_ERROR:
       return {
         ...state,
@@ -167,6 +174,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         errorsFront: { ...state.errorsFront, [payload.field]: null },
       };
 
+    //* --- manejo de errores del back ---//*
     case SET_ERROR_BACK:
       return {
         ...state,

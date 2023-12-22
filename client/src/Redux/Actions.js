@@ -18,6 +18,7 @@ export const SET_ERROR_BACK = "SET_ERROR_BACK";
 export const CLEAR_ERROR_BACK = "CLEAR_ERROR_BACK";
 // export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
+//*---GET GENERALES---//
 const getAllDogs = () => {
   return async (dispatch) => {
     try {
@@ -46,34 +47,6 @@ const getAllTemperaments = () => {
   };
 };
 
-const orderDogs = (value) => {
-  return {
-    type: ORDER_DOGS,
-    payload: value,
-  };
-};
-
-const filterByW = (value) => {
-  return {
-    type: FILTER_BY_WEIGHT,
-    payload: value,
-  };
-};
-
-const FilterByTemp = (value) => {
-  return {
-    type: FILTER_BY_TEMP,
-    payload: value,
-  };
-};
-
-const FilterOriginDog = (value) => {
-  return {
-    type: FILTER_ORIGIN_DOG,
-    payload: value,
-  };
-};
-
 const getDogById = (id) => {
   return async (dispatch) => {
     try {
@@ -89,12 +62,37 @@ const getDogById = (id) => {
   };
 };
 
-const removeSelectedDog = () => {
+//*---ORDER---//
+const orderDogs = (value) => {
   return {
-    type: REMOVE_SELECTED_DOG,
+    type: ORDER_DOGS,
+    payload: value,
   };
 };
 
+const filterByW = (value) => {
+  return {
+    type: FILTER_BY_WEIGHT,
+    payload: value,
+  };
+};
+
+//*---FILTER---//
+const FilterByTemp = (value) => {
+  return {
+    type: FILTER_BY_TEMP,
+    payload: value,
+  };
+};
+
+const FilterOriginDog = (value) => {
+  return {
+    type: FILTER_ORIGIN_DOG,
+    payload: value,
+  };
+};
+
+//*---POST---//
 const postDogs = (dataCreated) => {
   return async (dispatch) => {
     try {
@@ -119,6 +117,13 @@ const postDogs = (dataCreated) => {
   };
 };
 
+//*---MANEJO DE ESTADOS GLOBALES---//
+const removeSelectedDog = () => {
+  return {
+    type: REMOVE_SELECTED_DOG,
+  };
+};
+
 const resetAll = () => {
   return async (dispatch) => {
     try {
@@ -139,7 +144,6 @@ const resetAll = () => {
 };
 
 //* --- manejo de errores del front ---//*
-
 const setFrontError = (message) => ({
   type: 'SET_FRONT_ERROR',
   payload: message,
@@ -151,7 +155,6 @@ const clearFrontError = (field) => ({
 });
 
 //* --- manejo de errores del back ---//*
-
 const setErrorBack = (message) => {
   return {
     type: "SET_ERROR_BACK",
@@ -163,9 +166,6 @@ const clearErrorBack = (module) => ({
   type: "CLEAR_ERROR_BACK",
   payload: { module },
 });
-
-
-//! ver si lo voy a usar o lo hago con el estado local en home
 
 export {
   getAllDogs,

@@ -1,23 +1,20 @@
 .CardName {
+  position: absolute;
   background-color: #8d0970;
   width: 100%;
   height: 30px;
-  top: 0px;
   font-size: 20px;
   color: #ffffff;
   white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: all 0.3s ease;
-  position: relative; /* Cambia a posición relativa */
-  margin-bottom: 10px; 
-  z-index: 3;
+  margin-top: 180px; 
+  z-index: 6;
 }
 .CardName:hover {
-  animation: rotarYVibrar 0.25s infinite;
   overflow: visible;
   white-space: normal;
-  text-overflow: initial;
   height: auto;
 }
 
@@ -25,8 +22,8 @@
   display: flex;
   align-items: center;
   background-color: #8d0970;
-  width: 300px;
-  height: 360px;
+  width: 250px;
+  height: 320px;
   flex-direction: column;
   background-color: #ffffff;
   border: 3px solid #dadada;
@@ -50,19 +47,18 @@
 
 .CardImage {
   position: relative;
-  max-height: 250px;
-  max-width: 300px;
+  max-height: 200px;
+  max-width: 250px;
   object-fit:contain;
   object-position: center; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
   border-radius: 8px 8px 0px 0px;
   z-index: 2;
-  margin: auto;
 }
 
 .CardImageback{
   position:absolute;
-  height: 250px;
-  width: 300px;
+  height: 200px;
+  width: 250px;
   object-fit: cover;
   object-position: center; /* Ajusta la posición de la imagen para que no quede más del 10% fuera */
   border-radius: 8px 8px 0px 0px;
@@ -77,6 +73,7 @@
   top: 210px;
   width: 100%;
   height: 60px;
+  z-index: 5;
 }
 
 .weightTitle {
@@ -99,7 +96,6 @@
 }
 .CardWeights p {
   display: flex;
-  margin-inline: 100px;
   align-items: center;
   color: #000000;
   margin-inline: 5px;
@@ -110,7 +106,7 @@
   width: 100%;
   position: relative;
   flex-direction: row;
-  top: -12px;
+  top: 5px;
   text-align: center;
 }
 
@@ -120,7 +116,7 @@
   background-color: #c4c4c4;
   width: 100%;
   height: 25px;
-  top: -14px;
+  top: -30px;
   color: #000000;
   font-weight: bold;
 }
@@ -129,7 +125,7 @@
   width: 100%; /* Ajusta según tus necesidades */
   margin: 0 auto; /* Centra horizontalmente */
   position: relative;
-  top: -28px;
+  bottom: 40px;
   border-radius: 0px 0px 8px 8px;
   overflow: hidden;
   display: -webkit-box;
@@ -139,6 +135,7 @@
 }
 
 .CardTemperament p {
+  font-weight: bold;
   margin: 0;
   padding: 0 5px; /* Agrega el margen de 5px a cada lado del texto */
   display: -webkit-box;

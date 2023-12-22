@@ -29,7 +29,7 @@ function Card(props) {
            alt={name}
            onError={(e) => {
              e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
-           }}
+            }}
          />
          <img
            className="CardImageback"
@@ -37,11 +37,11 @@ function Card(props) {
            alt={name}
            onError={(e) => {
              e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
-           }}
+            }}
          />
       </Link>
+            <h1 className="CardName">{name}</h1>
       <div className="CardWeightContainer">
-        <h1 className="CardName">{name}</h1>
         <p className="weightTitle">Weight</p>
         <div className="CardWeights">
           <p> Min: {weightMin} kg</p>
