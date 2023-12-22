@@ -1,7 +1,7 @@
 const regexlife_span = /^\d{1,2}\s*-\s*\d{1,2}$/;
 
-const validation = (inputs, errors, setErrors) => {
-  let newErrors = {...errors};
+const validation = (inputs, frontErrors, setFrontErrors) => {
+  let newfrontErrors = {...frontErrors};
 
   const {
     name,
@@ -13,75 +13,75 @@ const validation = (inputs, errors, setErrors) => {
   } = inputs;
 
   if (!name) {
-    newErrors.name = "Name is required.";
+    newfrontErrors.name = "Name is required.";
   } else if (name.length > 20) {
-    newErrors.name = "Name exceeds the allowed character limit.";
+    newfrontErrors.name = "Name exceeds the allowed character limit.";
   } else {
-    newErrors.name = "";
+    newfrontErrors.name = "";
   }
 
   if (weightMin.trim() === "") {
-    newErrors.weightMin = ""; 
+    newfrontErrors.weightMin = ""; 
   } else if (!Number(weightMin)) {
-    newErrors.weightMin = "WeightMin must be a number.";
+    newfrontErrors.weightMin = "WeightMin must be a number.";
   } else if (!Number.isInteger(parseFloat(weightMin))) {
-    newErrors.weightMin = "WeightMin must be an integer.";
+    newfrontErrors.weightMin = "WeightMin must be an integer.";
   } else if (parseFloat(weightMin) < 1 || parseFloat(weightMin) > 50) {
-    newErrors.weightMin = "WeightMin is invalid, it must be between 1kg and 50kg.";
+    newfrontErrors.weightMin = "WeightMin is invalid, it must be between 1kg and 50kg.";
   } else {
-    newErrors.weightMin = "";
+    newfrontErrors.weightMin = "";
   }
 
 
   if (weightMax.trim() === "") {
-    newErrors.weightMax = ""; 
+    newfrontErrors.weightMax = ""; 
   } else if (!Number(weightMax)) {
-    newErrors.weightMax = "WeightMax must be a number.";
+    newfrontErrors.weightMax = "WeightMax must be a number.";
   } else if (!Number.isInteger(parseFloat(weightMax))) {
-    newErrors.weightMax = "WeightMax must be an integer.";
+    newfrontErrors.weightMax = "WeightMax must be an integer.";
   } else if (parseFloat(weightMax) < 2 || parseFloat(weightMax) > 80) {
-    newErrors.weightMax = "WeightMax is invalid, it must be between 2kg and 80kg.";
+    newfrontErrors.weightMax = "WeightMax is invalid, it must be between 2kg and 80kg.";
   } else if (weightMin >= weightMax){
-    newErrors.weightMax = "WeightMax cannot be less than WeightMin.";
+    newfrontErrors.weightMax = "WeightMax cannot be less than WeightMin.";
   } else {
-    newErrors.weightMax = "";
+    newfrontErrors.weightMax = "";
   }
 
   if (heightMin.trim() === "") {
-    newErrors.heightMin = ""; 
+    newfrontErrors.heightMin = ""; 
   } else if (!Number(heightMin)) {
-    newErrors.heightMin = "HeightMin must be a number.";
+    newfrontErrors.heightMin = "HeightMin must be a number.";
   } else if (!Number.isInteger(parseFloat(heightMin))) {
-    newErrors.heightMin = "HeightMin must be an integer.";
+    newfrontErrors.heightMin = "HeightMin must be an integer.";
   } else if (parseFloat(heightMin) > 90 || parseFloat(heightMin) < 20) {
-    newErrors.heightMin = "HeightMin must be between 20cm and 90cm";
+    newfrontErrors.heightMin = "HeightMin must be between 20cm and 90cm";
   } else {
-    newErrors.heightMin = "";
+    newfrontErrors.heightMin = "";
   }
 
 
   if (heightMax.trim() === "") {
-    newErrors.heightMax = ""; 
+    newfrontErrors.heightMax = ""; 
   } else if (!Number(heightMax)) {
-    newErrors.heightMax = "HeightMax must be a number.";
+    newfrontErrors.heightMax = "HeightMax must be a number.";
   } else if (!Number.isInteger(parseFloat(heightMax))) {
-    newErrors.heightMax = "HeightMax must be an integer.";
+    newfrontErrors.heightMax = "HeightMax must be an integer.";
   } else if (parseFloat(heightMax) > 150 || parseFloat(heightMax) < 1) {
-    newErrors.heightMax = "HeightMax must be between 1cm and 150cm";
+    newfrontErrors.heightMax = "HeightMax must be between 1cm and 150cm";
   } else if (heightMin >= heightMax) {
-    newErrors.heightMax = "HeightMax cannot be less than HeightMin.";
+    newfrontErrors.heightMax = "HeightMax cannot be less than HeightMin.";
   } else {
-    newErrors.heightMax = "";
+    newfrontErrors.heightMax = "";
   }
 
   if (life_span.trim() === "") {
-    newErrors.life_span = ""; 
+    newfrontErrors.life_span = ""; 
   } else if (life_span && !regexlife_span.test(life_span)) {
-    newErrors.life_span = "Life span is invalid, it must have the format '5 - 40'.";
+    newfrontErrors.life_span = "Life span is invalid, it must have the format '5 - 40'.";
   } else {
-    newErrors.life_span = "";
+    newfrontErrors.life_span = "";
   }
 
-  setErrors({ ...errors, ...newErrors });
+  setFrontErrors({ ...frontErrors, ...newfrontErrors });
 };
 export default validation;

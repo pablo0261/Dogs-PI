@@ -160,10 +160,10 @@ const createDogDB = async ({//* Crea perros
       // Buscar en la base de datos todas las filas de temperamentos
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
-          name: 
-            newTemperaments.trim(),
-            // [Op.iLike]: `%${newTemperaments.trim()}%`,
-          
+          name: {
+            // newTemperaments.trim(),
+            [Op.iLike]: `%${newTemperaments.trim()}%`,
+          }
         },
       });
       // console.log(newTemperaments);

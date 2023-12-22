@@ -11,7 +11,11 @@ export const FILTER_ORIGIN_DOG = "FILTER_ORIGIN_DOG";
 export const GET_CREATE_DOG = "GET_CREATE_DOG";
 export const POST_NEW_DOGS = "POST_NEW_DOGS";
 export const REMOVE_SELECTED_DOG = "REMOVE_SELECTED_DOG";
+export const SET_FRONT_ERROR = "SET_FRONT_ERROR";
+export const CLEAR_FRONT_ERROR = "CLEAR_FRONT_ERROR";
 export const SET_ERRORS = "SET_ERRORS";
+export const SET_ERROR_BACK = "SET_ERROR_BACK";
+export const CLEAR_ERROR_BACK = "CLEAR_ERROR_BACK";
 // export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
 const getAllDogs = () => {
@@ -95,16 +99,21 @@ const postDogs = (dataCreated) => {
   return async (dispatch) => {
     try {
       const response = await axios.post("/dogs", dataCreated);
-      console.log(response.data)
+      console.log(response.data);
       dispatch({
         type: POST_NEW_DOGS,
         payload: response.data,
       });
+      
     } catch (error) {
       console.error("Error posting dogs:", error);
       console.error("Detalles del error:", error.response.data);
-      if (error.response.data) {
-        dispatch({ type: SET_ERRORS, payload: error.response.data.errors });
+      if (error.response && error.response.data) {
+        dispatch({
+          type: SET_ERROR_BACK,
+          payload: error.response.data,
+        });
+        throw error.response.data;
       }
     }
   };
@@ -123,14 +132,40 @@ const resetAll = () => {
         type: GET_ALL_TEMP,
         payload: data2,
       });
-      
     } catch (error) {
       console.log("Error getting all dogs");
     }
   };
-};//! ver si lo voy a usar o lo hago con el estado local en home
+};
+
+//* --- manejo de errores del front ---//*
+
+const setFrontError = (message) => ({
+  type: 'SET_FRONT_ERROR',
+  payload: message,
+});
+
+const clearFrontError = (field) => ({
+  type: 'CLEAR_FRONT_ERROR',
+  payload: { field },
+});
+
+//* --- manejo de errores del back ---//*
+
+const setErrorBack = (message) => {
+  return {
+    type: "SET_ERROR_BACK",
+    payload: { message },
+  };
+};
+
+const clearErrorBack = (module) => ({
+  type: "CLEAR_ERROR_BACK",
+  payload: { module },
+});
 
 
+//! ver si lo voy a usar o lo hago con el estado local en home
 
 export {
   getAllDogs,
@@ -143,4 +178,8 @@ export {
   FilterByTemp,
   FilterOriginDog,
   resetAll,
+  setFrontError,
+  clearFrontError,
+  setErrorBack,
+  clearErrorBack,
 };

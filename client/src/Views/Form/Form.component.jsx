@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllTemperaments, postDogs } from "../../Redux/Actions";
 import "./Form.style.css";
 import validation from "./Validation";
+import { setFrontError, clearFrontError } from '../../Redux/Actions';
 
 function Form() {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function Form() {
     image: "",
   });
 
-  const errorsFromBack = useSelector((state) => state.errors);
+  const errorsFromBack = useSelector((state) => state.errorsBack);
   const [localErrors, setLocalErrors] = useState({});
   const temperaments = useSelector((state) => state.allTemperaments);
   const [temperamentsList, setTemperamentsList] = useState(false);
@@ -36,7 +37,7 @@ function Form() {
   ];
 
   useEffect(() => {
-    setLocalErrors(errorsFromBack);
+    // setLocalErrors(errorsFromBack);
     console.log("Errors from back:", errorsFromBack);
   }, [errorsFromBack]);
 
@@ -93,9 +94,15 @@ function Form() {
     } else {
       dispatch(postDogs(inputs))
         .then(() => {
-          alert("The dog was created");
+          alert("The Breed was successfully created");
         })
         .catch((error) => {
+          console.log(error.error)
+          if (error.error) {
+            alert(error.error);
+          } else{
+            alert("It wasn't possible to create the new Breed");
+          }
           console.error("Error creating dog:", error);
         });
     }

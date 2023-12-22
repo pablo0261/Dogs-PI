@@ -12,7 +12,11 @@ import {
   FILTER_ORIGIN_DOG,
   //*-----POST----//
   POST_NEW_DOGS,
-  SET_ERRORS,
+  //*-----ERRORS----//
+  SET_FRONT_ERROR,
+  CLEAR_FRONT_ERROR,
+  SET_ERROR_BACK,
+  CLEAR_ERROR_BACK,
 } from "./Actions";
 
 let initialState = {
@@ -24,8 +28,11 @@ let initialState = {
   filterDb: [],
   filterTemp: [],
   dogSelected: [],
-  errors: {},
+  errorsFront: {},
+  errorsBack: {},
 };
+
+
 
 //*Para extraer los temperamentos individualmente
 const extractUniqueTemperaments = (temperamentsArray) => {
@@ -106,10 +113,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
       console.log(selectedTemp);
       console.log(filteredTemp);
       if (selectedTemp.length > 0 && filteredTemp.length === 0) {
-          return {
-            ...state,
-            dogSelected: { notFound: true },
-          };
+        return {
+          ...state,
+          dogSelected: { notFound: true },
+        };
       }
       return {
         ...state,
@@ -134,6 +141,12 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         createDogs: [...state.createDogs, payload],
+    
+        ...state,
+        errorsBack: {
+          ...state.errorsBack,
+          errorsBack: payload,
+        },
       };
 
     case REMOVE_SELECTED_DOG:
@@ -142,11 +155,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
         dogSelected: {},
       };
 
-    case SET_ERRORS:
+    case SET_FRONT_ERROR:
       return {
         ...state,
-        errors: payload,
-      }
+        errorsFront: { ...state.errorsFront, [payload.field]: payload.message },
+      };
+
+    case CLEAR_FRONT_ERROR:
+      return {
+        ...state,
+        errorsFront: { ...state.errorsFront, [payload.field]: null },
+      };
+
+    case SET_ERROR_BACK:
+      return {
+        ...state,
+          errorsBack: payload,
+      };
+
+    case CLEAR_ERROR_BACK:
+      return {
+        ...state,
+        errorsBack: { ...state.errorsBack, payload: null },
+      };
 
     default:
       return state;

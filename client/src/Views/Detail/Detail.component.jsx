@@ -16,7 +16,7 @@ function Detail() {
       //limpiar el store cuando se desmonte
       dispatch(removeSelectedDog());
     };
-  }, [id, dispatch]);
+  }, []);
 
   const dogById = useSelector((state) => state.dogSelected);
   if (!dogById || Object.keys(dogById).length === 0) {

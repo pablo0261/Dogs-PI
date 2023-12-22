@@ -6,37 +6,6 @@ const {
 } = require("../Controllers/dogController");
 const { Dog, Temperament } = require("../db");
 
-// const getDogByNameWithTemp = async (name) => {
-//   try {
-//     const foundDog = await Dog.findOne({
-//       where: { name },
-//       include: Temperament,
-//     });
-//     if (foundDog) {
-//       const temperaments = foundDog.Temperaments ? foundDog.Temperaments.map((temp) => temp.name) : ['Sin Temperamento'];
-
-//       const dogsWithTemperaments ={
-//         id: foundDog.id,
-//         name: foundDog.name,
-//         height: foundDog.height,
-//         weight: foundDog.weight,
-//         life_span: foundDog.life_span,
-//         temperaments: temperaments,
-//       };
-
-//       return dogsWithTemperaments;
-//     } else {
-//       console.log(`No se encontraron perros con el nombre '${name}'`);
-//       // Retornamos un array vacío para indicar que no se encontraron perros
-//       return [];
-//     }
-//   } catch (error) {
-//     console.error("Error al buscar el perro en la base de datos:", error.message);
-//     // Lanzamos una excepción para que el controlador pueda manejar el error
-//     throw new Error("Error interno del servidor");
-//   }
-// };
-
 const getDogsHandler = async (req, res) => {
   //*Hace la peticion por nombre, si no existe el nombre trae todos los perros
 
