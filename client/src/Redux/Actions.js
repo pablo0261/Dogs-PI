@@ -19,6 +19,7 @@ export const CLEAR_ERROR_BACK = "CLEAR_ERROR_BACK";
 // export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
 //*---GET GENERALES---//
+
 const getAllDogs = () => {
   return async (dispatch) => {
     try {
@@ -78,14 +79,14 @@ const filterByW = (value) => {
 };
 
 //*---FILTER---//
-const FilterByTemp = (value) => {
+const filterDogsByTemp = (value) => {
   return {
     type: FILTER_BY_TEMP,
     payload: value,
   };
 };
 
-const FilterOriginDog = (value) => {
+const filterOriginDog = (value) => {
   return {
     type: FILTER_ORIGIN_DOG,
     payload: value,
@@ -175,8 +176,8 @@ export {
   postDogs,
   orderDogs,
   filterByW,
-  FilterByTemp,
-  FilterOriginDog,
+  filterDogsByTemp,
+  filterOriginDog,
   resetAll,
   setFrontError,
   clearFrontError,
