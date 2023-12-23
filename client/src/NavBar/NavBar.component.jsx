@@ -31,7 +31,8 @@ function NavBar({handleChange, handleSubmit}) {
         />
       </form>
         <button type="submit" className="CreateDog" onClick={handleButtonGo}>
-          Add Breeds
+          <img src="ButtonCreateDog.png" alt="Ad Breed">
+          </img>
         </button>
     </div>
   );

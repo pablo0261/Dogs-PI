@@ -42,20 +42,20 @@ const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
 const filterByOrigin = useSelector((state) => state.filterByOrigin);
 const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
 
-const copy1 = allDogs;
+// const copy1 = allDogs;
 
 
 if (flagFilterByTemp && flagFilterByOrigin) {
-  dogSelected = filterByOrigin.filter(dog => filterByTemp.includes(dog.name));
+  dogSelected = filterByOrigin.filter(dog => filterByTemp.includes(dog));
 } else if (flagFilterByTemp) {
-  dogSelected = filterByTemp.filter(dog => copy1.some(copyDog => copyDog.name === dog.name));
+  dogSelected = filterByTemp.filter(dog => allDogs.some(copyDog => copyDog.name === dog.name));
 } else if (flagFilterByOrigin) {
-  dogSelected = filterByOrigin.filter(dog => copy1.some(copyDog => copyDog.name === dog.name));
+  dogSelected = filterByOrigin.filter(dog => allDogs.some(copyDog => copyDog.name === dog.name));
 } else {
-  dogSelected = copy1; 
+  dogSelected = allDogs; 
 }
 
-console.log("Valor actual de copy1:", copy1);
+console.log("Valor actual de copy1:", allDogs);
 console.log("Valor actual de dogSelected:", dogSelected);
 console.log("Valor actual de flagFilterByOrigin:", flagFilterByOrigin);
 console.log("Valor actual de filterByOrigin:", filterByOrigin);

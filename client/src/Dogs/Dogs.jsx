@@ -13,8 +13,8 @@ const Dogs = ({
 }) => {
   return (
     <div className="DivfilterButton">
-      <select className="OrderButton" onChange={(event) => handleOrder(event)}>
-        <option disabled>Order by Name</option>
+      <select className="OrderButton"  value="Order A-Z" onChange={(event) => handleOrder(event)}>
+        <option disabled>Order A-Z</option>
         <option key={1} value="A-Z">
           A-Z
         </option>
@@ -23,7 +23,7 @@ const Dogs = ({
         </option>
       </select>
 
-      <select className="OrderButton" onChange={(e) => handlerFilterW(e)}>
+      <select className="OrderButton" value="Order by Weight" onChange={(e) => handlerFilterW(e)}>
         <option disabled>Order by Weight</option>
         <option key={1} value="weightMax">
           Max
@@ -33,8 +33,8 @@ const Dogs = ({
         </option>
       </select>
 
-      <select className="OrderButton" onBlur={resetAll} onChange={(e) => handlerFilterOrigin(e)}>
-        <option disabled>Order by Origin</option>
+      <select className="OrderButton" value="Filter by Origin" onBlur={resetAll} onChange={(e) => handlerFilterOrigin(e)}>
+        <option disabled>Filter by Origin</option>
         <option key={1} value="All">
           All
         </option>
@@ -47,10 +47,10 @@ const Dogs = ({
       </select>
 
       <select
-        className="OrderButton"
+        className="OrderButton" value="Filter by Temperament"
         onChange={(e) => handlerFilterTemp(e)}
       >
-        <option disabled>Temperaments</option>
+        <option disabled>Filter by Temperament</option>
         <option key={1} value="All">
           All
         </option>

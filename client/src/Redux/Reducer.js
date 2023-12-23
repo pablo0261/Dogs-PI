@@ -158,25 +158,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         filterByOrigin: payload === 'All' ? state.allDogs : filterOrigin,
         flagFilterByOrigin: payload !== 'All'? true : false,
-
-
-
-
-
-      // const copy4 = copy7.filter((dog) => isNaN(Number(dog.id)));
-      // const copy5 = copy6.filter((dog) => !isNaN(Number(dog.id)));
-      // const copy6 = copy7;
-      // const copy7 = state.allDogs;
-
-      // if (payload === "created") {
-      //   // return {filterByOrigin: copy5, flagFilterByOrigin: true,};
-      //   return { ...state, filterDb: copy6, allDogs: copy4, flagFilterByOrigin: true, };
-      // } else if (payload === "Api") {
-      //   return { ...state, filterApi: copy4, allDogs: copy5, flagFilterByOrigin: true, };
-      //   // return {filterByOrigin: copy4, flagFilterByOrigin: true,};
-      // } else {
-      //   return { ...state, allDogs: copy7, flagFilterByOrigin: false, };
-      //   // return {filterByOrigin: [], flagFilterByOrigin: false,};
       }
 
     //*---POST---//

@@ -103,14 +103,14 @@
   width: 130px;
   height: 50px;
   margin: -30px 0px 0px 900px;
-  background-image: url("../Utils/ButtonCreateDog.svg");
+  background-image: url("../NavBar/ButtonCreateDog.png");
   border-radius: 20px;
   padding: 5px;
   cursor: auto;
 }
 .CreateDog:hover {
   transform: scale(1.05);
-  background-color: var(--color-background-general);
+  /* background-color: var(--color-background-general); */
   box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
 .CreateDog:active {
