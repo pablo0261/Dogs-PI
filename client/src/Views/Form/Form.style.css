@@ -6,27 +6,41 @@
   --color-text: rgb(26, 5, 32);
   --color-background-tiped: #c4c4c4;
   --color-background-general: #f1f1f1;
-  --color-error: rgb(107, 2, 2);
+  --color-error: rgb(128, 1, 1);
+}
+
+.background{
+  margin: 0;
+  padding: 0;
+  background-image: url("../../../public/image/fondoDogsClear.jpg");
+  background-size: 100%;
+  background-position: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .Form {
-  position: absolute;
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
+  width: 75vw;
   height: 600px;
+  margin: 10px 10px 10px 10px;
   border-radius: 30px;
   border: 3px solid var(--color-color);
   box-shadow: var(--color-shadow);
+  margin: 50px;
+  background-color: rgba(73, 73, 73, 0.671);
+  backdrop-filter: blur(10px);
 }
 
 .DivButtonTittle {
   margin: 10px;
-  width: 1200px;
+  width: 100%;
   height: 60px;
 }
 
@@ -37,7 +51,10 @@
   top: 30px;
   left: -450px;
   padding: 5px 15px;
-  background-image: url("../../Utils/goBack.png");
+  background-image: url("../../../public/image/ButtonGoBack.jpg");
+  background-size: 130%;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: var(--color-color);
   border: outset;
   border-color: var(--color-border);
@@ -56,6 +73,37 @@
   transform: scale(0.95);
   box-shadow: var(--color-shadow);
 }
+
+.ReloadButton{
+  position: absolute;
+  height: 45px;
+  width: 45px;
+  bottom: 30px;
+  right: 140px;
+  background-image: url("../../../public/image/clear.jpg");
+  background-size: 170%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--color-color);
+  border: outset;
+  border-color: var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.ReloadButton:hover {
+  background-color: var(--color-border);
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px var(--color-shadow);
+  border: groove;
+  border-color: var(--color-border);
+}
+.ReloadButton:active {
+  transform: scale(0.95);
+  box-shadow: var(--color-shadow);
+}
+
+
 
 .DetailTittle {
   display: flex;
@@ -79,20 +127,24 @@
 
 .ContainerDivInput {
   margin-top: 90px;
-  width: 1000px;
-  height: 700px;
+  width: 800px;
+  height: 400px;
+  max-width: 100%;
 }
 
 .FormDivInput {
   align-items: center;
   display: flex;
   margin-bottom: 15px;
-  margin-left: 400px;
+  margin-left: 350px;
   margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .FormLavel {
-  margin-left: -120px;
+  margin-left: -150px;
 }
 
 .DivLavel {
@@ -113,9 +165,10 @@
 .ErrorMessage {
   position: absolute;
   color: var(--color-error);
-  width: 200px;
+  width: 290px;
   margin-left: 220px;
-  font-size: 14px; /* Tamaño del texto de error */
+  font-weight: bold;
+  font-size: 18px; /* Tamaño del texto de error */
   flex-grow: 1;
 }
 
@@ -123,24 +176,27 @@
   display: flex;
   width: 900px;
   height: 50px;
-  left:550px;
+  left:570px;
   align-items: center;
 }
 
 .FormLavelTemp {
-  margin-left: 260px;
+  margin-left: 200px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .InputsTemp {
   position: absolute;
   border: 1px solid var(--color-border);
-  width: 500px;
+  width: 400px;
   height: 30px;
   border-radius: 6px;
   outline: none;
   font-size: 16px;
   color: var(--color-color);
-  left: 445px;
+  left: 460px;
 }
 
 .TemperamentsList {
@@ -149,8 +205,9 @@
   overflow-x: hidden;
   width: 90%;
   max-height: 300px;
-  background-color: var(--color-background-general);
-  border-radius: 5px;
+  background-color: rgba(73, 73, 73, 0.363);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
   margin-top: 5px;
   margin-left: -130px;
   display: flexbox;
@@ -164,15 +221,18 @@
 .TemperamentsList.show {
   display: block;
   max-height: 400px;
+  
 }
 
 .TemperamentsList span {
   display: block;
-  padding: 10px;
+  padding: 5px;
+  margin: 3px;
   cursor: pointer;
   white-space: wrap;
   color: var(--color-color);
   background-color: rgb(197, 109, 214);
+  border-radius: 10px;
 }
 
 .TemperamentsList span:hover {
@@ -188,18 +248,28 @@
 
 .ButtonFomr {
   position: absolute;
-  bottom: 40px;
+  height: 45px;
+  width: 90px;
+  bottom: 30px;
   right: 30px;
-  background-color: var(--color-color);
-  color: var(--color-background-general);
+  color:var(--color-background-fondo2);
   font-weight: bold;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
+  font-size: 14px;
+  background-color: var(--color-color);
+  border: outset;
+  border-color: var(--color-border);
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-
 .ButtonFomr:hover {
   background-color: var(--color-border);
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px var(--color-shadow);
+  border: groove;
+  border-color: var(--color-border);
+}
+.ButtonFomr:active {
+  transform: scale(0.95);
+  box-shadow: var(--color-shadow);
 }

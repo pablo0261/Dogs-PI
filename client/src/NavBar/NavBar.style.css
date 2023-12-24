@@ -21,24 +21,22 @@
 }
 
 .SearchBar {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  display:flex;
+  position: relative;
   border: 2px solid rgba(143, 7, 7, 0);
   height: 45px;
-  width: 80vw;
-  margin: 50px 140px;
+  width: 450px;
+  margin: 50px  0px 0px 860px;
   background-color: rgba(0, 0, 0, 0);
   z-index: 1;
 }
 
 .NavBarButton {
+  position: absolute;
   background-color: var(--color-background-general);
   border: 1px solid var(--color-border);
   border-radius: 10px;
-  margin-right: 4px;
-  align-items: center;
-  justify-content: center;
+  margin: 3px 0px 0px 293px;
   height: 70%;
   padding: 7px;
   cursor: auto;
@@ -56,12 +54,12 @@
 }
 
 .NavBarInput {
-  display: flex;
-  position: absolute;
+  position:relative;
   height: 38px;
+  margin-right: 0px;
   background-color: #fffdfdcb;
   border: 2px solid rgba(143, 7, 7, 0);
-  width: 35%;
+  width: 80%;
   border-radius: 9px;
   padding: 5px;
   cursor: auto;
@@ -100,10 +98,13 @@
 
 .CreateDog {
   position: relative;
-  width: 130px;
-  height: 50px;
-  margin: -30px 0px 0px 900px;
-  background-image: url("../NavBar/ButtonCreateDog.png");
+  width: 150px;
+  height: 60px;
+  margin: 30px 0px 0px 800px;
+  background-image: url("../../public/image/CreateDog.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 20px;
   padding: 5px;
   cursor: auto;

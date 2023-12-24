@@ -59,27 +59,27 @@ function Detail() {
             <p className="DatoBox">{dogById[0].id}</p>
           </div>
           <div className="DivInfo">
-            <p> weightMin:</p>
+            <p> Weight Min:</p>
             <p className="DatoBox">{dogById[0].weightMin}</p>
           </div>
           <div className="DivInfo">
-            <p> weightMax:</p>
+            <p> Weight Max:</p>
             <p className="DatoBox">{dogById[0].weightMax}</p>
           </div>
           <div className="DivInfo">
-            <p> heightMin:</p>
+            <p> Height Min:</p>
             <p className="DatoBox"> {dogById[0].heightMin}</p>
           </div>
           <div className="DivInfo">
-            <p> heightMax: </p>
+            <p> Height Max: </p>
             <p className="DatoBox">{dogById[0].heightMax}</p>
           </div>
           <div className="DivInfo">
-            <p> life_span: </p>
+            <p> Life span: </p>
             <p className="DatoBox"> {dogById[0].life_span}</p>
           </div>
           <div className="DivInfoDown">
-            <p> Temperamento </p>
+            <p className="TittleInfoDown"> Temperamento </p>
             <p className="DatoBox"> {dogById[0].temperament}</p>
           </div>
         </div>

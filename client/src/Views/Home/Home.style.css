@@ -3,6 +3,9 @@
   flex-direction: column;
   text-align: center;
   align-items: center;
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .HomeContainerTitle {
@@ -15,11 +18,11 @@
 }
 
 .HomeTitle {
-  width: 700px;
+  width: 60%;
   height: auto;
   position: absolute;
-  top: 16px;
-  left: 20px;
+  top: 14px;
+  left: 50px;
 }
 
 .HomeCards {

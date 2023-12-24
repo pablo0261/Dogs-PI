@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllTemperaments, postDogs } from "../../Redux/Actions";
 import "./Form.style.css";
 import validation from "./Validation";
-import { setFrontError, clearFrontError } from '../../Redux/Actions';
+import { setFrontError, clearFrontError } from "../../Redux/Actions";
 
 function Form() {
   const dispatch = useDispatch();
@@ -26,10 +26,20 @@ function Form() {
     { label: "Name", name: "name", type: "text", placeholder: "Name" },
     { label: "Weight Min", name: "weightMin", type: "text", placeholder: "0" },
     { label: "Weight Max", name: "weightMax", type: "text", placeholder: "0" },
-    { label: "Height Min", name: "heightMin", type: "text", placeholder: "0cm" },
-    { label: "Height Max", name: "heightMax", type: "text", placeholder: "0cm" },
     {
-      label: "life_span",
+      label: "Height Min",
+      name: "heightMin",
+      type: "text",
+      placeholder: "0cm",
+    },
+    {
+      label: "Height Max",
+      name: "heightMax",
+      type: "text",
+      placeholder: "0cm",
+    },
+    {
+      label: "Life span",
       name: "life_span",
       type: "text",
       placeholder: "1 - 6",
@@ -97,10 +107,10 @@ function Form() {
           alert("The Breed was successfully created");
         })
         .catch((error) => {
-          console.log(error.error)
+          console.log(error.error);
           if (error.error) {
             alert(error.error);
-          } else{
+          } else {
             alert("It wasn't possible to create the new Breed");
           }
           console.error("Error creating dog:", error);
@@ -109,13 +119,18 @@ function Form() {
   };
 
   return (
-    <div>
+    <div className="background">
       <form className="Form" onSubmit={handleSubmit}>
         <div className="DivButtonTittle">
           <button
             type="button"
             className="DetailButton"
             onClick={() => window.history.back()}
+          ></button>
+          <button
+            type="button"
+            className="ReloadButton"
+            onClick={() => window.location.reload()}
           ></button>
           <h1 className="DetailTittle">Create your Breed</h1>
         </div>
@@ -142,7 +157,7 @@ function Form() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <label className="FormLavelTemp">Temperamento</label>
+            <label className="FormLavelTemp">Temperament</label>
             <input
               className="InputsTemp"
               type="text"
@@ -164,12 +179,12 @@ function Form() {
             <div className="ErrorMessage">{localErrors.temperaments}</div>
           </div>
         </div>
-        
-        {Object.values(localErrors).every((error) => error === "") && (
-          <button className="ButtonFomr" type="submit">
-            Send
-          </button>
-        )}
+        {Object.values(localErrors).every((error) => error === "") &&
+          Object.values(inputs).some((value) => value !== "") && (
+            <button className="ButtonFomr" type="submit">
+              Send
+            </button>
+          )}
       </form>
     </div>
   );

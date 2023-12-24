@@ -18,21 +18,19 @@ function NavBar({handleChange, handleSubmit}) {
   // const handleFilter = (e) => {
   //   dispatch(filterCards(e.target.value));
   // };
-
+  
   return (
     <div className="NavBar">
       <form className="SearchBar"onSubmit={(e) => handleSubmit(e)} >
-        <button type="submit" className="NavBarButton" >Search</button>
         <input
           type="search"
           placeholder="  Search Breeds"
           className="NavBarInput"
           onChange={(e) => handleChange(e)}
         />
+      <button type="submit" className="NavBarButton" >Search</button>
       </form>
         <button type="submit" className="CreateDog" onClick={handleButtonGo}>
-          <img src="ButtonCreateDog.png" alt="Ad Breed">
-          </img>
         </button>
     </div>
   );
