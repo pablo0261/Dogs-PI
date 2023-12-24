@@ -46,11 +46,11 @@ const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
 
 
 if (flagFilterByTemp && flagFilterByOrigin) {
-  dogSelected = filterByOrigin.filter(dog => filterByTemp.includes(dog));
+  dogSelected = allDogs.filter(dog => filterByTemp.includes(dog) && filterByOrigin.includes(dog));
 } else if (flagFilterByTemp) {
-  dogSelected = filterByTemp.filter(dog => allDogs.some(copyDog => copyDog.name === dog.name));
+  dogSelected = filterByTemp
 } else if (flagFilterByOrigin) {
-  dogSelected = filterByOrigin.filter(dog => allDogs.some(copyDog => copyDog.name === dog.name));
+  dogSelected = filterByOrigin
 } else {
   dogSelected = allDogs; 
 }
@@ -156,42 +156,30 @@ console.log("Valor actual de filterByTemp:", filterByTemp);
   };
 
 
-  useEffect(() => {
-    // Función para manejar el filtrado cuando selectedTemperaments cambia
-    console.log("Filtros aplicados:");
-  console.log("selectedTemperaments:", selectedTemperaments);
-  console.log("filterByTemp:", filterByTemp);
-  console.log("flagFilterByTemp:", flagFilterByTemp);
-    const handlefilterByTemp = () => {
-      dispatch(filterByTemp(selectedTemperaments));
-    };
-
-    // Ejecutar la función de filtrado cuando selectedTemperaments cambia
-    if (typeof filterByTemp === 'function') {
-      handlefilterByTemp();
-    }
-  }, [selectedTemperaments, filterByTemp]);
-
   const handlerFilterTemp = (e) => {
     e.preventDefault();
     const selectedTemp = e.target.value;
     setCurrentPage(1);
     if (!selectedTemperaments.includes(selectedTemp)) {
       // Actualiza el estado de los temperamentos seleccionados
-      setSelectedTemperaments([...selectedTemperaments, selectedTemp]);
-    }
-    // console.log(selectedTemperaments)
-    dispatch(filterDogsByTemp(selectedTemperaments));
-  };
-
+      setSelectedTemperaments(prevTemperaments => [...prevTemperaments, selectedTemp]);
+    }};
+  
   const handleRemoveTemperament = (deleteTemp) => {
     const updatedTemperaments = selectedTemperaments.filter(
       (temp) => temp !== deleteTemp
-    );
-    setSelectedTemperaments(updatedTemperaments);
-    dispatch(filterDogsByTemp(updatedTemperaments));
-  };
-
+      );
+      setSelectedTemperaments(updatedTemperaments);
+    };
+    
+    console.log("selectedTemperaments:", selectedTemperaments);
+    
+    useEffect(() => {
+      dispatch(filterDogsByTemp(selectedTemperaments));
+    },[selectedTemperaments])
+    
+    console.log("filterByTemp:", filterByTemp);
+    console.log("flagFilterByTemp:", flagFilterByTemp);
 
   return (
     <div className="Home">

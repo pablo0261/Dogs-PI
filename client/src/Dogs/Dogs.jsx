@@ -1,5 +1,7 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "./Dogs.style.css";
+
 
 const Dogs = ({
   handleOrder,
@@ -11,6 +13,12 @@ const Dogs = ({
   selectedTemperaments,
   resetAll,
 }) => {
+  const errorsFront = useSelector((state) => state.errorsFront);
+  const [localErrors, setLocalErrors] = useState({});
+  
+  useEffect(() => {
+    setLocalErrors(errorsFront)
+  },[errorsFront])
   return (
     <div className="DivfilterButton">
       <select className="OrderButton"  value="Order A-Z" onChange={(event) => handleOrder(event)}>
@@ -60,9 +68,10 @@ const Dogs = ({
           </option>
         ))}
       </select>
+      <div className="ErrorMessage">{localErrors.temperaments}</div>//!terminar el manejo de errores aca
       <div className="SelectedTemperamentsContainer">
         {selectedTemperaments.map((temp) => (
-          <div key={temp} className="SelectedTemperament">
+          <div key={temp} value={temp} className="SelectedTemperament">
             {temp}
             <button className="XButton" onClick={() => handleRemoveTemperament(temp)}>X</button>
           </div>

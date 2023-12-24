@@ -127,28 +127,28 @@ const rootReducer = (state = initialState, { type, payload }) => {
     //*---FILTER---//
     case FILTER_BY_TEMP:
       const selectedTemp = payload.includes("All") ? [] : payload;
-      const filteredTemp = state.allDogs.filter((dog) =>
+      const filteredDog = state.allDogs.filter((dog) =>
         selectedTemp.every((temp) => dog.temperament?.includes(temp))
       );
       if (selectedTemp.length < 1){
         return{
           ...state,
-          filterByTemp: filteredTemp,
           flagFilterByTemp: false,
+          filterByTemp: filteredDog,
         }
       }
-      if (selectedTemp.length > 0 && filteredTemp.length === 0) {
+      if (selectedTemp.length > 0 && filteredDog.length === 0) {
         return {
           ...state,
-          filterByTemp: filteredTemp,
           flagFilterByTemp: true,
-          errorsFront: { notFound: true }, //! ver si esto lo mantengo cuando funcionen las flags
+          filterByTemp: filteredDog,
+          errorsFront: { notFound: "It not Breeds whit this Temperaments" }, 
         };
       }
       return {
         ...state,
-        filterByTemp: filteredTemp,
         flagFilterByTemp: true,
+        filterByTemp: filteredDog,
       };
 
     case FILTER_ORIGIN_DOG:
