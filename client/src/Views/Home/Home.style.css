@@ -28,3 +28,9 @@
 .HomeCards {
   background-color: aqua;
 }
+
+.ErrorMessageHome{
+  position:absolute;
+  top:60%;
+  left: 25%;
+}

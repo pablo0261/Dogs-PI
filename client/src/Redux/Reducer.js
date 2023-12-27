@@ -104,7 +104,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         dogSelected: orderDogs,
-        orderAZ:true,
+        flagOrderAZ:true,
       };
 
     case FILTER_BY_WEIGHT:
@@ -121,7 +121,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         dogSelected: copy2,
-        orderWeight:true,
+        flagOrderWeight:true,
       };
 
     //*---FILTER---//
@@ -187,14 +187,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case REMOVE_SELECTED_DOG:
       return {
         ...state,
-        dogSelected: {},
+        dogSelected: [],
       };
 
     //* --- manejo de errores del front ---//*
     case SET_FRONT_ERROR:
       return {
         ...state,
-        errorsFront: { ...state.errorsFront, [payload.field]: payload.message },
+        errorsFront: {},
       };
 
     case CLEAR_FRONT_ERROR:

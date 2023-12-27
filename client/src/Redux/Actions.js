@@ -150,9 +150,8 @@ const setFrontError = (message) => ({
   payload: message,
 });
 
-const clearFrontError = (field) => ({
+const clearFrontError = () => ({
   type: 'CLEAR_FRONT_ERROR',
-  payload: { field },
 });
 
 //* --- manejo de errores del back ---//*

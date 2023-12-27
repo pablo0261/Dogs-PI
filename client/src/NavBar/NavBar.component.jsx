@@ -13,12 +13,6 @@ function NavBar({handleChange, handleSubmit}) {
 
   //* -----------------------FILTROS ------------------------------
 
-  
-
-  // const handleFilter = (e) => {
-  //   dispatch(filterCards(e.target.value));
-  // };
-  
   return (
     <div className="NavBar">
       <form className="SearchBar"onSubmit={(e) => handleSubmit(e)} >

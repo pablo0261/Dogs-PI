@@ -7,6 +7,7 @@ import {
   filterDogsByTemp,
   getAllTemperaments,
   filterOriginDog,
+  clearFrontError,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import NavBar from "../../NavBar/NavBar.component";
@@ -60,9 +61,10 @@ function Home() {
       ? allDogs
       : filterByTemp;
 
-  if (filteredByTemp.length === 0 && selectedTemperaments.length > 0) {
-    alert(errorsFront);
-  }
+  errorMessage =
+    filteredByTemp.length === 0 && selectedTemperaments.length > 0
+      ? errorsFront
+      : "";
 
   // ... (otro código)
 
@@ -201,7 +203,6 @@ function Home() {
         handleChange={handleChange} //!CREO QUE NO LO ESTA USANDO
         handleSubmit={handleSubmit} //!CREO QUE NO LO ESTA USANDO
       />
-      {errorMessage && <p className="ErrorMessage">{errorMessage}</p>}
       {allDogs.length ? (
         <div>
           <Dogs
@@ -214,6 +215,7 @@ function Home() {
             selectedTemperaments={selectedTemperaments}
             resetAll={resetAll}
           />
+          {errorMessage && <p className="ErrorMessageHome">{errorMessage}</p>}
           <Cards AllDogs={currentDogs} className="HomeCards" />
           <Paginate
             pageNumbers={pageNumbers}
