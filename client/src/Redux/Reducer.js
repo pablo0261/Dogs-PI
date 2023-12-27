@@ -26,6 +26,7 @@ allTemperaments: [],
 //*ORDER//
 flagOrderAZ: (false),
 flagOrderWeight: (false),
+orderDog: [],
 //*FILTER//
 filterByTemp: [],
 flagFilterByTemp: (false),
@@ -69,7 +70,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allDogs: payload,
-        // filterApi: payload,
         // filterDb: payload,
         // filterTemp: payload,
       };
@@ -89,26 +89,26 @@ const rootReducer = (state = initialState, { type, payload }) => {
 
     //*---ORDER---//
     case ORDER_DOGS:
-      const filterDogs =
+      const orderDogs =
         payload === "A-Z"
-          ? state.allDogs
+          ? state.dogSelected
               .slice()
               .sort((a, b) =>
                 a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
               )
-          : state.allDogs
+          : state.dogSelected
               .slice()
               .sort((a, b) =>
                 a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1
               );
       return {
         ...state,
-        allDogs: filterDogs,
+        dogSelected: orderDogs,
         orderAZ:true,
       };
 
     case FILTER_BY_WEIGHT:
-      const copy2 = state.allDogs.slice();
+      const copy2 = state.dogSelected.slice();
       if (payload === "weightMax") {
         copy2.sort((a, b) => {
           return b.weightMax && a.weightMax ? b.weightMax - a.weightMax : 0;
@@ -120,31 +120,41 @@ const rootReducer = (state = initialState, { type, payload }) => {
       }
       return {
         ...state,
-        allDogs: copy2,
+        dogSelected: copy2,
         orderWeight:true,
       };
 
     //*---FILTER---//
     case FILTER_BY_TEMP:
+      const dogSelected = state.dogSelected
       const selectedTemp = payload.includes("All") ? [] : payload;
-      const filteredDog = state.allDogs.filter((dog) =>
-        selectedTemp.every((temp) => dog.temperament?.includes(temp))
-      );
+      const filteredDog = dogSelected.filter((dog) => {
+    const dogTemperaments = dog.temperament || [];
+    
+    // Verificar si todos los temperamentos en payload están presentes en los temperamentos del perro
+    return selectedTemp.every((temp) => dogTemperaments.includes(temp));
+  });
       if (selectedTemp.length < 1){
+        
+        console.log("valor de payload", payload)
+        console.log("valor de filteredDog1", filteredDog)
         return{
           ...state,
           flagFilterByTemp: false,
           filterByTemp: filteredDog,
         }
       }
-      if (selectedTemp.length > 0 && filteredDog.length === 0) {
+      if (filteredDog.length === 0) {
+        console.log("valor de payload", payload)
+        console.log("valor de filteredDog2", filteredDog)
         return {
           ...state,
           flagFilterByTemp: true,
-          filterByTemp: filteredDog,
-          errorsFront: { notFound: "It not Breeds whit this Temperaments" }, 
+          filterByTemp: [],
+          errorsFront: "No dogs were found with those temperaments", 
         };
       }
+      console.log("valor de filteredDog3", filteredDog)
       return {
         ...state,
         flagFilterByTemp: true,
@@ -156,7 +166,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       const filterOrigin = payload === 'created' ? allDogs.filter((dog) => isNaN(Number(dog.id))) : allDogs.filter((dog) => !isNaN(Number(dog.id)));
       return {
         ...state,
-        filterByOrigin: payload === 'All' ? state.allDogs : filterOrigin,
+        dogSelected: payload === 'All' ? allDogs : filterOrigin,
         flagFilterByOrigin: payload !== 'All'? true : false,
       }
 

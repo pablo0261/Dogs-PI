@@ -7,7 +7,7 @@ function NavBar({handleChange, handleSubmit}) {
   const history = useHistory();
   
 
-  const handleButtonGo = () => {
+  const handleButtonGoToForm = () => {
     history.push("/form");
   }
 
@@ -30,7 +30,7 @@ function NavBar({handleChange, handleSubmit}) {
         />
       <button type="submit" className="NavBarButton" >Search</button>
       </form>
-        <button type="submit" className="CreateDog" onClick={handleButtonGo}>
+        <button type="submit" className="CreateDog" onClick={handleButtonGoToForm}>
         </button>
     </div>
   );

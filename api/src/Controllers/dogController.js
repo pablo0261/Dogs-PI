@@ -155,18 +155,17 @@ const createDogDB = async ({//* Crea perros
     if (!Array.isArray(temperaments)) {
       throw new Error("The value of 'temperaments' must be an array");
     }
-    // Iterar sobre los temperamentos proporcionados por el cliente
-    for (const newTemperaments of temperaments) {
-      // Buscar en la base de datos todas las filas de temperamentos
+    const stringTemperaments = temperaments.map(String);
+    for (const newTemperament of stringTemperaments) {
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
-          name: {
-            // newTemperaments.trim(),
-            [Op.iLike]: `%${newTemperaments.trim()}%`,
-          }
+          name: 
+            newTemperament.trim(),
+            // [Op.iLike]: `%${newTemperament.trim()}%`,
+          
         },
       });
-      // console.log(newTemperaments);
+      // console.log(newTemperament);
       await newDog.addTemperament(dbTemperament);
       if (created) {
         console.log(
