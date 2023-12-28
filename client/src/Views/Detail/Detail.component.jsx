@@ -14,7 +14,7 @@ function Detail() {
     dispatch(getDogById(id));
     return () => {
       //limpiar el store cuando se desmonte
-      dispatch(removeSelectedDog());
+      // dispatch(removeSelectedDog());
     };
   }, []);
 

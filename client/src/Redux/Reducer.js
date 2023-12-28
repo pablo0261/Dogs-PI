@@ -70,6 +70,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         allDogs: payload,
+        dogSelected:payload,
         // filterDb: payload,
         // filterTemp: payload,
       };

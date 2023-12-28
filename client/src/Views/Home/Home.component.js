@@ -7,7 +7,6 @@ import {
   filterDogsByTemp,
   getAllTemperaments,
   filterOriginDog,
-  clearFrontError,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import NavBar from "../../NavBar/NavBar.component";
@@ -29,9 +28,6 @@ function Home() {
   const createDogs = useSelector((state) => state.createDogs); //! este rcreo que solo lo usa form
   const temperaments = useSelector((state) => state.allTemperaments);
   let dogSelected = useSelector((state) => state.dogSelected);
-  let flagOrderAZ = useSelector((state) => state.flagOrderAZ);
-  let flagOrderWeight = useSelector((state) => state.flagOrderWeight);
-  let orderDog = useSelector((state) => state.orderDog);
   let errorsFront = useSelector((state) => state.errorsFront);
   let errorMessage = "";
 
@@ -51,22 +47,24 @@ function Home() {
 
   let dogSelect;
 
-  const filteredByTemp = flagFilterByTemp
-    ? dogSelected.filter((dog) => filterByTemp.includes(dog))
-    : dogSelected;
-  dogSelect =
-    filteredByTemp.length > 0
-      ? filteredByTemp
-      : dogSelected.length === 0
-      ? allDogs
-      : filterByTemp;
+const filteredByTemp = flagFilterByTemp
+  ? dogSelected.filter((dog) => filterByTemp.includes(dog))
+  : dogSelected;
+
+dogSelect =
+  filtered.length > 0
+    ? filtered
+    : filteredByTemp.length > 0
+    ? filteredByTemp
+    : dogSelected.length === 0
+    ? allDogs
+    : filterByTemp;
 
   errorMessage =
     filteredByTemp.length === 0 && selectedTemperaments.length > 0
       ? errorsFront
       : "";
 
-  // ... (otro código)
 
   console.log("Valor actual de allDogs:", allDogs);
   console.log("Valor actual de dogSelected:", dogSelected);
@@ -107,15 +105,16 @@ function Home() {
   };
   //* --- PAGINADO---//
 
-  const resetAll = (e) => {
-    e.preventDefault();
-    console.log("Obteniendo todos los perros");
-    dispatch(getAllDogs());
-    dispatch(getAllTemperaments());
-  };
+  // const resetAll = (e) => {
+  //   e.preventDefault();
+  //   console.log("Obteniendo todos los perros");
+  //   dispatch(getAllDogs());
+  //   dispatch(getAllTemperaments());
+  // };
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
+    dispatch(getAllDogs());
     // console.log("searchString:", e.target.value);
   };
 
@@ -124,6 +123,7 @@ function Home() {
     setCurrentPage(1);
     // console.log("searchString:", searchString);
     e.preventDefault();
+    setSelectedTemperaments([])
     try {
       const filteredDogs = allDogs.filter((dog) =>
         dog.name.toLowerCase().includes(searchString.toLowerCase())
@@ -213,9 +213,8 @@ function Home() {
             temperaments={temperaments}
             handleRemoveTemperament={handleRemoveTemperament}
             selectedTemperaments={selectedTemperaments}
-            resetAll={resetAll}
           />
-          {errorMessage && <p className="ErrorMessageHome">{errorMessage}</p>}
+         {errorMessage && <p className="ErrorMessageHome">{errorMessage}</p>}
           <Cards AllDogs={currentDogs} className="HomeCards" />
           <Paginate
             pageNumbers={pageNumbers}

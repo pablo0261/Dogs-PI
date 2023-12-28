@@ -1,15 +1,20 @@
 import "./NavBar.style.css";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-
+import { useDispatch } from "react-redux";
+import { getAllDogs } from "../../src/Redux/Actions";
 
 function NavBar({handleChange, handleSubmit}) {
 
   const history = useHistory();
-  
+  const dispatch = useDispatch();
 
   const handleButtonGoToForm = () => {
     history.push("/form");
   }
+
+  const handleInputFocus = () => {
+    dispatch(getAllDogs());
+  };
 
   //* -----------------------FILTROS ------------------------------
 
@@ -20,6 +25,7 @@ function NavBar({handleChange, handleSubmit}) {
           type="search"
           placeholder="  Search Breeds"
           className="NavBarInput"
+          onFocus={handleInputFocus}
           onChange={(e) => handleChange(e)}
         />
       <button type="submit" className="NavBarButton" >Search</button>

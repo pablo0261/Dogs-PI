@@ -11,21 +11,14 @@ const Dogs = ({
   temperaments,
   handleRemoveTemperament,
   selectedTemperaments,
-  resetAll,
+  errorsMessage,
 }) => {
-  const errorsFront = useSelector((state) => state.errorsFront);
-  const [localErrors, setLocalErrors] = useState({});
-  const flagOrderAZ = useSelector((state) => state.flagOrderAZ);
-  const flagOrderWeight = useSelector((state) => state.flagOrderWeight);
+  
   const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
 
-  useEffect(() => {
-    setLocalErrors(errorsFront)
-  },[errorsFront])
   return (
     <div className="DivfilterButton">
-      {flagOrderAZ && <img src="/image/filtro.jpg" alt="Filtered" className="filtered"/>}
       <select className="OrderButton"  value="Order A-Z" onChange={(event) => handleOrder(event)}>
         <option disabled>Order A-Z</option>
         <option key={1} value="A-Z">
@@ -36,7 +29,6 @@ const Dogs = ({
         </option>
       </select>
       
-      {flagOrderWeight && <img src="/image/filtro.jpg" alt="Filtered" className="filtered"/>}
       <select className="OrderButton" value="Order by Weight" onChange={(e) => handlerFilterW(e)}>
         <option disabled>Order by Weight</option>
         <option key={1} value="weightMax">
@@ -48,7 +40,7 @@ const Dogs = ({
       </select>
 
       {flagFilterByOrigin && <img src="/image/filtro.jpg" alt="Filtered" className="filtered"/>}
-      <select className="OrderButton" value="Filter by Origin" onBlur={resetAll} onChange={(e) => handlerFilterOrigin(e)}>
+      <select className="OrderButton" value="Filter by Origin"  onChange={(e) => handlerFilterOrigin(e)}>
         <option disabled>Filter by Origin</option>
         <option key={1} value="All">
           All
@@ -76,7 +68,6 @@ const Dogs = ({
           </option>
         ))}
       </select>
-      {/* <div className="ErrorMessage">{localErrors.temperaments}</div>//!terminar el manejo de errores aca */}
       <div className="SelectedTemperamentsContainer">
         {selectedTemperaments.map((temp) => (
           <div key={temp} value={temp} className="SelectedTemperament">
@@ -84,6 +75,7 @@ const Dogs = ({
             <button className="XButton" onClick={() => handleRemoveTemperament(temp)}>X</button>
           </div>
         ))}
+        <div>{errorsMessage}</div>
       </div>
     </div>
   );
