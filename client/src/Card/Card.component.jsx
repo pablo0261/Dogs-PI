@@ -8,18 +8,6 @@ function Card(props) {
     props.dog;
   const imageUrl = reference_image_id;
 
-  // const handleChange = (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const selectedDogs = allDogs.filter((dog) =>
-  //       dog.name.toLowerCase().includes(searchString.toLowerCase())
-  //     );
-  //     if (filteredDogs.length === 0) {
-  //       throw new Error("No dog breeds found with that name.");
-  //     }
-  //   }}
-
-
   return (
     <div className="CardContainer" >
        <Link to={`/home/${id}`} key={id}>

@@ -41,7 +41,7 @@ const validation = (inputs, frontErrors, setFrontErrors) => {
     newfrontErrors.weightMax = "WeightMax must be an integer.";
   } else if (parseFloat(weightMax) < 2 || parseFloat(weightMax) > 80) {
     newfrontErrors.weightMax = "WeightMax is invalid, it must be between 2kg and 80kg.";
-  } else if (weightMin >= weightMax){
+  } else if (weightMin > weightMax){
     newfrontErrors.weightMax = "WeightMax cannot be less than WeightMin.";
   } else {
     newfrontErrors.weightMax = "";

@@ -32,22 +32,14 @@ filterByTemp: [],
 flagFilterByTemp: (false),
 filterByOrigin: [],
 flagFilterByOrigin: (false),
-//*CONSERVAR ESTADO ORIGINAL DE ALL DOGS EN FILTERORIGIN//
-filterApi: [],
-filterDb: [],
-filterTemp: [],
 //*POSTDOG//
 createDogs: [],
 //*RESULTADO DE FILTROS U ORDENAMIENTOS//
 dogSelected: [], //*tiene un notFound?
 //*ERRORES//
-errorsFront: {},
+errorsFront: [],
 errorsBack: {},
-
-dogName: "",
 };
-
-
 
 //*Para extraer los temperamentos individualmente
 const extractUniqueTemperaments = (temperamentsArray) => {
@@ -60,9 +52,8 @@ const extractUniqueTemperaments = (temperamentsArray) => {
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
-  //en lugar de action hago destructoring y pongo los parametros que me interesan type y payload
   switch (
-    type // ojo si no hago destructoring arriba aqui va =action.type
+    type 
   ) {
 
     //*---GET GENERALES---//
@@ -71,8 +62,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         allDogs: payload,
         dogSelected:payload,
-        // filterDb: payload,
-        // filterTemp: payload,
       };
 
     case GET_ALL_TEMP:
@@ -131,14 +120,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
       const selectedTemp = payload.includes("All") ? [] : payload;
       const filteredDog = dogSelected.filter((dog) => {
     const dogTemperaments = dog.temperament || [];
-    
-    // Verificar si todos los temperamentos en payload están presentes en los temperamentos del perro
     return selectedTemp.every((temp) => dogTemperaments.includes(temp));
   });
       if (selectedTemp.length < 1){
-        
-        console.log("valor de payload", payload)
-        console.log("valor de filteredDog1", filteredDog)
         return{
           ...state,
           flagFilterByTemp: false,
@@ -146,8 +130,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
         }
       }
       if (filteredDog.length === 0) {
-        console.log("valor de payload", payload)
-        console.log("valor de filteredDog2", filteredDog)
         return {
           ...state,
           flagFilterByTemp: true,
@@ -155,7 +137,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
           errorsFront: "No dogs were found with those temperaments", 
         };
       }
-      console.log("valor de filteredDog3", filteredDog)
       return {
         ...state,
         flagFilterByTemp: true,
@@ -176,7 +157,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         createDogs: [...state.createDogs, payload],
-    
         ...state,
         errorsBack: {
           ...state.errorsBack,
@@ -195,7 +175,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     case SET_FRONT_ERROR:
       return {
         ...state,
-        errorsFront: {},
+        errorsFront: payload,
       };
 
     case CLEAR_FRONT_ERROR:

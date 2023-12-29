@@ -7,6 +7,7 @@ import {
   filterDogsByTemp,
   getAllTemperaments,
   filterOriginDog,
+  setFrontError,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import NavBar from "../../NavBar/NavBar.component";
@@ -16,65 +17,72 @@ import Cards from "../../Cards/Cards.component";
 import fondo1 from "../../Utils/TituloBreedFinder.png";
 
 function Home() {
-  console.log("Renderizando Home");
   const [filtered, setFiltered] = useState(""); //* contiene el resultado de la busqueda de search
-
+  const [flagFiltered, setFlagFiltered] = useState(false); 
   const [searchString, setSearchString] = useState(""); //*contiene lo que se escribe en el search
   const [selectedTemperaments, setSelectedTemperaments] = useState([]); //*estado para mostrar los temp seleccionados
-  // const [originalAllDogs, setOriginalAllDogs] = useState([]);//*para manejar allDogs y no perder su info original
-
   const dispatch = useDispatch();
   const allDogs = useSelector((state) => state.allDogs);
-  const createDogs = useSelector((state) => state.createDogs); //! este rcreo que solo lo usa form
   const temperaments = useSelector((state) => state.allTemperaments);
   let dogSelected = useSelector((state) => state.dogSelected);
   let errorsFront = useSelector((state) => state.errorsFront);
-  let errorMessage = "";
-
-  useEffect(() => {
-    console.log("Obteniendo todos los perros");
-    dispatch(getAllDogs());
-    dispatch(getAllTemperaments());
-  }, [dispatch]);
-
+  
   //!  filtros combinados//
   const filterByTemp = useSelector((state) => state.filterByTemp);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
   const filterByOrigin = useSelector((state) => state.filterByOrigin);
   const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
 
+  useEffect(() => {
+    console.log("Obteniendo todos los perros");
+    dispatch(getAllDogs());
+    dispatch(getAllTemperaments());
+  }, [dispatch]);
   // //*logica filtro combiando
 
   let dogSelect;
 
-const filteredByTemp = flagFilterByTemp
-  ? dogSelected.filter((dog) => filterByTemp.includes(dog))
-  : dogSelected;
+  const filteredByTemp = flagFilterByTemp
+    ? dogSelected.filter((dog) => filterByTemp.includes(dog))
+    : dogSelected;
 
-dogSelect =
-  filtered.length > 0
-    ? filtered
-    : filteredByTemp.length > 0
-    ? filteredByTemp
-    : dogSelected.length === 0
-    ? allDogs
-    : filterByTemp;
+  dogSelect =
+  flagFiltered ? filtered : filteredByTemp.length > 0
+      ? filteredByTemp: dogSelected.length === 0
+      ? allDogs : filterByTemp;
 
-  errorMessage =
-    filteredByTemp.length === 0 && selectedTemperaments.length > 0
-      ? errorsFront
-      : "";
-
-
-  console.log("Valor actual de allDogs:", allDogs);
-  console.log("Valor actual de dogSelected:", dogSelected);
-  console.log("Valor actual de flagFilterByOrigin:", flagFilterByOrigin);
-
-  console.log("Valor actual de flagFilterByTemp:", flagFilterByTemp);
-  console.log("Valor actual de filterByTemp:", filterByTemp);
-  console.log("Valor actual de filteredByTemp:", filteredByTemp);
-
-  //!  filtros combinados//
+      errorMessage =
+      (filteredByTemp.length === 0 && selectedTemperaments.length > 0)
+        ? errorsFront
+        : (flagFiltered  && filtered.length === 0)
+        ? errorsFront
+        : "";
+       
+  const handleSubmit = (e) => {
+    setCurrentPage(1);
+    e.preventDefault();
+    setSelectedTemperaments([]);
+    try {
+      const filteredDogs = allDogs.filter((dog) =>
+        dog.name.toLowerCase().includes(searchString.toLowerCase())
+      );
+      if (searchString.trim() === "") {
+        setFlagFiltered(false);
+        setFiltered("");
+      } else if (filteredDogs.length === 0) {
+        setFlagFiltered(true);
+        setFiltered("");
+        console.log("filteredDogs:", filteredDogs);
+      } else {
+        setFlagFiltered(true);
+        setFiltered(filteredDogs);
+      }
+    } catch (error) {
+      console.error(error.message);
+      setFlagFiltered(false);
+      setFiltered("");
+    }
+  };
 
   //* --- PAGINADO---//
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,62 +111,23 @@ dogSelect =
       .fill()
       .map((_, i) => start + i);
   };
-  //* --- PAGINADO---//
-
-  // const resetAll = (e) => {
-  //   e.preventDefault();
-  //   console.log("Obteniendo todos los perros");
-  //   dispatch(getAllDogs());
-  //   dispatch(getAllTemperaments());
-  // };
 
   const handleChange = (e) => {
     setSearchString(e.target.value);
     dispatch(getAllDogs());
-    // console.log("searchString:", e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    //*Filtro x nombre
-    setCurrentPage(1);
-    // console.log("searchString:", searchString);
-    e.preventDefault();
-    setSelectedTemperaments([])
-    try {
-      const filteredDogs = allDogs.filter((dog) =>
-        dog.name.toLowerCase().includes(searchString.toLowerCase())
-      );
-      if (filteredDogs.length === 0) {
-        throw new Error("No dog breeds found with that name.");
-      }
-      if (searchString.trim() === "") {
-        setFiltered("");
-      } else {
-        setFiltered(filteredDogs);
-      }
-    } catch (error) {
-      console.error(error.message);
-      setFiltered("");
-    }
   };
 
   const handleOrder = (e) => {
-    //*Orden alfabetico dogs
-
     dispatch(orderDogs(e.target.value));
-    // setOrden(`Ordenado ${e.target.value}`)
     setCurrentPage(1);
   };
 
   const handlerFilterW = (e) => {
-    //*Orden x peso dogs
     dispatch(filterByW(e.target.value));
-    // setOrden(`Ordenado ${e.target.value}`)
     setCurrentPage(1);
   };
 
   const handlerFilterOrigin = (e) => {
-    //* Filtro x origen
     dispatch(filterOriginDog(e.target.value));
     setCurrentPage(1);
   };
@@ -173,7 +142,6 @@ dogSelect =
         ...prevTemperaments,
         selectedTemp,
       ]);
-      console.log("selectedTemperaments:", selectedTemperaments);
     }
   };
 
@@ -183,8 +151,6 @@ dogSelect =
     );
     setSelectedTemperaments(updatedTemperaments);
   };
-
-  console.log("selectedTemperaments:", selectedTemperaments);
 
   useEffect(() => {
     dispatch(filterDogsByTemp(selectedTemperaments));
@@ -200,8 +166,8 @@ dogSelect =
 
       <NavBar
         paginado={paginado}
-        handleChange={handleChange} //!CREO QUE NO LO ESTA USANDO
-        handleSubmit={handleSubmit} //!CREO QUE NO LO ESTA USANDO
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
       />
       {allDogs.length ? (
         <div>
@@ -214,7 +180,7 @@ dogSelect =
             handleRemoveTemperament={handleRemoveTemperament}
             selectedTemperaments={selectedTemperaments}
           />
-         {errorMessage && <p className="ErrorMessageHome">{errorMessage}</p>}
+          {errorMessage.length > 0 && <p className="ErrorMessageHome">{errorMessage}</p>}
           <Cards AllDogs={currentDogs} className="HomeCards" />
           <Paginate
             pageNumbers={pageNumbers}

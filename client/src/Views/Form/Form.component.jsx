@@ -106,6 +106,9 @@ function Form() {
         .then(() => {
           alert("The Breed was successfully created");
         })
+        .then(() => {
+          window.location.reload();;
+        })
         .catch((error) => {
           console.log(error.error);
           if (error.error) {
@@ -181,7 +184,7 @@ function Form() {
         </div>
         {Object.values(localErrors).every((error) => error === "") &&
           Object.values(inputs).some((value) => value !== "") && (
-            <button className="ButtonFomr" type="submit">
+            <button className="ButtonFomr"  type="submit">
               Send
             </button>
           )}
