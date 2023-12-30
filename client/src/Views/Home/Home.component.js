@@ -7,7 +7,6 @@ import {
   filterDogsByTemp,
   getAllTemperaments,
   filterOriginDog,
-  setFrontError,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import NavBar from "../../NavBar/NavBar.component";
@@ -17,46 +16,40 @@ import Cards from "../../Cards/Cards.component";
 import fondo1 from "../../Utils/TituloBreedFinder.png";
 
 function Home() {
-  const [filtered, setFiltered] = useState(""); //* contiene el resultado de la busqueda de search
-  const [flagFiltered, setFlagFiltered] = useState(false); 
-  const [searchString, setSearchString] = useState(""); //*contiene lo que se escribe en el search
-  const [selectedTemperaments, setSelectedTemperaments] = useState([]); //*estado para mostrar los temp seleccionados
   const dispatch = useDispatch();
+  const [filtered, setFiltered] = useState(""); 
+  const [flagFiltered, setFlagFiltered] = useState(false); 
+  const [searchString, setSearchString] = useState(""); 
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+  let [errorMessage, setErrorMessage] = useState("");
   const allDogs = useSelector((state) => state.allDogs);
   const temperaments = useSelector((state) => state.allTemperaments);
   let dogSelected = useSelector((state) => state.dogSelected);
   let errorsFront = useSelector((state) => state.errorsFront);
-  
-  //!  filtros combinados//
   const filterByTemp = useSelector((state) => state.filterByTemp);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
-  const filterByOrigin = useSelector((state) => state.filterByOrigin);
-  const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
-
+  
   useEffect(() => {
     console.log("Obteniendo todos los perros");
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
+
   // //*logica filtro combiando
-
   let dogSelect;
-
   const filteredByTemp = flagFilterByTemp
-    ? dogSelected.filter((dog) => filterByTemp.includes(dog))
-    : dogSelected;
+    ? dogSelected.filter((dog) => filterByTemp.includes(dog)) : dogSelected;
 
   dogSelect =
-  flagFiltered ? filtered : filteredByTemp.length > 0
+  flagFiltered 
+      ? filtered : filteredByTemp.length > 0 
       ? filteredByTemp: dogSelected.length === 0
       ? allDogs : filterByTemp;
 
-      errorMessage =
-      (filteredByTemp.length === 0 && selectedTemperaments.length > 0)
-        ? errorsFront
-        : (flagFiltered  && filtered.length === 0)
-        ? errorsFront
-        : "";
+  errorMessage =
+  (filteredByTemp.length === 0 && selectedTemperaments.length > 0) ? 
+  errorsFront : (flagFiltered  && filtered.length === 0) ?
+  errorsFront : "";
        
   const handleSubmit = (e) => {
     setCurrentPage(1);
@@ -117,41 +110,6 @@ function Home() {
     dispatch(getAllDogs());
   };
 
-  const handleOrder = (e) => {
-    dispatch(orderDogs(e.target.value));
-    setCurrentPage(1);
-  };
-
-  const handlerFilterW = (e) => {
-    dispatch(filterByW(e.target.value));
-    setCurrentPage(1);
-  };
-
-  const handlerFilterOrigin = (e) => {
-    dispatch(filterOriginDog(e.target.value));
-    setCurrentPage(1);
-  };
-
-  const handlerFilterTemp = (e) => {
-    e.preventDefault();
-    const selectedTemp = e.target.value;
-    setCurrentPage(1);
-    if (!selectedTemperaments.includes(selectedTemp)) {
-      // Actualiza el estado de los temperamentos seleccionados
-      setSelectedTemperaments((prevTemperaments) => [
-        ...prevTemperaments,
-        selectedTemp,
-      ]);
-    }
-  };
-
-  const handleRemoveTemperament = (deleteTemp) => {
-    const updatedTemperaments = selectedTemperaments.filter(
-      (temp) => temp !== deleteTemp
-    );
-    setSelectedTemperaments(updatedTemperaments);
-  };
-
   useEffect(() => {
     dispatch(filterDogsByTemp(selectedTemperaments));
   }, [selectedTemperaments]);
@@ -163,7 +121,6 @@ function Home() {
           <img src={fondo1} className="HomeTitle" alt="Add Breeds" />
         </div>
       </div>
-
       <NavBar
         paginado={paginado}
         handleChange={handleChange}
@@ -172,15 +129,11 @@ function Home() {
       {allDogs.length ? (
         <div>
           <Dogs
-            handleOrder={handleOrder}
-            handlerFilterW={handlerFilterW}
-            handlerFilterOrigin={handlerFilterOrigin}
-            handlerFilterTemp={handlerFilterTemp}
             temperaments={temperaments}
-            handleRemoveTemperament={handleRemoveTemperament}
             selectedTemperaments={selectedTemperaments}
+            setSelectedTemperaments={setSelectedTemperaments}
           />
-          {errorMessage.length > 0 && <p className="ErrorMessageHome">{errorMessage}</p>}
+          {errorsFront.length > 0 && <p className="ErrorMessageHome">{errorsFront}</p>}
           <Cards AllDogs={currentDogs} className="HomeCards" />
           <Paginate
             pageNumbers={pageNumbers}

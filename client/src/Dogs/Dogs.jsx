@@ -1,21 +1,52 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./Dogs.style.css";
-
+import {
+  orderDogs,
+  filterByW,
+  filterOriginDog,
+} from "../../src/Redux/Actions";
 
 const Dogs = ({
-  handleOrder,
-  handlerFilterW,
-  handlerFilterOrigin,
-  handlerFilterTemp,
   temperaments,
-  handleRemoveTemperament,
   selectedTemperaments,
+  setSelectedTemperaments,
   errorsMessage,
 }) => {
-  
+  const dispatch = useDispatch();
   const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
+  let dogSelected = useSelector((state) => state.dogSelected);
+
+  const handleOrder = (e) => {
+    dispatch(orderDogs(e.target.value));
+  };
+
+  const handlerFilterW = (e) => {
+    dispatch(filterByW(e.target.value));
+  };
+
+  const handlerFilterOrigin = (e) => {
+    dispatch(filterOriginDog(e.target.value));
+  };
+
+  const handlerFilterTemp = (e) => {
+    e.preventDefault();
+    const selectedTemp = e.target.value;
+    if (!selectedTemperaments.includes(selectedTemp)) {
+      // Actualiza el estado de los temperamentos seleccionados
+      setSelectedTemperaments((prevTemperaments) => [
+        ...prevTemperaments,
+        selectedTemp,
+      ]);
+    }
+  };
+
+  const handleRemoveTemperament = (deleteTemp) => {
+    const updatedTemperaments = selectedTemperaments.filter(
+      (temp) => temp !== deleteTemp
+    );
+    setSelectedTemperaments(updatedTemperaments);
+  };
 
   return (
     <div className="DivfilterButton">
@@ -75,7 +106,7 @@ const Dogs = ({
             <button className="XButton" onClick={() => handleRemoveTemperament(temp)}>X</button>
           </div>
         ))}
-        <div>{errorsMessage}</div>
+        {<div className="ErrorMessage">{errorsMessage}</div>}
       </div>
     </div>
   );

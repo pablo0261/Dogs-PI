@@ -127,6 +127,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
           ...state,
           flagFilterByTemp: false,
           filterByTemp: filteredDog,
+          errorsFront: "",
         }
       }
       if (filteredDog.length === 0) {
@@ -141,6 +142,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         flagFilterByTemp: true,
         filterByTemp: filteredDog,
+        errorsFront: "",
       };
 
     case FILTER_ORIGIN_DOG:
