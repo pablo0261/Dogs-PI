@@ -21,9 +21,9 @@ const getDogsHandler = async (req, res) => {
           //Debe ser con .length porque dogsFound es un array y si no se encuentra devolvera un boleano y no caera nunca en el error del codigo
           return res.status(200).json(dogsFound);
         } else {
-          return res.status(404).json({
-            message: `We couldn't find breeds with the name '${name}'`,
-          });
+          return res.status(404).json(
+            `We couldn't find breeds with the name '${name}'`,
+          );
         }
       } else {
           return res.status(400).send("The name must have at least 3 letters");

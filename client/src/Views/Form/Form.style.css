@@ -44,12 +44,12 @@
   height: 60px;
 }
 
-.DetailButton {
+.DetailButtonForm {
   position: relative;
   height: 40px;
-  width: 60px;
+  width: 70px;
   top: 30px;
-  left: -450px;
+  left: -400px;
   padding: 5px 15px;
   background-image: url("../../../public/image/ButtonGoBack.jpg");
   background-size: 130%;

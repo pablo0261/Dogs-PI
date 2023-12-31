@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllTemperaments, postDogs } from "../../Redux/Actions";
 import "./Form.style.css";
 import validation from "./Validation";
-import { setFrontError, clearFrontError } from "../../Redux/Actions";
 
 function Form() {
   const dispatch = useDispatch();
@@ -127,7 +126,7 @@ function Form() {
         <div className="DivButtonTittle">
           <button
             type="button"
-            className="DetailButton"
+            className="DetailButtonForm"
             onClick={() => window.history.back()}
           ></button>
           <button

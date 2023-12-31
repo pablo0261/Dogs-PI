@@ -5,26 +5,26 @@ module.exports = (sequelize) => {
   // defino el modelo
   const Dog = sequelize.define('Dog', {
     id: {
-      type: DataTypes.UUID, //* API EJEM: "5" 
+      type: DataTypes.UUID,
       defaultValue : DataTypes.UUIDV4,
       primaryKey: true,
       allowNull:false,
     },
     reference_image_id: {
-      type: DataTypes.STRING,//*ejem:"reference_image_id": "BJa4kxc4X"
+      type: DataTypes.STRING,
       allowNull: false,
       defaultValue: "api/src/Utils/Dog Shadow.jpg"
     },
     name: {
-      type: DataTypes.STRING,//*ejem: "name": "Affenpinscher",
+      type: DataTypes.STRING,
       allowNull: false,
     },
     heightMin: {
-      type: DataTypes.INTEGER, //*ejem: "height": {"imperial": "9 - 11.5",  "metric": "23 - 29"},
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     heightMax: {
-      type: DataTypes.INTEGER, //*ejem: "height": {"imperial": "9 - 11.5",  "metric": "23 - 29"},
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     weightMin: {

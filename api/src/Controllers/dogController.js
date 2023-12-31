@@ -87,9 +87,7 @@ const getDogByIdFromApi = async (id) => {//*Busca por id en la API
 };
 
 const getDogByIdFromDb = async (id) => {//*Busca por id en la db
-  
   try {
-    // console.log(id);
     const dog = await Dog.findOne({
       where: { id: id },
       include: [

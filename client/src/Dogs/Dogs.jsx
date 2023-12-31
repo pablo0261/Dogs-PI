@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Dogs.style.css";
-import {
-  orderDogs,
-  filterByW,
-  filterOriginDog,
-} from "../../src/Redux/Actions";
+import { orderDogs, filterByW, filterOriginDog } from "../../src/Redux/Actions";
 
 const Dogs = ({
   temperaments,
@@ -15,7 +11,6 @@ const Dogs = ({
   const dispatch = useDispatch();
   const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
-  let dogSelected = useSelector((state) => state.dogSelected);
 
   const handleOrder = (e) => {
     dispatch(orderDogs(e.target.value));
@@ -50,7 +45,11 @@ const Dogs = ({
 
   return (
     <div className="DivfilterButton">
-      <select className="OrderButton"  value="Order A-Z" onChange={(event) => handleOrder(event)}>
+      <select
+        className="OrderButton custom-selector"
+        value="Order A-Z"
+        onChange={(event) => handleOrder(event)}
+      >
         <option disabled>Order A-Z</option>
         <option key={1} value="A-Z">
           A-Z
@@ -59,8 +58,12 @@ const Dogs = ({
           Z-A
         </option>
       </select>
-      
-      <select className="OrderButton" value="Order by Weight" onChange={(e) => handlerFilterW(e)}>
+
+      <select
+        className="OrderButton custom-selector"
+        value="Order by Weight"
+        onChange={(e) => handlerFilterW(e)}
+      >
         <option disabled>Order by Weight</option>
         <option key={1} value="weightMax">
           Max
@@ -70,8 +73,14 @@ const Dogs = ({
         </option>
       </select>
 
-      {flagFilterByOrigin && <img src="/image/filtro.jpg" alt="Filtered" className="filtered"/>}
-      <select className="OrderButton" value="Filter by Origin"  onChange={(e) => handlerFilterOrigin(e)}>
+      {flagFilterByOrigin && (
+        <img src="/image/filtro.jpg" alt="Filtered" className="filtered" />
+      )}
+      <select
+        className="OrderButton custom-selector"
+        value="Filter by Origin"
+        onChange={(e) => handlerFilterOrigin(e)}
+      >
         <option disabled>Filter by Origin</option>
         <option key={1} value="All">
           All
@@ -84,9 +93,12 @@ const Dogs = ({
         </option>
       </select>
 
-      {flagFilterByTemp && <img src="/image/filtro.jpg" alt="Filtered" className="filtered"/>}
+      {flagFilterByTemp && (
+        <img src="/image/filtro.jpg" alt="Filtered" className="filtered" />
+      )}
       <select
-        className="OrderButton" value="Filter by Temperament"
+        className="OrderButton custom-selector"
+        value="Filter by Temperament"
         onChange={(e) => handlerFilterTemp(e)}
       >
         <option disabled>Filter by Temperament</option>
@@ -103,7 +115,12 @@ const Dogs = ({
         {selectedTemperaments.map((temp) => (
           <div key={temp} value={temp} className="SelectedTemperament">
             {temp}
-            <button className="XButton" onClick={() => handleRemoveTemperament(temp)}>X</button>
+            <button
+              className="XButton"
+              onClick={() => handleRemoveTemperament(temp)}
+            >
+              X
+            </button>
           </div>
         ))}
         {<div className="ErrorMessage">{errorsMessage}</div>}

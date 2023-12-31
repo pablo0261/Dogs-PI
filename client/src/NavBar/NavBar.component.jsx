@@ -28,7 +28,7 @@ function NavBar({handleChange, handleSubmit}) {
           onFocus={handleInputFocus}
           onChange={(e) => handleChange(e)}
         />
-      <button type="submit" className="NavBarButton" >Search</button>
+      <button type="submit" className="NavBarButton" ></button>
       </form>
         <button type="submit" className="CreateDog" onClick={handleButtonGoToForm}>
         </button>

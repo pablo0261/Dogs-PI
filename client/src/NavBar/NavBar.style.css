@@ -18,6 +18,7 @@
   border-radius: 1px;
   margin: 0px 0px 70px 0px;
   cursor: auto;
+  display:flexbox;
 }
 
 .SearchBar {
@@ -25,18 +26,24 @@
   position: relative;
   border: 2px solid rgba(143, 7, 7, 0);
   height: 45px;
-  width: 450px;
-  margin: 50px  0px 0px 860px;
+  width: 50vw;
+  margin-top: 70px;
+  margin-left: 60vw;
   background-color: rgba(0, 0, 0, 0);
   z-index: 1;
 }
 
 .NavBarButton {
-  position: absolute;
-  background-color: var(--color-background-general);
+  position: relative;
+  background-image: url("../../../client/src/Utils/search2.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--color-color);
   border: 1px solid var(--color-border);
   border-radius: 10px;
-  margin: 3px 0px 0px 293px;
+  width: 65px;
+  margin: 3px 0px 0px -70px;
   height: 70%;
   padding: 7px;
   cursor: auto;
@@ -59,7 +66,7 @@
   margin-right: 0px;
   background-color: #fffdfdcb;
   border: 2px solid rgba(143, 7, 7, 0);
-  width: 80%;
+  width: 70%;
   border-radius: 9px;
   padding: 5px;
   cursor: auto;
@@ -100,7 +107,7 @@
   position: relative;
   width: 150px;
   height: 60px;
-  margin: 30px 0px 0px 800px;
+  margin: 10px 0px 0px 70vw;
   background-image: url("../../public/image/CreateDog.jpg");
   background-size: 100%;
   background-position: center;

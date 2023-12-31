@@ -16,7 +16,6 @@
     height: 30px;
     border-radius: 50%;
     z-index: 4;
-    
 }
 
 .OrderButton{
@@ -41,6 +40,11 @@
 .OrderButton:active{
     transform: scale(0.95);
 }
+.OrderButton option:checked {
+    background-color: rgb(165, 39, 165);
+    color: white; 
+}
+
 
 .SelectedTemperamentsContainer{
     position: absolute;
@@ -48,7 +52,7 @@
     top: 75px;
     display:flex;
     width: 600px;
-    height: 300px;
+    height: 60px;
     margin:4px;
 }
 
@@ -75,9 +79,23 @@
     border: 1,5px solid rgba(79, 15, 99, 0.589);
 }
 
-/* .ErrorMessage{
-    position:absolute;
-    top: 50%;
-    left: -300px;
-    font-size: 18px;
-  } */
+  @media (max-width: 800px) {
+    .DivfilterButton {
+      flex-direction: column;
+      width: 40%;
+      top: 150px;
+    }
+    .filtered{
+        display:none;
+    }
+  
+    .OrderButton {
+      margin: 5px 0px 0px -30px;
+    }
+  
+    .SelectedTemperamentsContainer {
+      left: 0;
+      top: 150px;
+      width: 50vw;
+    }
+  }

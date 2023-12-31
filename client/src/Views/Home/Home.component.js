@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllDogs,
-  orderDogs,
-  filterByW,
   filterDogsByTemp,
   getAllTemperaments,
-  filterOriginDog,
 } from "../../Redux/Actions";
 import "./Home.style.css";
 import NavBar from "../../NavBar/NavBar.component";
@@ -17,65 +14,48 @@ import fondo1 from "../../Utils/TituloBreedFinder.png";
 
 function Home() {
   const dispatch = useDispatch();
-  const [filtered, setFiltered] = useState(""); 
-  const [flagFiltered, setFlagFiltered] = useState(false); 
-  const [searchString, setSearchString] = useState(""); 
-  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
-  let [errorMessage, setErrorMessage] = useState("");
   const allDogs = useSelector((state) => state.allDogs);
   const temperaments = useSelector((state) => state.allTemperaments);
-  let dogSelected = useSelector((state) => state.dogSelected);
-  let errorsFront = useSelector((state) => state.errorsFront);
+  const dogSelected = useSelector((state) => state.dogSelected);
+  const errorsFront = useSelector((state) => state.errorsFront);
   const filterByTemp = useSelector((state) => state.filterByTemp);
   const flagFilterByTemp = useSelector((state) => state.flagFilterByTemp);
-  
+  const [filtered, setFiltered] = useState("");
+  const [flagFiltered, setFlagFiltered] = useState(false);
+  const [searchString, setSearchString] = useState("");
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+  let [errorMessage, setErrorMessage] = useState("");
+
   useEffect(() => {
     console.log("Obteniendo todos los perros");
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(filterDogsByTemp(selectedTemperaments));
+  }, [selectedTemperaments]);
+
   // //*logica filtro combiando
   let dogSelect;
   const filteredByTemp = flagFilterByTemp
-    ? dogSelected.filter((dog) => filterByTemp.includes(dog)) : dogSelected;
+    ? dogSelected.filter((dog) => filterByTemp.includes(dog))
+    : dogSelected;
 
-  dogSelect =
-  flagFiltered 
-      ? filtered : filteredByTemp.length > 0 
-      ? filteredByTemp: dogSelected.length === 0
-      ? allDogs : filterByTemp;
+  dogSelect = flagFiltered
+    ? filtered
+    : filteredByTemp.length > 0
+    ? filteredByTemp
+    : dogSelected.length === 0
+    ? allDogs
+    : filterByTemp;
 
   errorMessage =
-  (filteredByTemp.length === 0 && selectedTemperaments.length > 0) ? 
-  errorsFront : (flagFiltered  && filtered.length === 0) ?
-  errorsFront : "";
-       
-  const handleSubmit = (e) => {
-    setCurrentPage(1);
-    e.preventDefault();
-    setSelectedTemperaments([]);
-    try {
-      const filteredDogs = allDogs.filter((dog) =>
-        dog.name.toLowerCase().includes(searchString.toLowerCase())
-      );
-      if (searchString.trim() === "") {
-        setFlagFiltered(false);
-        setFiltered("");
-      } else if (filteredDogs.length === 0) {
-        setFlagFiltered(true);
-        setFiltered("");
-        console.log("filteredDogs:", filteredDogs);
-      } else {
-        setFlagFiltered(true);
-        setFiltered(filteredDogs);
-      }
-    } catch (error) {
-      console.error(error.message);
-      setFlagFiltered(false);
-      setFiltered("");
-    }
-  };
+    filteredByTemp.length === 0 && selectedTemperaments.length > 0
+      ? errorsFront
+      : flagFiltered && filtered.length === 0
+      ? errorsFront
+      : "";
 
   //* --- PAGINADO---//
   const [currentPage, setCurrentPage] = useState(1);
@@ -110,9 +90,31 @@ function Home() {
     dispatch(getAllDogs());
   };
 
-  useEffect(() => {
-    dispatch(filterDogsByTemp(selectedTemperaments));
-  }, [selectedTemperaments]);
+  const handleSubmit = (e) => {
+    setCurrentPage(1);
+    e.preventDefault();
+    setSelectedTemperaments([]);
+    try {
+      const filteredDogs = allDogs.filter((dog) =>
+        dog.name.toLowerCase().includes(searchString.toLowerCase())
+      );
+      if (searchString.trim() === "") {
+        setFlagFiltered(false);
+        setFiltered("");
+      } else if (filteredDogs.length === 0) {
+        setFlagFiltered(true);
+        setFiltered("");
+        console.log("filteredDogs:", filteredDogs);
+      } else {
+        setFlagFiltered(true);
+        setFiltered(filteredDogs);
+      }
+    } catch (error) {
+      console.error(error.message);
+      setFlagFiltered(false);
+      setFiltered("");
+    }
+  };
 
   return (
     <div className="Home">
@@ -133,7 +135,9 @@ function Home() {
             selectedTemperaments={selectedTemperaments}
             setSelectedTemperaments={setSelectedTemperaments}
           />
-          {errorsFront.length > 0 && <p className="ErrorMessageHome">{errorsFront}</p>}
+          {errorsFront.length > 0 && (
+            <p className="ErrorMessageHome">{errorsFront}</p>
+          )}
           <Cards AllDogs={currentDogs} className="HomeCards" />
           <Paginate
             pageNumbers={pageNumbers}
