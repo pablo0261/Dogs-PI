@@ -6,8 +6,7 @@ const {
 } = require("../Controllers/dogController");
 const { Dog, Temperament } = require("../db");
 
-const getDogsHandler = async (req, res) => {
-  //*Hace la peticion por nombre, si no existe el nombre trae todos los perros
+const getDogsHandler = async (req, res) => {  //*Hace la peticion por nombre, si no existe el nombre trae todos los perros
 
   const { name } = req.query;
   try {
@@ -16,9 +15,7 @@ const getDogsHandler = async (req, res) => {
       if (name.length >= 3) {
         const dogsFound = allDogs
           .filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()))
-          // .map((dog) => ({ name: dog.name })); //*Agregando esta linea devuelve solo el nombre de los dogs
         if (dogsFound.length > 0) {
-          //Debe ser con .length porque dogsFound es un array y si no se encuentra devolvera un boleano y no caera nunca en el error del codigo
           return res.status(200).json(dogsFound);
         } else {
           return res.status(404).json(
@@ -38,21 +35,19 @@ const getDogsHandler = async (req, res) => {
   }
 };
 
-const getDogByIdHandler = async (req, res) => {
-  //*Busca el perro por id,(segun el tipode id busca en la api o en la db)
+const getDogByIdHandler = async (req, res) => {  //*Busca el perro por id,(segun el tipode id busca en la api o en la db)
 
   const { id } = req.params;
   try {
     let result;
     if (!isNaN(id)) {
-      console.log(!isNaN(id));
       //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
       if (result) {
         return res.status(200).json([result]);
       } else {
         return res
-          .status(400)
+          .status(400)  
           .send(`We couldn't find breeds with the ID '${id}'`);
       }
     } else {
@@ -72,7 +67,7 @@ const getDogByIdHandler = async (req, res) => {
   }
 };
 
-const postDogHandler = async (req, res) => {
+const postDogHandler = async (req, res) => { //*Postea perro
   const {
     reference_image_id,
     name,

@@ -86,7 +86,9 @@
       top: 150px;
     }
     .filtered{
-        display:none;
+        position:absolute;
+        left: 10px;
+        top: 65px;
     }
   
     .OrderButton {
@@ -95,7 +97,7 @@
   
     .SelectedTemperamentsContainer {
       left: 0;
-      top: 150px;
+      top: 125px;
       width: 50vw;
     }
   }

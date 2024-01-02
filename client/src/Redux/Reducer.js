@@ -35,7 +35,7 @@ flagFilterByOrigin: (false),
 //*POSTDOG//
 createDogs: [],
 //*RESULTADO DE FILTROS U ORDENAMIENTOS//
-dogSelected: [], //*tiene un notFound?
+dogSelected: [], 
 //*ERRORES//
 errorsFront: [],
 errorsBack: {},

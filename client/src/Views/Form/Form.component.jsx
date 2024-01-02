@@ -25,23 +25,11 @@ function Form() {
     { label: "Name", name: "name", type: "text", placeholder: "Name" },
     { label: "Weight Min", name: "weightMin", type: "text", placeholder: "0" },
     { label: "Weight Max", name: "weightMax", type: "text", placeholder: "0" },
-    {
-      label: "Height Min",
-      name: "heightMin",
-      type: "text",
-      placeholder: "0cm",
+    { label: "Height Min", name: "heightMin", type: "text", placeholder: "0cm",
     },
-    {
-      label: "Height Max",
-      name: "heightMax",
-      type: "text",
-      placeholder: "0cm",
+    { label: "Height Max", name: "heightMax", type: "text", placeholder: "0cm",
     },
-    {
-      label: "Life span",
-      name: "life_span",
-      type: "text",
-      placeholder: "1 - 6",
+    { label: "Life span", name: "life_span", type: "text", placeholder: "1 - 6",
     },
   ];
 
@@ -156,7 +144,6 @@ function Form() {
 
           <div
             className="FormDivInputTemp"
-            onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             <label className="FormLavelTemp">Temperament</label>
@@ -168,6 +155,8 @@ function Form() {
               onChange={handleSelect}
               onBlur={() => handleDeleteTemps()}
               placeholder="Select temperaments"
+              onMouseEnter={handleMouseEnter}
+            
             />
             {temperamentsList && (
               <div className="TemperamentsList">
@@ -181,7 +170,7 @@ function Form() {
             <div className="ErrorMessage">{localErrors.temperaments}</div>
           </div>
         </div>
-        {Object.values(localErrors).every((error) => error === "") &&
+        {Object.values(localErrors).every((error) => error === "") ||
           Object.values(inputs).some((value) => value !== "") && (
             <button className="ButtonFomr"  type="submit">
               Send

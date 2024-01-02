@@ -6,11 +6,10 @@
   --color-text: rgb(26, 5, 32);
   --color-background-tiped: #c4c4c4;
   --color-background-general: #f1f1f1;
-  --color-error: rgb(128, 1, 1);
+  --color-error: rgb(145, 0, 0);
 }
 
 .background{
-  margin: 0;
   padding: 0;
   background-image: url("../../../public/image/fondoDogsClear.jpg");
   background-size: 100%;
@@ -39,17 +38,18 @@
 }
 
 .DivButtonTittle {
+  display: flex;
   margin: 10px;
   width: 100%;
   height: 60px;
 }
 
 .DetailButtonForm {
-  position: relative;
+  position: absolute;
   height: 40px;
   width: 70px;
   top: 30px;
-  left: -400px;
+  left: 30px;
   padding: 5px 15px;
   background-image: url("../../../public/image/ButtonGoBack.jpg");
   background-size: 130%;
@@ -103,8 +103,6 @@
   box-shadow: var(--color-shadow);
 }
 
-
-
 .DetailTittle {
   display: flex;
     position: relative;
@@ -112,13 +110,12 @@
     color: rgb(34, 5, 43);
     padding: 10px;
     justify-content: center;
-    justify-self: center;
-    left:300px;
-    top: -30px;
+    left:25%;
+    top: 0px;
     width: 50%;
-    height: 40px;
+    height:fit-content;
     text-align: center;
-    font-size: xx-large;
+    font-size: 26px;
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.411);
     border-radius: 10px;
     border: 3px solid rgba(122, 22, 153, 0.589);
@@ -126,17 +123,18 @@
 }
 
 .ContainerDivInput {
-  margin-top: 90px;
-  width: 800px;
+  display:grid;
+  margin-top: 30px;
+  width: 100%;
   height: 400px;
   max-width: 100%;
 }
 
 .FormDivInput {
-  align-items: center;
   display: flex;
+  align-items: center;
   margin-bottom: 15px;
-  margin-left: 350px;
+  margin-left: 0px;
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
@@ -144,17 +142,20 @@
 }
 
 .FormLavel {
-  margin-left: -150px;
+  position: absolute;
+  margin-right: 2%;
+  left:10%
 }
 
 .DivLavel {
-  margin: 50px 0px 0px 350px;
+  margin: 0px 0px 0px 0px;
 }
 
 .Inputs {
   position: absolute;
+  right: 40%;
   border: 1px solid var(--color-border);
-  width: 200px;
+  width: 30%;
   height: 30px;
   border-radius: 6px;
   outline: none;
@@ -165,62 +166,67 @@
 .ErrorMessage {
   position: absolute;
   color: var(--color-error);
-  width: 290px;
-  margin-left: 220px;
+  width: 350px;
+  margin-left: 620px;
+  margin-top: 0px;
   font-weight: bold;
   font-size: 14px; /* Tamaño del texto de error */
   flex-grow: 1;
+  text-shadow: 1px 1px 3px rgba(226, 224, 224, 0.932);
 }
 
 .FormDivInputTemp {
   display: flex;
-  width: 900px;
-  height: 50px;
-  left:570px;
   align-items: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .FormLavelTemp {
-  margin-left: 200px;
-  font-size: 18px;
-  font-weight: bold;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  position: absolute;
+  margin-right: 2%;
+  left:10%
 }
 
 .InputsTemp {
   position: absolute;
+  left: 29%;
   border: 1px solid var(--color-border);
-  width: 400px;
+  width: 50%;
   height: 30px;
+  margin-top: 20px;
   border-radius: 6px;
   outline: none;
   font-size: 16px;
   color: var(--color-color);
-  left: 460px;
 }
 
 .TemperamentsList {
   position: absolute;
   overflow-y: auto; /* Habilita el desplazamiento vertical */
   overflow-x: hidden;
-  width: 90%;
-  max-height: 300px;
+  width: fit-content;
+  max-width: 90%;
+  max-height: 500px;
+  font-size: 12px;
   background-color: rgba(73, 73, 73, 0.363);
   backdrop-filter: blur(10px);
   border-radius: 10px;
-  margin-top: 5px;
-  margin-left: -130px;
+  margin-top: 10px;
+  margin-left: 0px;
   display: flexbox;
   z-index: 1;
-  column-count: 8;
-  top: 130px;
-  left: 200px;
+  column-count: 6;
+  top: 80px;
+  left: 40px;
   transition: max-height 0.3s ease-out;
 }
 
 .TemperamentsList.show {
   display: block;
-  max-height: 400px;
+  max-height: 600px;
   
 }
 
@@ -238,6 +244,7 @@
 .TemperamentsList span:hover {
   background-color: var(--color-color);
   color: var(--color-background-tiped);
+  
 }
 
 .FormLavelImage {
@@ -272,4 +279,46 @@
 .ButtonFomr:active {
   transform: scale(0.95);
   box-shadow: var(--color-shadow);
+}
+
+@media (max-width: 800px) {
+  .FormDivInput {
+    margin-bottom: 15px;
+    margin-top: 10px;
+  }
+  .Inputs {
+    right: 20%;
+  }
+  .InputsTemp {
+    left: 45%;
+    width: 40%;
+  }
+  .DetailButtonForm {
+    transform: scale(80%);
+    left:2%;
+  }
+  .DetailTittle{
+  font-size: 18px;
+  left:30%;
+}
+.FormDivInput {
+  transform: scale(90%);
+}
+.FormDivInputTemp{
+  transform: scale(90%);
+}
+.ErrorMessage {
+  width: 250px;
+  margin-left: 160px;
+  margin-top: 60px;
+  font-size: 12px;
+}
+.TemperamentsList {
+  margin-top: 0px;
+  margin-left: 0px;
+  top: -300px;
+  left: 20px;
+  column-count: 4;
+  font-weight: 100;
+}
 }

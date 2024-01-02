@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: -30px 50px 0px 50px;
+  margin: 0px 50px 0px 50px;
   padding: 3px;
 }
 
@@ -20,7 +20,7 @@
 
 @media (max-width: 800px) {
   .CardsList {
-    margin: -20px 0px 0px 0px;
-    transform:scale(80%);
+    margin: -30px 0px 0px 0px;
+    transform:scale(90%);
   }
 }

@@ -16,7 +16,6 @@ export const CLEAR_FRONT_ERROR = "CLEAR_FRONT_ERROR";
 export const SET_ERRORS = "SET_ERRORS";
 export const SET_ERROR_BACK = "SET_ERROR_BACK";
 export const CLEAR_ERROR_BACK = "CLEAR_ERROR_BACK";
-// export const SET_ADVANCED_FILTERS = "SET_ADVANCED_FILTERS";
 
 //*---GET GENERALES---//
 

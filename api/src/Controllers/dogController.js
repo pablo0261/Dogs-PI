@@ -7,10 +7,9 @@ const { Op } = require("sequelize");
 
 const getDbDogs = async () => { //*Todos los perros de db
  
-  // let arrDbDogs = [];
   try {
     const dbDogs = await Dog.findAll({
-      // attributes: ['name'],//*quitar esto si quiero que devuelva el obj completo
+      // attributes: ['name'],//*devuelve solo el nombre
       include: [
         {
           model: Temperament,
@@ -19,18 +18,13 @@ const getDbDogs = async () => { //*Todos los perros de db
         },
       ],
     });
-    // console.log(dbDogs);
     if (!dbDogs) {
       throw new Error("Breed not found in the database");
     }
-    // const result = dbDogs.map((dog) => ({name : dog.name}))
-    // return result;
-    //*Descomentar lo de abajo si quiero que retorne toda la info de los perros
     const result = dbDogs.map((dog) => {
       const temperamentArray = dog.Temperaments? dog.Temperaments.map((temp) => temp.name)
       : []; 
       const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
-      // console.log (temperaments);
       return {
         id: dog.id,
         name: dog.name,
@@ -46,7 +40,7 @@ const getDbDogs = async () => { //*Todos los perros de db
     return result;
   } catch (error) {
     console.log(error);
-    throw new Error("Error al obtener el perro de la base de datos");
+    throw new Error("Error fetching the dog from the database");
   }
 };
 
@@ -68,13 +62,11 @@ const getAllDogs = async () => { //*Todos los perros de DB y API
   const dbDogs = await getDbDogs();
   const arrApiDogs = await getApiDogs();
   const allDogs = [...arrApiDogs, ...dbDogs];
-  // console.log(allDogs)
   return allDogs;
 };
 
 const getDogByIdFromApi = async (id) => {//*Busca por id en la API
   try {
-    // console.log("entre a la busqueda en la api");
     const response = await axios.get(
       `https://api.thedogapi.com/v1/breeds/${id}`
     );
@@ -94,14 +86,13 @@ const getDogByIdFromDb = async (id) => {//*Busca por id en la db
         {
           model: Temperament,
           attributes: ["name"],
-          through: { attributes: [] }, // Evita incluir la tabla intermedia
+          through: { attributes: [] }, // Evita incluir info de la tabla intermedia
         },
       ],
     });
     if (!dog) {
       throw new Error("Breed not found in the database");
     }
-
     const imageUrl = `${URL_IMG}/${dog.reference_image_id}.jpg`;
     const temperaments = dog.Temperaments.map((temp) => temp.name).join(", ");
     return {
@@ -137,7 +128,7 @@ const createDogDB = async ({//* Crea perros
     });
 
     if (existDog) {
-      throw new Error(`A breed with name '${name}' already exists`);
+      throw new Error("A breed with name '${name}' already exists");
     }
     let newDog = await Dog.create({
       name,
@@ -149,7 +140,6 @@ const createDogDB = async ({//* Crea perros
       reference_image_id,
     });
 
-    // Verifica que temperaments sea un array antes de iterar
     if (!Array.isArray(temperaments)) {
       throw new Error("The value of 'temperaments' must be an array");
     }
@@ -158,29 +148,22 @@ const createDogDB = async ({//* Crea perros
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
           name: 
-            newTemperament.trim(),
-            // [Op.iLike]: `%${newTemperament.trim()}%`,
-          
+            // newTemperament.trim(),
+            {[Op.iLike]: `%${newTemperament.trim()}%`,}
         },
       });
-      // console.log(newTemperament);
       await newDog.addTemperament(dbTemperament);
       if (created) {
         console.log(
           `A new temperament has been created with ID: ${dbTemperament.id} and name: ${dbTemperament.name}`
         );
       }
-
       console.log(`Asociando temperamento '${dbTemperament.name}' al perro`);
     }
-
     console.log("Perro creado exitosamente");
     return newDog;
   } catch (error) {
-    console.error(
-      "Error al crear el perro en la base de datos:",
-      error.message
-    );
+    console.error("Error al crear el perro en la base de datos:",error.message);
     throw new Error(
       `Error creating the dog in the database: ${error.message}`
     );
