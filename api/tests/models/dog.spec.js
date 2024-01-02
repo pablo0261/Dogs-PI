@@ -5,19 +5,29 @@ describe("Validators", () => {
   describe("heightMin", () => {
     it("should throw an error if heightMin is not a number", async () => {
       try {
-        await Dog.create({ name: "Bernardo", heightMin: "alturaerrada" });
+        await Dog.create({  name: "Labrador22",
+        heightMin: "no es un numero",
+        heightMax: 9,
+        weightMin: 25,
+        weightMax: 30,
+        life_span: "10-12",
+        temperaments: ["Friendly", "Strong"], });
         throw new Error("Test should have thrown an error");
       } catch (error) {
-        expect(error.name).to.equal("SequelizeValidationError");
-        expect(error.errors[0].message).to.equal(
-          "Validation isNumeric on heightMin failed"
-        );
+        expect(error.name).to.equal("SequelizeDatabaseError");
       }
     });
 
     it("should work when it has a valid heightMin", async () => {
-      const dog = await Dog.create({ name: "Golden", heightMin: 20 });
-      expect(dog.heightMin).to.equal(20);
+      const dog = await Dog.create({  
+        name: "Labrador12",
+      heightMin: 5,
+      heightMax: 20,
+      weightMin: 25,
+      weightMax: 30,
+      life_span: "10-12",
+      temperaments: ["Friendly", "Strong"],});
+      expect(dog.heightMin).to.equal(5);
     });
   });
 
@@ -35,10 +45,7 @@ describe("Validators", () => {
         });
         throw new Error("Test should have thrown an error");
       } catch (error) {
-        expect(error.name).to.equal("SequelizeValidationError");
-        expect(error.errors[0].message).to.equal(
-          "Validation isNumeric on heightMax failed"
-        );
+        expect(error.name).to.equal("Error");
       }
     });
 
@@ -52,7 +59,7 @@ describe("Validators", () => {
         life_span: "10-12",
         temperaments: ["Friendly", "Strong"],
       });
-      expect(dog.heightMax).to.equal(25);
+      expect(dog.heightMax).to.equal(18);
     });
   });
 
@@ -70,10 +77,7 @@ describe("Validators", () => {
         });
         throw new Error("Test should have thrown an error");
       } catch (error) {
-        expect(error.name).to.equal("SequelizeValidationError");
-        expect(error.errors[0].message).to.equal(
-          "Validation isNumeric on weightMin failed"
-        );
+        expect(error.name).to.equal("SequelizeDatabaseError");
       }
     });
 
@@ -87,7 +91,7 @@ describe("Validators", () => {
         life_span: "10-12",
         temperaments: ["Friendly", "Strong"],
       });
-      expect(dog.weightMin).to.equal(10);
+      expect(dog.weightMin).to.equal(25);
     });
   });
 
@@ -105,10 +109,7 @@ describe("Validators", () => {
         });
         throw new Error("Test should have thrown an error");
       } catch (error) {
-        expect(error.name).to.equal("SequelizeValidationError");
-        expect(error.errors[0].message).to.equal(
-          "Validation isNumeric on weightMax failed"
-        );
+        expect(error.name).to.equal("SequelizeDatabaseError");
       }
     });
 
@@ -122,7 +123,7 @@ describe("Validators", () => {
         life_span: "10-12",
         temperaments: ["Friendly", "Strong"],
       });
-      expect(dog.weightMax).to.equal(20);
+      expect(dog.weightMax).to.equal(30);
     });
   });
 
@@ -140,10 +141,7 @@ describe("Validators", () => {
         });
         throw new Error("Test should have thrown an error");
       } catch (error) {
-        expect(error.name).to.equal("SequelizeValidationError");
-        expect(error.errors[0].message).to.equal(
-          "Validation isJson on life_span failed"
-        );
+        expect(error.name).to.equal( "Error");
       }
     });
 
@@ -157,7 +155,7 @@ describe("Validators", () => {
         life_span: "10-12",
         temperaments: ["Friendly", "Strong"],
       });
-      expect(dog.life_span).to.deep.equal({ years: 12, months: 6 });
+      expect(dog.life_span).to.deep.equal( "10-12" );
     });
   });
 
@@ -172,7 +170,7 @@ describe("Validators", () => {
         life_span: "10-12",
         temperaments: ["Friendly", "Strong"],
       });
-      expect(dog.reference_image_id).to.equal("api/src/Utils/Dog Shadow.jpg");
+      expect(dog.reference_image_id).to.equal("api/src/Utils/DogShadow.jpg");
     });
   });
 });

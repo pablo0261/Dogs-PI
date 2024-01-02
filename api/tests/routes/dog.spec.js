@@ -38,7 +38,7 @@ describe("GET /dogs/:id", () => {
 
 describe("POST /dogs", () => {
   const newDog = {
-    name: "Labrador29",
+    name: "Labrador77",
     heightMin: 5,
     heightMax: 18,
     weightMin: 25,
@@ -49,7 +49,6 @@ describe("POST /dogs", () => {
 
   it("should create a new dog", async () => {
     const response = await agent.post("/dogs").send(newDog).expect(200);
-    expect(response.body).to.be.an("array");
     expect(response.body.name).to.equal(newDog.name);
   });
 

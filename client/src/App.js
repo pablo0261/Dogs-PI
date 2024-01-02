@@ -3,7 +3,7 @@ import Home from'./Views/Home/Home.component';
 import Detail from './Views/Detail/Detail.component';
 import Form from './Views/Form/Form.component';
 import Landing from './Views/Landing/Landing.component';
-import { React } from "react";
+import  React  from "react";
 import {Route } from "react-router-dom";
 import PATHROUTES from "./Helper";
 

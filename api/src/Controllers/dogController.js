@@ -73,7 +73,6 @@ const getDogByIdFromApi = async (id) => {//*Busca por id en la API
     const dog = response.data;
     return dogObj(dog, URL_IMG); //* <== Helper
   } catch (error) {
-    console.error(error);
     throw new Error("Error when trying to retrieve the dog from the API by ID");
   }
 };
@@ -107,7 +106,6 @@ const getDogByIdFromDb = async (id) => {//*Busca por id en la db
       reference_image_id: imageUrl,
     };
   } catch (error) {
-    console.log(error);
     throw new Error("Error retrieving the breeds from the database");
   }
 };
@@ -154,16 +152,16 @@ const createDogDB = async ({//* Crea perros
       });
       await newDog.addTemperament(dbTemperament);
       if (created) {
-        console.log(
-          `A new temperament has been created with ID: ${dbTemperament.id} and name: ${dbTemperament.name}`
-        );
+        // console.log(
+        //   `A new temperament has been created with ID: ${dbTemperament.id} and name: ${dbTemperament.name}`
+        // );
       }
-      console.log(`Asociando temperamento '${dbTemperament.name}' al perro`);
+      // console.log(`Asociando temperamento '${dbTemperament.name}' al perro`);
     }
-    console.log("Perro creado exitosamente");
+    // console.log("Perro creado exitosamente");
     return newDog;
   } catch (error) {
-    console.error("Error al crear el perro en la base de datos:",error.message);
+    // console.error("Error al crear el perro en la base de datos:",error.message);
     throw new Error(
       `Error creating the dog in the database: ${error.message}`
     );
@@ -189,10 +187,10 @@ const getTemperamentsForDog = async (id) => {//*Trae los temperamentos
     const temperaments = dog.Temperaments.map((temp) => temp.name);
     return temperaments;
   } catch (error) {
-    console.error(
-      "Error al obtener los temperamentos del perro:",
-      error.message
-    );
+    // console.error(
+    //   "Error al obtener los temperamentos del perro:",
+    //   error.message
+    // );
     throw new Error("Error retrieving the temperaments");
   }
 };
