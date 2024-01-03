@@ -42,7 +42,6 @@ const getAllTemperaments = () => {
         payload: data,
       });
     } catch (error) {
-      console.log("Error getting temperament", error);
     }
   };
 };

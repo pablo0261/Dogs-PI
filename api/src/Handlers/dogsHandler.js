@@ -4,62 +4,54 @@ const {
   getDogByIdFromDb,
   createDogDB,
 } = require("../Controllers/dogController");
-const { Dog, Temperament } = require("../db");
 
-const getDogsHandler = async (req, res) => {  //*Hace la peticion por nombre, si no existe el nombre trae todos los perros
-
+const getDogsHandler = async (req, res) => {
   const { name } = req.query;
   try {
     const allDogs = await getAllDogs();
     if (name) {
       if (name.length >= 3) {
-        const dogsFound = allDogs
-          .filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()))
+        const dogsFound = allDogs.filter((dog) =>
+          dog.name.toLowerCase().includes(name.toLowerCase())
+        );
         if (dogsFound.length > 0) {
           return res.status(200).json(dogsFound);
         } else {
-          return res.status(404).json(
-            `We couldn't find breeds with the name '${name}'`,
-          );
+          return res
+            .status(404)
+            .json(`We couldn't find breeds with the name '${name}'`);
         }
       } else {
-          return res.status(400).send("The name must have at least 3 letters");
-        }
+        return res.status(400).send("The name must have at least 3 letters");
+      }
     } else {
-      console.log("Buscando todos los perros");
       return res.status(200).json(allDogs);
     }
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: error.message });
   }
 };
 
-const getDogByIdHandler = async (req, res) => {  //*Busca el perro por id,(segun el tipode id busca en la api o en la db)
-
+const getDogByIdHandler = async (req, res) => {
   const { id } = req.params;
   try {
     let result;
     if (!isNaN(id)) {
-      //*si es numero busca en la API,
       result = await getDogByIdFromApi(id);
       if (result) {
         return res.status(200).json([result]);
       } else {
         return res
-          .status(400)  
+          .status(400)
           .send(`We couldn't find breeds with the ID '${id}'`);
       }
     } else {
-      //*si es UUID busca en la DB
       result = await getDogByIdFromDb(id);
-      console.log(result);
       if (!result) {
         return res
           .status(404)
           .send(`We couldn't find breeds with the ID '${id}'`);
       }
-      console.log(result);
       res.status(200).json([result]);
     }
   } catch (error) {
@@ -67,7 +59,7 @@ const getDogByIdHandler = async (req, res) => {  //*Busca el perro por id,(segun
   }
 };
 
-const postDogHandler = async (req, res) => { //*Postea perro
+const postDogHandler = async (req, res) => {
   const {
     reference_image_id,
     name,

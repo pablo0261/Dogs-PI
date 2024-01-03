@@ -170,7 +170,7 @@ function Form() {
             <div className="ErrorMessage">{localErrors.temperaments}</div>
           </div>
         </div>
-        {Object.values(localErrors).every((error) => error === "") ||
+        {Object.values(localErrors).every((error) => error === "") &&
           Object.values(inputs).some((value) => value !== "") && (
             <button className="ButtonFomr"  type="submit">
               Send
