@@ -18,19 +18,16 @@ function Form() {
   });
 
   const errorsFromBack = useSelector((state) => state.errorsBack);
-  const [localErrors, setLocalErrors] = useState({});
   const temperaments = useSelector((state) => state.allTemperaments);
+  const [localErrors, setLocalErrors] = useState({});
   const [temperamentsList, setTemperamentsList] = useState(false);
   const formFields = [
     { label: "Name", name: "name", type: "text", placeholder: "Name" },
     { label: "Weight Min", name: "weightMin", type: "text", placeholder: "0" },
     { label: "Weight Max", name: "weightMax", type: "text", placeholder: "0" },
-    { label: "Height Min", name: "heightMin", type: "text", placeholder: "0cm",
-    },
-    { label: "Height Max", name: "heightMax", type: "text", placeholder: "0cm",
-    },
-    { label: "Life span", name: "life_span", type: "text", placeholder: "1 - 6",
-    },
+    { label: "Height Min", name: "heightMin", type: "text", placeholder: "0cm"},
+    { label: "Height Max", name: "heightMax", type: "text", placeholder: "0cm"},
+    { label: "Life span", name: "life_span", type: "text", placeholder: "1 - 6"},
   ];
 
   useEffect(() => {
@@ -167,11 +164,12 @@ function Form() {
                 ))}
               </div>
             )}
-            <div className="ErrorMessage">{localErrors.temperaments}</div>
+            <div className="ErrorMessage">{localErrors.temperaments}
+            </div>
           </div>
         </div>
         {Object.values(localErrors).every((error) => error === "") &&
-          Object.values(inputs).some((value) => value !== "") && (
+          Object.values(inputs).some((value) => value === "") && (
             <button className="ButtonFomr"  type="submit">
               Send
             </button>

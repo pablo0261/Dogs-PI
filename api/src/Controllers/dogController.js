@@ -118,7 +118,7 @@ const createDogDB = async ({
     });
 
     if (existDog) {
-      throw new Error("A breed with name '${name}' already exists");
+      throw new Error(`A breed with name '${name}' already exists`);
     }
     let newDog = await Dog.create({
       name,

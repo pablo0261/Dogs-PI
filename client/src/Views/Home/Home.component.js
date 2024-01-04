@@ -76,7 +76,7 @@ function Home() {
 
   const previousPage = () => {
     setCurrentPage((page) => page - 1);
-  };
+  };  
 
   const getPages = () => {
     const start = Math.max(currentPage - Math.floor(pageLimit / 2), 1);
