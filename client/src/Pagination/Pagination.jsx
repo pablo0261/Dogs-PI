@@ -5,7 +5,6 @@ const Paginate = ({
   nextPage,
   previousPage,
   currentPage,
-  getPages,
   pageNumbers,
 }) => {
   const pagesToDisplay = [

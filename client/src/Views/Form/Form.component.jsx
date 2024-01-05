@@ -30,10 +30,6 @@ function Form() {
     { label: "Life span", name: "life_span", type: "text", placeholder: "1 - 6"},
   ];
 
-  useEffect(() => {
-    // setLocalErrors(errorsFromBack);
-    console.log("Errors from back:", errorsFromBack);
-  }, [errorsFromBack]);
 
   const handleMouseEnter = () => {
     setTemperamentsList(true);
@@ -137,7 +133,6 @@ function Form() {
             </div>
           ))}
 
-          {/* -----  TEMPERAMENTS ------- */}
 
           <div
             className="FormDivInputTemp"

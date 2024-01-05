@@ -27,7 +27,6 @@ function Home() {
   let [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    console.log("Obteniendo todos los perros");
     dispatch(getAllDogs());
     dispatch(getAllTemperaments());
   }, [dispatch]);
@@ -36,7 +35,7 @@ function Home() {
     dispatch(filterDogsByTemp(selectedTemperaments));
   }, [selectedTemperaments]);
 
-  // //*logica filtro combiando
+  //*logica filtro combiando
   let dogSelect;
   const filteredByTemp = flagFilterByTemp
     ? dogSelected.filter((dog) => filterByTemp.includes(dog))
@@ -49,7 +48,6 @@ function Home() {
     : dogSelected.length === 0
     ? allDogs
     : filterByTemp;
-
   errorMessage =
     filteredByTemp.length === 0 && selectedTemperaments.length > 0
       ? errorsFront

@@ -28,7 +28,6 @@ const Dogs = ({
     e.preventDefault();
     const selectedTemp = e.target.value;
     if (!selectedTemperaments.includes(selectedTemp)) {
-      // Actualiza el estado de los temperamentos seleccionados
       setSelectedTemperaments((prevTemperaments) => [
         ...prevTemperaments,
         selectedTemp,

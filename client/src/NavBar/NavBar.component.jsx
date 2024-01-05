@@ -16,8 +16,6 @@ function NavBar({handleChange, handleSubmit}) {
     dispatch(getAllDogs());
   };
 
-  //* -----------------------FILTROS ------------------------------
-
   return (
     <div className="NavBar">
       <form className="SearchBar"onSubmit={(e) => handleSubmit(e)} >

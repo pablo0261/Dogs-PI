@@ -39,7 +39,7 @@ const getDogByIdHandler = async (req, res) => {
     if (!isNaN(id)) {
       result = await getDogByIdFromApi(id);
       if (result) {
-        return res.status(200).json([result]);
+        return res.status(200).json(result);
       } else {
         return res
           .status(400)
@@ -52,7 +52,7 @@ const getDogByIdHandler = async (req, res) => {
           .status(404)
           .send(`We couldn't find breeds with the ID '${id}'`);
       }
-      res.status(200).json([result]);
+      res.status(200).json(result);
     }
   } catch (error) {
     return res.status(400).json({ error: error.message });

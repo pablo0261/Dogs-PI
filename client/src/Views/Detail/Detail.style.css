@@ -132,9 +132,9 @@
 .DivInfo {
   display: flex;
   height: 30px;
-  border-bottom: 2px solid rgba(122, 22, 153, 0.589); /* Borde sólido en toda la parte inferior */
-  border-bottom-width: 50%; /* Ancho del 80% de la parte inferior */
-  border-bottom-style: solid; /* Estilo sólido en la parte inferior */
+  border-bottom: 2px solid rgba(122, 22, 153, 0.589); 
+  border-bottom-width: 50%; 
+  border-bottom-style: solid; 
   justify-content: space-between;
   align-items: center;
   margin: 2px;

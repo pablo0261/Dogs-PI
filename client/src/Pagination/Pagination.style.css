@@ -1,5 +1,3 @@
-/* En tu archivo Pagination.style.css */
-
 .navPaginate {
   margin: 0px 0px 20px 0px;
   text-align: center;
@@ -25,7 +23,6 @@
   cursor: pointer;
   font-size: 14px;
 }
-
 .paginateButton:hover {
   background-color: #b43a9a;
 }

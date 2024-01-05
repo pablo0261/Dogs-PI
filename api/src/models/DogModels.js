@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
     },
     life_span: {
       type: DataTypes.JSONB,
-      allowNull: false,// con .JSONB mantengo los intervalos demedidas
+      allowNull: false,
     }
   }, {timestamps: false}
   );

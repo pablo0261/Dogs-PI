@@ -41,7 +41,6 @@ errorsFront: [],
 errorsBack: {},
 };
 
-//*Para extraer los temperamentos individualmente
 const extractUniqueTemperaments = (temperamentsArray) => {
   const temperamentsStrings = temperamentsArray.map((obj) => obj.temp);
   const allTemperamentsArray = temperamentsStrings.flatMap((tempString) =>

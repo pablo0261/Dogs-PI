@@ -3,9 +3,9 @@ import thunk from "redux-thunk";
 import {composeWithDevTools} from "redux-devtools-extension";
 import rootReducer from "./Reducer";
 
-const store = createStore(//funcion que recibe el reducer
+const store = createStore(
     rootReducer,
-    composeWithDevTools(applyMiddleware(thunk))//think para manejar asincronismo
+    composeWithDevTools(applyMiddleware(thunk))
   );
 
   export default store; 

@@ -9,7 +9,7 @@
 
 .NavBar {
   background-image: url("../Utils/FondoDog2.png");
-  background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-repeat: no-repeat; 
   background-size: cover;
   background-position: center;
   background-color: rgba(153, 152, 152, 0.479);
@@ -117,7 +117,6 @@
 }
 .CreateDog:hover {
   transform: scale(1.05);
-  /* background-color: var(--color-background-general); */
   box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
 }
 .CreateDog:active {

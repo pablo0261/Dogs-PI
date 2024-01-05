@@ -2,10 +2,10 @@
   display: flex;
   text-align: center;
   background-image: url('https://images2.alphacoders.com/109/1095787.jpg'); 
-  background-size: 125%; /* Ajusta según tus necesidades */
-  background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-size: 125%; 
+  background-repeat: no-repeat; 
   background-position: 100% 33% ;
-  height: 100vh; /* Ajusta según tus necesidades */
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,8 +13,8 @@
 
   .Landing-H1 {
     cursor:default;
-    color: white; /* Ajusta según tus necesidades */
-    margin-top: -15%; /* Ajusta según tus necesidades */
+    color: white; 
+    margin-top: -15%; 
     margin-left: 25%; 
 }
 
@@ -27,8 +27,8 @@
   height: 60px;
   padding: 10px;
   margin-left: 59%; 
-  background-color: #921076; /* Ajusta según tus necesidades */
-  color: white; /* Ajusta según tus necesidades */
+  background-color: #921076; 
+  color: white; 
   border: outset;
   border-color: #8a0c6e;
   border-radius: 15px;
@@ -36,7 +36,7 @@
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .LandingButton:hover {
-  background-color: #8d1673; /* Ajusta según tus necesidades */
+  background-color: #8d1673; 
   transform: translateY(1px);
   box-shadow: 0 2px 6px #440637;
   border: groove;

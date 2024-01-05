@@ -16,7 +16,7 @@ function Card(props) {
            src={imageUrl}
            alt={name}
            onError={(e) => {
-             e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
+             e.target.src = defaultDog; 
             }}
          />
          <img
@@ -24,7 +24,7 @@ function Card(props) {
            src={imageUrl}
            alt={name}
            onError={(e) => {
-             e.target.src = defaultDog; // Cambia la fuente de la imagen en caso de error
+             e.target.src = defaultDog; 
             }}
          />
       </Link>

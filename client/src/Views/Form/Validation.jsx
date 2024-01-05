@@ -1,4 +1,5 @@
 const regexlife_span = /^\d{1,2}\s*-\s*\d{1,2}$/;
+const regexName =  /^[A-Za-z\s]*$/;;
 
 const validation = (inputs, frontErrors, setFrontErrors) => {
   let newfrontErrors = {...frontErrors};
@@ -14,6 +15,8 @@ const validation = (inputs, frontErrors, setFrontErrors) => {
 
   if (!name) {
     newfrontErrors.name = "Name is required";
+  } else if (name && !regexName.test(name)) {
+    newfrontErrors.name = "Name can´t contain symbols or numbers"; 
   } else if (name.length > 20) {
     newfrontErrors.name = "Name exceeds the allowed character limit";
   } else {
@@ -41,7 +44,7 @@ const validation = (inputs, frontErrors, setFrontErrors) => {
     newfrontErrors.weightMax = "WeightMax must be an integer";
   } else if (parseFloat(weightMax) < 2 || parseFloat(weightMax) > 80) {
     newfrontErrors.weightMax = "WeightMax must be between 2kg and 80kg";
-  } else if (weightMin > weightMax){
+  } else if (Number(weightMin) >= Number(weightMax)){
     newfrontErrors.weightMax = "WeightMax can`t be less than WeightMin";
   } else {
     newfrontErrors.weightMax = "";
@@ -68,7 +71,7 @@ const validation = (inputs, frontErrors, setFrontErrors) => {
     newfrontErrors.heightMax = "HeightMax must be an integer";
   } else if (parseFloat(heightMax) > 150 || parseFloat(heightMax) < 1) {
     newfrontErrors.heightMax = "HeightMax must be between 1cm and 150cm";
-  } else if (heightMin >= heightMax) {
+  } else if (Number(heightMin) >= Number(heightMax)) {
     newfrontErrors.heightMax = "HeightMax cannot be less than HeightMin";
   } else {
     newfrontErrors.heightMax = "";

@@ -28,7 +28,6 @@ const getAllDogs = () => {
         payload: data,
       });
     } catch (error) {
-      console.log("Error getting all dogs");
     }
   };
 };
@@ -49,14 +48,12 @@ const getAllTemperaments = () => {
 const getDogById = (id) => {
   return async (dispatch) => {
     try {
-      // console.log('Endpoint de la API:', endpoint);
       const { data } = await axios.get(`/dogs/${id}`);
       return dispatch({
         type: GET_BY_ID,
         payload: data,
       });
     } catch (error) {
-      console.log("Error getting one dog by id");
     }
   };
 };
@@ -96,15 +93,12 @@ const postDogs = (dataCreated) => {
   return async (dispatch) => {
     try {
       const response = await axios.post("/dogs", dataCreated);
-      console.log(response.data);
       dispatch({
         type: POST_NEW_DOGS,
         payload: response.data,
       });
       
     } catch (error) {
-      console.error("Error posting dogs:", error);
-      console.error("Detalles del error:", error.response.data);
       if (error.response && error.response.data) {
         dispatch({
           type: SET_ERROR_BACK,
@@ -115,6 +109,7 @@ const postDogs = (dataCreated) => {
     }
   };
 };
+
 
 //*---MANEJO DE ESTADOS GLOBALES---//
 const removeSelectedDog = () => {
@@ -137,7 +132,6 @@ const resetAll = () => {
         payload: data2,
       });
     } catch (error) {
-      console.log("Error getting all dogs");
     }
   };
 };
