@@ -48,7 +48,6 @@ function Home() {
     : dogSelected.length === 0
     ? allDogs
     : filterByTemp;
-console.log(dogSelect)
 
   errorMessage =
     filteredByTemp.length === 0 && selectedTemperaments.length > 0
@@ -66,7 +65,12 @@ console.log(dogSelect)
   const currentDogs = dogSelect.slice(indexFirstDog, indexPageFirstDog);
   const pageNumbers = Math.ceil(dogSelect.length / dogsPerPage);
 
-  const paginado = (pageNumber) => {
+console.log(currentPage)
+console.log(indexPageFirstDog)
+console.log(indexFirstDog)
+console.log(currentDogs)
+  
+const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
@@ -82,7 +86,7 @@ console.log(dogSelect)
     const start = Math.max(currentPage - Math.floor(pageLimit / 2), 1);
     return new Array(Math.min(pageNumbers, pageLimit))
       .fill()
-      .map((_, i) => start + i);
+      .map(i=> start + i);
   };
 
   const handleChange = (e) => {

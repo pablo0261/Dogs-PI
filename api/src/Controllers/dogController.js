@@ -133,7 +133,6 @@ const createDogDB = async ({
     if (!Array.isArray(temperaments)) {
       throw new Error("The value of 'temperaments' must be an array");
     }
-    const formattedTemperaments = temperaments.join(', ');
     const stringTemperaments = temperaments.map(String);
     for (const newTemperament of stringTemperaments) {
       const [dbTemperament, created] = await Temperament.findOrCreate({
