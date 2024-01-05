@@ -1,0 +1,145 @@
+.CardName {
+  position: absolute;
+  background-color: #8d0970;
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
+  color: #ffffff;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all 0.3s ease;
+  margin-top: 180px; 
+  z-index: 6;
+}
+.CardName:hover {
+  overflow: visible;
+  white-space: normal;
+  height: auto;
+}
+
+.CardContainer {
+  display: flex;
+  align-items: center;
+  background-color: #8d0970;
+  width: 250px;
+  height: 320px;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 3px solid #dadada;
+  border-radius: 10px;
+  padding: 0px 0px 25px 0px;
+  margin: 15px;
+  cursor: pointer;
+  -moz-osx-front-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+  position: relative;
+}
+
+.CardContainer:hover {
+  transform: scale(1.05);
+  background-color: #f1f1f1;
+  border: 3px solid #8d0970;
+}
+
+
+.CardImage {
+  position: relative;
+  max-height: 200px;
+  max-width: 250px;
+  object-fit:contain;
+  object-position: center; 
+  border-radius: 8px 8px 0px 0px;
+  z-index: 2;
+}
+
+.CardImageback{
+  position:absolute;
+  height: 200px;
+  width: 250px;
+  object-fit: cover;
+  object-position: center; 
+  border-radius: 8px 8px 0px 0px;
+  filter: blur(5px);
+  z-index: 1;
+  left: 0px;
+}
+
+
+.CardWeightContainer {
+  position: absolute;
+  top: 210px;
+  width: 100%;
+  height: 60px;
+  z-index: 5;
+}
+
+.weightTitle {
+  position: relative;
+  background-color: #c4c4c4;
+  width: 100%;
+  height: 25px;
+  top: -16px;
+  color: #0a0a0a;
+  font-weight: bold;
+}
+
+.CardWeights {
+  display: flex;
+  margin: -40px 0px 0px 0px;
+  justify-content: space-around;
+  font-size: 14px; 
+  font-weight: bold;
+  flex-direction: row;
+}
+.CardWeights p {
+  display: flex;
+  align-items: center;
+  color: #000000;
+  margin-inline: 5px;
+  flex-direction: row;
+}
+
+.CardTempContainer{
+  width: 100%;
+  position: relative;
+  flex-direction: row;
+  top: 5px;
+  text-align: center;
+}
+
+
+.TempTitle{
+  position: relative;
+  background-color: #c4c4c4;
+  width: 100%;
+  height: 25px;
+  top: -30px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.CardTemperament {
+  width: 100%; 
+  margin: 0 auto; 
+  position: relative;
+  bottom: 40px;
+  border-radius: 0px 0px 8px 8px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: center;
+}
+
+.CardTemperament p {
+  font-weight: bold;
+  margin: 0;
+  padding: 0 5px; 
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+

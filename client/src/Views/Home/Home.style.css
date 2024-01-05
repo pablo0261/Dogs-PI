@@ -1,0 +1,39 @@
+.Home {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.HomeContainerTitle {
+  position: relative;
+  margin: 5px 0px 5px 0px;
+  padding: 5px;
+  background-color: rgba(206, 205, 205, 0);
+  width: 100vw;
+  height: 40px;
+}
+
+.HomeTitle {
+  width: 60%;
+  height: auto;
+  position: absolute;
+  top: 14px;
+  left: 50px;
+}
+
+.HomeCards {
+  background-color: aqua;
+}
+
+.ErrorMessageHome{
+  position:absolute;
+    top: 50%;
+    left: 35%;
+    font-size: 18px;
+    font-weight: bold;
+    color:rgb(156, 20, 20)
+}
