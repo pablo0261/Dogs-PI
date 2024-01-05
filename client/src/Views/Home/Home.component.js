@@ -48,6 +48,8 @@ function Home() {
     : dogSelected.length === 0
     ? allDogs
     : filterByTemp;
+console.log(dogSelect)
+
   errorMessage =
     filteredByTemp.length === 0 && selectedTemperaments.length > 0
       ? errorsFront
@@ -102,7 +104,6 @@ function Home() {
       } else if (filteredDogs.length === 0) {
         setFlagFiltered(true);
         setFiltered("");
-        console.log("filteredDogs:", filteredDogs);
       } else {
         setFlagFiltered(true);
         setFiltered(filteredDogs);

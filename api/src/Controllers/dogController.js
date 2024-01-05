@@ -21,8 +21,8 @@ const getDbDogs = async () => {
       throw new Error("Breed not found in the database");
     }
     const result = dbDogs.map((dog) => {
-      const temperamentArray = dog.Temperaments? dog.Temperaments.map((temp) => temp.name)
-      : []; 
+      const temperamentArray = dog.Temperaments? dog.Temperaments.map((temp) => temp.name).join(", ")
+      : ""; 
       return {
         id: dog.id,
         name: dog.name,
@@ -138,8 +138,9 @@ const createDogDB = async ({
     for (const newTemperament of stringTemperaments) {
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
-          name: formattedTemperaments.trim()
-          // {[Op.iLike]: `%${newTemperament.trim()}%`,}
+          name: 
+          // formattedTemperaments.trim()
+          {[Op.iLike]: `%${newTemperament.trim()}%`,}
         },
       });
       await newDog.addTemperament(dbTemperament);
