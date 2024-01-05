@@ -35,7 +35,6 @@ function Home() {
     dispatch(filterDogsByTemp(selectedTemperaments));
   }, [selectedTemperaments]);
 
-  //*logica filtro combiando
   let dogSelect;
   const filteredByTemp = flagFilterByTemp
     ? dogSelected.filter((dog) => filterByTemp.includes(dog))
@@ -56,7 +55,6 @@ function Home() {
       ? errorsFront
       : "";
 
-  //* --- PAGINADO---//
   const [currentPage, setCurrentPage] = useState(1);
   const [dogsPerPage] = useState(8);
   const [pageLimit, setPageLimit] = useState(1);
@@ -65,11 +63,7 @@ function Home() {
   const currentDogs = dogSelect.slice(indexFirstDog, indexPageFirstDog);
   const pageNumbers = Math.ceil(dogSelect.length / dogsPerPage);
 
-console.log(currentPage)
-console.log(indexPageFirstDog)
-console.log(indexFirstDog)
-console.log(currentDogs)
-  
+
 const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
