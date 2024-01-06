@@ -138,7 +138,6 @@ const createDogDB = async ({
       const [dbTemperament, created] = await Temperament.findOrCreate({
         where: {
           name: 
-          // formattedTemperaments.trim()
           {[Op.iLike]: `%${newTemperament.trim()}%`,}
         },
       });
