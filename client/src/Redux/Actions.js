@@ -88,6 +88,7 @@ const filterOriginDog = (value) => {
   };
 };
 
+
 //*---POST---//
 const postDogs = (dataCreated) => {
   return async (dispatch) => {

@@ -7,13 +7,8 @@ const Paginate = ({
   currentPage,
   pageNumbers,
 }) => {
-  const pagesToDisplay = [
-    currentPage - 2,
-    currentPage - 1,
-    currentPage,
-    currentPage + 1,
-    currentPage + 2,
-  ].filter((page) => page > 1 && page <= pageNumbers);
+  const pagesToDisplay = Array.from({ length: pageNumbers }, (_, index) => index + 1)
+  .filter(page => page >= Math.max(currentPage - 2, 1) && page <= Math.min(currentPage + 2, pageNumbers));
 
   return (
     <nav className="navPaginate">
@@ -30,7 +25,7 @@ const Paginate = ({
                 }`}
                 onClick={() => paginado(number)}
               >
-                {number - 1}
+                {number }
               </button>
             </li>
           );
