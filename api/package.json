@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
+<<<<<<< HEAD
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -24,13 +25,27 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.4",
     "react-router-dom": "^6.21.0",
+=======
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.4",
+>>>>>>> main
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.6.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
+<<<<<<< HEAD
     "nodemon": "^2.0.22",
+=======
+    "nodemon": "^2.0.6",
+>>>>>>> main
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   }

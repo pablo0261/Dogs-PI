@@ -9,5 +9,9 @@ dogsRouter.get("/:id", getDogByIdHandler )
 
 dogsRouter.post("/", postDogHandler);
 
+<<<<<<< HEAD
 module.exports = dogsRouter;
 
+=======
+module.exports = dogsRouter;
+>>>>>>> main
