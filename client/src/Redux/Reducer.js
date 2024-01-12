@@ -113,6 +113,8 @@ const rootReducer = (state = initialState, { type, payload }) => {
         dogSelected: copy2,
         flagOrderWeight:true,
       };
+    
+     
 
     //*---FILTER---//
     case FILTER_BY_TEMP:

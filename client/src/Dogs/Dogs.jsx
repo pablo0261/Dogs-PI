@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "./Dogs.style.css";
-import { orderDogs, filterByW, filterOriginDog } from "../../src/Redux/Actions";
+import { orderDogs, filterByW, filterOriginDog} from "../../src/Redux/Actions";
 
 const Dogs = ({
   temperaments,
@@ -26,6 +26,7 @@ const Dogs = ({
 
   const handlerFilterTemp = (e) => {
     e.preventDefault();
+
     const selectedTemp = e.target.value;
     if (!selectedTemperaments.includes(selectedTemp)) {
       setSelectedTemperaments((prevTemperaments) => [
