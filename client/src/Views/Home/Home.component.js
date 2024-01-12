@@ -131,6 +131,7 @@ const paginado = (pageNumber) => {
             temperaments={temperaments}
             selectedTemperaments={selectedTemperaments}
             setSelectedTemperaments={setSelectedTemperaments}
+            setCurrentPage={setCurrentPage}
           />
           {errorsFront.length > 0 && (
             <p className="ErrorMessageHome">{errorsFront}</p>

@@ -7,6 +7,7 @@ const Dogs = ({
   selectedTemperaments,
   setSelectedTemperaments,
   errorsMessage,
+  setCurrentPage,
 }) => {
   const dispatch = useDispatch();
   const flagFilterByOrigin = useSelector((state) => state.flagFilterByOrigin);
@@ -14,19 +15,22 @@ const Dogs = ({
 
   const handleOrder = (e) => {
     dispatch(orderDogs(e.target.value));
+    setCurrentPage(1)
   };
 
   const handlerFilterW = (e) => {
     dispatch(filterByW(e.target.value));
+    setCurrentPage(1)
   };
 
   const handlerFilterOrigin = (e) => {
     dispatch(filterOriginDog(e.target.value));
+    setCurrentPage(1)
   };
 
   const handlerFilterTemp = (e) => {
     e.preventDefault();
-
+    setCurrentPage(1)
     const selectedTemp = e.target.value;
     if (!selectedTemperaments.includes(selectedTemp)) {
       setSelectedTemperaments((prevTemperaments) => [
