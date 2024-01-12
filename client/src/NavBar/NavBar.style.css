@@ -1,0 +1,125 @@
+:root {
+  --color-border: rgba(122, 22, 153, 0.589);
+  --color-boxshadow: 0 0 8px rgb(26, 5, 32);
+  --color-background-fondos: #F3FFBD;
+  --color-background-fondo2: #B9B8D3;
+  --color-background-destaque: #EF233C;
+  --color-background-text: #191102;
+}
+
+.NavBar {
+  background-image: url("../Utils/FondoDog2.png");
+  background-repeat: no-repeat; /* Ajusta según tus necesidades */
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(153, 152, 152, 0.479);
+  width: 100vw;
+  height: 200px;
+  border-radius: 1px;
+  margin: 0px 0px 70px 0px;
+  cursor: auto;
+}
+
+.SearchBar {
+  display:flex;
+  position: relative;
+  border: 2px solid rgba(143, 7, 7, 0);
+  height: 45px;
+  width: 50vw;
+  margin-top: 70px;
+  margin-left: 60vw;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
+}
+
+.NavBarButton {
+  position: relative;
+  background-image: url("../../../client/src/Utils/search2.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--color-color);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  width: 65px;
+  margin: 3px 0px 0px -70px;
+  height: 70%;
+  padding: 7px;
+  cursor: auto;
+  transition: box-shadow 0.3s ease;
+  z-index: 2;
+  font-size: 15px;
+}
+.NavBarButton:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-general);
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.NavBarButton:active {
+  transform: scale(0.95);
+}
+
+.NavBarInput {
+  position:relative;
+  height: 38px;
+  margin-right: 0px;
+  background-color: #fffdfdcb;
+  border: 2px solid rgba(143, 7, 7, 0);
+  width: 70%;
+  border-radius: 9px;
+  padding: 5px;
+  cursor: auto;
+}
+.NavBarInput::placeholder {
+  font-size: 15px;
+  border-color: #921076;
+}
+
+.DivfilterButton {
+  display: flex;
+  justify-content: left;
+  margin: 0px 100px 0px 100px;
+  align-items: center;
+  border: 2px solid rgba(143, 7, 7, 0);
+}
+
+.FilterButton {
+  width: 140px;
+  height: 60px;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-background-tiped);
+  border-radius: 20px;
+  padding: 5px;
+  margin-inline: 20px;
+  cursor: auto;
+}
+.FilterButton:hover {
+  transform: scale(1.05);
+  background-color: var(--color-background-general);
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.FilterButton:active {
+  transform: scale(0.95);
+}
+
+.CreateDog {
+  position: relative;
+  width: 150px;
+  height: 60px;
+  margin: 10px 0px 0px 70vw;
+  background-image: url("../../public/image/CreateDog.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  padding: 5px;
+  cursor: auto;
+}
+.CreateDog:hover {
+  transform: scale(1.05);
+  /* background-color: var(--color-background-general); */
+  box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.CreateDog:active {
+  transform: scale(0.95);
+}

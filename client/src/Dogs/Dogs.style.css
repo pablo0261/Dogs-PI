@@ -1,0 +1,103 @@
+.DivfilterButton{
+    position:absolute;
+    display: flex;
+    width: 50vw;
+    height: 80px;
+    top: 190px;
+    left:-40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.filtered{
+    position: relative;
+    margin: 0px -30px 40px 0px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: 4;
+}
+
+.OrderButton{
+    position:relative;
+    display: flex;
+    align-self: center;
+    margin: 0px 20px 0px 10px;
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+    border: 2px solid var(--color-border);
+    background-color:var(--color-background-tiped);
+    border-radius: 10px;
+    padding: 5px;
+    cursor:auto; 
+}
+.OrderButton:hover{
+    transform: scale(1.05);
+    background-color:var(--color-background-general);
+    box-shadow: 0 0 15px rgba(158, 27, 147, 0.8);
+}
+.OrderButton:active{
+    transform: scale(0.95);
+}
+.OrderButton option:checked {
+    background-color: rgb(165, 39, 165);
+    color: white; 
+}
+
+
+.SelectedTemperamentsContainer{
+    position: absolute;
+    left: 580px;
+    top: 75px;
+    display:flex;
+    width: 600px;
+    height: 60px;
+    margin:4px;
+}
+
+.SelectedTemperament{
+    border: 2px solid rgba(122, 22, 153, 0.589);
+    background-color:rgb(237, 224, 240);
+    border-radius: 5px;
+    margin: 0px 15px 0px 0px;
+    padding-inline: 2px;
+    width: fit-content;
+    height: 25px;
+}
+
+.XButton{
+    position:absolute;
+    border: 1px solid rgba(122, 22, 153, 0.589);
+    border-radius: 5px;
+    margin: -12px 0px 0px -5px;
+    cursor:auto;
+  transition: box-shadow 0.3s ease;
+}
+.XButton:hover{
+    transform: scale(1.05);
+    border: 1,5px solid rgba(79, 15, 99, 0.589);
+}
+
+  @media (max-width: 800px) {
+    .DivfilterButton {
+      flex-direction: column;
+      width: 40%;
+      top: 150px;
+    }
+    .filtered{
+        position:absolute;
+        left: 10px;
+        top: 65px;
+    }
+  
+    .OrderButton {
+      margin: 5px 0px 0px -30px;
+    }
+  
+    .SelectedTemperamentsContainer {
+      left: 0;
+      top: 125px;
+      width: 50vw;
+    }
+  }
