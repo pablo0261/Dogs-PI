@@ -8,9 +8,16 @@ const TemperamentsModels = require("./models/TemperamentsModels");
 
 
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
-  logging: false, 
-  native: false, 
-});
+  logging: false,
+      native: false,
+      dialect: 'postgres',
+      ssl: true, 
+      dialectOptions: {
+         ssl: {
+            rejectUnauthorized: false, 
+         },
+      },
+    });
 
 DogModels(sequelize)
 TemperamentsModels(sequelize)
