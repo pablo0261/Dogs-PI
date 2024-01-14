@@ -13,7 +13,7 @@ function Detail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/dogs/${id}`);
+        const response = await axios.get(`https://pi-dogs-34mc.onrender.com/dogs/${id}`);
         setDogDataId(response.data);
       } catch (error) {
       }
