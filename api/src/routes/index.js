@@ -9,7 +9,5 @@ const routes = Router();
 routes.use("/dogs", dogsRouter); 
 routes.use("/temperaments", temperamentsRouter); 
 
-//* GEOREF
-routes.use("/georef",georefRouter);
 
 module.exports = routes; 
