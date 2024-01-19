@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://pi-dogs-34mc.onrender.com";
+
 
 export const GET_ALL = "GET_ALL";
 export const GET_ALL_TEMP = "GET_ALL_TEMP";
