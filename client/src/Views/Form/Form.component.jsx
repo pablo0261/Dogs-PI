@@ -71,8 +71,9 @@ function Form() {
   const handleChange = (event) => {
     let property = event.target.name;
     let value = event.target.value.trim();
+    const updatedLocalErrors = validation({ ...inputs, [property]: value });
+    setLocalErrors({ ...localErrors, [property]: updatedLocalErrors[property] });
     setInputs({ ...inputs, [property]: value });
-    validation({ ...inputs, [property]: value }, localErrors, setLocalErrors);
   };
 
   const handleSubmit = (event) => {
